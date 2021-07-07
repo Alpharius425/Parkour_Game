@@ -51,6 +51,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "e2049560-cae9-4b46-9df3-966863b94456",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD",
                     "id": "109baaa2-e274-43ac-b255-8429cdfdf573",
                     "path": "2DVector",
@@ -107,6 +118,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b57de45a-694a-4720-9500-02aed004b8d2",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "25745a28-d4dd-470c-ae39-26b2d136faa1",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "Hold",
@@ -118,11 +140,33 @@
                 },
                 {
                     "name": "",
+                    "id": "ea4ff9bf-62c8-46c9-b464-21de0c7367fb",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "19161ba4-0cc2-4ef0-9298-c424fb403243",
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "Hold",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5051caa7-42a3-47cd-8f81-766df78cfb15",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -137,6 +181,17 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
                     "isOptional": false,
                     "isOR": false
                 }

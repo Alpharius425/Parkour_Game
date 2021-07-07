@@ -16730,7 +16730,7 @@ MonoBehaviour:
     m_ActionId: 0b63fed9-5277-4706-8e5b-3a34e1cad1b0
     m_ActionName: PlayerMovement/Crouch[/Keyboard/leftCtrl]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -16797,5 +16797,6 @@ MonoBehaviour:
   defaultPlayerCenter: 1
   crouchedPlayerCenter: 0.5
   myCollider: {fileID: 738646680686283308}
+  crouchSpeed: 5
   defaultCamHeight: 0.7
   crouchedCamHeight: 0.4
