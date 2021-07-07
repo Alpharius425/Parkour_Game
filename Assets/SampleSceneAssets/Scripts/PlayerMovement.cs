@@ -12,25 +12,24 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     [SerializeField] PlayerInput myInputs; // saves our input system and allows us to change controls for different controllers or settings
 
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    [Header("Game Objects")]
+    public Camera cameraComponent; // saves our camera so we can edit it if needed
+
+    [Header("Player Movement Variables")]
     [SerializeField] float playerDefaultSpeed;
     public float curSpeed = 12f; // how fast we are currently going
     public float gravity = -10f; // how hard we are affected by gravity
     public float jumpHeight = 2f; // how much force we use to jump
 
-    Vector2 inputMovement; // saves input from movement keys
-
-    Vector3 move; // controls our movement and speed
-
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-    
-
     Vector3 velocity;
     public bool isGrounded; // checks if we are on the ground or in the air
 
-    [Header("Game Objects")]
-    public Camera cameraComponent;
+    Vector2 inputMovement; // saves input from movement keys
+    Vector3 move; // controls our movement and speed
 
     [Header("Player Sprint Options")] // information for sprinting
     public float sprintSpeed = 15f; // speed multiplier
@@ -48,85 +47,25 @@ public class PlayerMovement : MonoBehaviour
 
     public float defaultCamHeight; // height for our camera when not crouching
     public float crouchedCamHeight; // height for our camera when crouched
-    bool crouched = false;
-
-    //#if ENABLE_INPUT_SYSTEM
-    //public InputAction movement;
-    //public InputAction jump;
+    [SerializeField] bool crouched = false; // tells us if we are crouched
+    
 
     void Start()
     {
         cameraDefaultFOV = cameraComponent.fieldOfView; // saves our default FOV
-
-        //movement = new InputAction("PlayerMovement", binding: "<Gamepad>/leftStick");
-        //movement.AddCompositeBinding("Dpad")
-        //    .With("Up", "<Keyboard>/w")
-        //    .With("Up", "<Keyboard>/upArrow")
-        //    .With("Down", "<Keyboard>/s")
-        //    .With("Down", "<Keyboard>/downArrow")
-        //    .With("Left", "<Keyboard>/a")
-        //    .With("Left", "<Keyboard>/leftArrow")
-        //    .With("Right", "<Keyboard>/d")
-        //    .With("Right", "<Keyboard>/rightArrow");
-        
-        //jump = new InputAction("PlayerJump", binding: "<Gamepad>/a");
-        //jump.AddBinding("<Keyboard>/space");
-
-        //movement.Enable();
-        //jump.Enable();
     }
-//#endif
 
     // Update is called once per frame
     void Update()
     {
-        //        float x;
-        //        float z;
-        //        bool jumpPressed = false;
-
-        //#if ENABLE_INPUT_SYSTEM
-        //        var delta = movement.ReadValue<Vector2>();
-        //        x = delta.x;
-        //        z = delta.y;
-        //        jumpPressed = Mathf.Approximately(jump.ReadValue<float>(), 1);
-        //#else
-        //        x = Input.GetAxis("Horizontal");
-        //        z = Input.GetAxis("Vertical");
-        //        jumpPressed = Input.GetButtonDown("Jump");
-        //#endif
-
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
-
-        //        Vector3 move = transform.right * x + transform.forward * z;
-
-        //        controller.Move(move * curSpeed * Time.deltaTime);
-
-        //        if(jumpPressed && isGrounded)
-        //        {
-        //            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        //        }
-
+        
         velocity.y += gravity * Time.deltaTime;
-
-        //        controller.Move(velocity * Time.deltaTime);
-
-        //if (Input.GetButtonDown("Sprint") && isGrounded) // if we press the sprint button and are on the ground
-        //{
-        //    curSpeed = sprintSpeed; // set our speed to the sprint speed
-        //    cameraComponent.fieldOfView = cameraSprintFOV; // change our FOV to the sprint FOV
-        //}
-
-        //if (Input.GetButtonUp("Sprint")) // if we let go of the sprint button
-        //{
-        //    curSpeed = playerDefaultSpeed; // set our speed back to normal
-        //    cameraComponent.fieldOfView = cameraDefaultFOV; // set our FOV back to normal
-        //}
-
         move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
         controller.Move(move * curSpeed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
@@ -142,14 +81,7 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            Debug.Log("I jumped");
         }
-        else
-        {
-            Debug.Log("I can't jump");
-        }
-
-        
     }
 
     public void Sprint(InputAction.CallbackContext value)
@@ -159,8 +91,6 @@ public class PlayerMovement : MonoBehaviour
             sprinting = true;
             curSpeed = sprintSpeed; // set our speed to the sprint speed
             cameraComponent.fieldOfView = cameraSprintFOV; // change our FOV to the sprint FOV
-
-            Debug.Log("I'm Sprinting");
         }
 
         if(value.canceled)
@@ -197,9 +127,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void ResetSpeed()
+    public void ResetSpeed() // will reset our speed whenever we want the player to go back to their default speed like if they stop crouching or sprinting
     {
-        Debug.Log("reset speed");
         curSpeed = playerDefaultSpeed;
         cameraComponent.fieldOfView = cameraDefaultFOV;
     }
