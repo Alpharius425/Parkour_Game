@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 11746.7705, g: 10549.07, b: 9588.699, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16599,6 +16599,7 @@ GameObject:
   - component: {fileID: 738646680686283306}
   - component: {fileID: 738646680686283305}
   - component: {fileID: 738646680686283307}
+  - component: {fileID: 738646680686283308}
   m_Layer: 9
   m_Name: PlayerControllerFPS
   m_TagString: Untagged
@@ -16712,11 +16713,41 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1fb1cb84-d1b4-4e0c-acc9-4bf6248ae379
     m_ActionName: PlayerMovement/Sprint[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 738646680686283311}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Crouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0b63fed9-5277-4706-8e5b-3a34e1cad1b0
+    m_ActionName: PlayerMovement/Crouch[/Keyboard/leftCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!136 &738646680686283308
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738646680686283304}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &738646680686283310
 Transform:
   m_ObjectHideFlags: 0
@@ -16724,7 +16755,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738646680686283304}
-  m_LocalRotation: {x: -0, y: -0.9933808, z: -0, w: 0.11486802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -16732,7 +16763,7 @@ Transform:
   - {fileID: 738646680643007626}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: -166.808, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &738646680686283311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16761,3 +16792,10 @@ MonoBehaviour:
   sprintSpeed: 15
   cameraSprintFOV: 105
   sprinting: 0
+  defaultPlayerHeight: 2
+  crouchedPlayerHeight: 1
+  defaultPlayerCenter: 1
+  crouchedPlayerCenter: 0.5
+  myCollider: {fileID: 738646680686283308}
+  defaultCamHeight: 0.7
+  crouchedCamHeight: 0.4
