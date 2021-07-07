@@ -140,20 +140,28 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    public void Sprint()
+    public void Sprint(InputAction.CallbackContext value)
     {
-        sprinting = true;
-
-        if(isGrounded && sprinting)
+        if(isGrounded && value.started)
         {
+            sprinting = true;
             curSpeed = sprintSpeed; // set our speed to the sprint speed
             cameraComponent.fieldOfView = cameraSprintFOV; // change our FOV to the sprint FOV
 
             Debug.Log("I'm Sprinting");
         }
-        else
+
+        if(value.canceled)
         {
-            Debug.Log("I can't sprint");
+            sprinting = false;
+            ResetSpeed();
         }
+    }
+
+    void ResetSpeed()
+    {
+        Debug.Log("reset speed");
+        curSpeed = playerDefaultSpeed;
+        cameraComponent.fieldOfView = cameraDefaultFOV;
     }
 }
