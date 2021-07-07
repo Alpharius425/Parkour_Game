@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
+    [SerializeField] float playerDefaultSpeed;
     public float speed = 12f;
     public float gravity = -10f;
     public float jumpHeight = 2f;
@@ -23,12 +24,22 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     public bool isGrounded;
 
+    [Header("Game Objects")]
+    public Camera cameraComponent;
+
+    [Header("Player Sprint Options")] // information for sprinting
+    public float sprintSpeed = 15f; // speed multiplier
+    public float cameraSprintFOV = 105; // FOV when sprinting
+    float cameraDefaultFOV; // used to save our default FOV
+
 #if ENABLE_INPUT_SYSTEM
-    InputAction movement;
-    InputAction jump;
+    public InputAction movement;
+    public InputAction jump;
 
     void Start()
     {
+        cameraDefaultFOV = cameraComponent.fieldOfView; // saves our default FOV
+
         movement = new InputAction("PlayerMovement", binding: "<Gamepad>/leftStick");
         movement.AddCompositeBinding("Dpad")
             .With("Up", "<Keyboard>/w")
@@ -85,5 +96,17 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetButtonDown("Sprint") && isGrounded)
+        {
+            speed = sprintSpeed;
+            cameraComponent.fieldOfView = cameraSprintFOV;
+        }
+
+        if (Input.GetButtonUp("Sprint"))
+        {
+            speed = playerDefaultSpeed;
+            cameraComponent.fieldOfView = cameraDefaultFOV;
+        }
     }
 }
