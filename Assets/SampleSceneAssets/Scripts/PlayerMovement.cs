@@ -125,20 +125,24 @@ public class PlayerMovement : MonoBehaviour
         inputMovement = value.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputAction.CallbackContext value)
+    public void OnJump()
     {
-        if(isGrounded && value.started)
+        if(isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             Debug.Log("I jumped");
         }
+        else
+        {
+            Debug.Log("I can't jump");
+        }
 
-        Debug.Log("I can't jump");
+        
     }
 
-    public void Sprint(InputAction.CallbackContext value)
+    public void Sprint()
     {
-        sprinting = value.started;
+        sprinting = true;
 
         if(isGrounded && sprinting)
         {
@@ -147,7 +151,9 @@ public class PlayerMovement : MonoBehaviour
 
             Debug.Log("I'm Sprinting");
         }
-
-        Debug.Log("I can't Sprint");
+        else
+        {
+            Debug.Log("I can't sprint");
+        }
     }
 }
