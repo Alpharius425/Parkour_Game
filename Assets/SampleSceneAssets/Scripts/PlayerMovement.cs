@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -10f;
     public float jumpHeight = 2f;
 
+    Vector2 inputMovement;
+
     Vector3 move; // controls our movement and speed
 
     public Transform groundCheck;
@@ -113,19 +115,14 @@ public class PlayerMovement : MonoBehaviour
         //    cameraComponent.fieldOfView = cameraDefaultFOV; // set our FOV back to normal
         //}
 
+        move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
         controller.Move(move * curSpeed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
     }
 
     public void OnMove(InputAction.CallbackContext value)
     {
-        Vector2 inputMovement = value.ReadValue<Vector2>();
-
-        move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
-
-        //controller.Move(move * curSpeed * Time.deltaTime);
-
-        Debug.Log("I moved");
+        inputMovement = value.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext value)
@@ -135,6 +132,8 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             Debug.Log("I jumped");
         }
+
+        Debug.Log("I can't jump");
     }
 
     public void Sprint(InputAction.CallbackContext value)
@@ -148,5 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
             Debug.Log("I'm Sprinting");
         }
+
+        Debug.Log("I can't Sprint");
     }
 }
