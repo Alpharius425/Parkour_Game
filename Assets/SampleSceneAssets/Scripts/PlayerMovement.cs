@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
 
     [SerializeField] float playerDefaultSpeed;
-    public float speed = 12f;
+    public float curSpeed = 12f;
     public float gravity = -10f;
     public float jumpHeight = 2f;
 
@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * curSpeed * Time.deltaTime);
 
         if(jumpPressed && isGrounded)
         {
@@ -97,16 +97,16 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        if (Input.GetButtonDown("Sprint") && isGrounded)
+        if (Input.GetButtonDown("Sprint") && isGrounded) // if we press the sprint button and are on the ground
         {
-            speed = sprintSpeed;
-            cameraComponent.fieldOfView = cameraSprintFOV;
+            curSpeed = sprintSpeed; // set our speed to the sprint speed
+            cameraComponent.fieldOfView = cameraSprintFOV; // change our FOV to the sprint FOV
         }
 
-        if (Input.GetButtonUp("Sprint"))
+        if (Input.GetButtonUp("Sprint")) // if we let go of the sprint button
         {
-            speed = playerDefaultSpeed;
-            cameraComponent.fieldOfView = cameraDefaultFOV;
+            curSpeed = playerDefaultSpeed; // set our speed back to normal
+            cameraComponent.fieldOfView = cameraDefaultFOV; // set our FOV back to normal
         }
     }
 }

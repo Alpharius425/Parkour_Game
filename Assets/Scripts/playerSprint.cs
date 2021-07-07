@@ -18,7 +18,7 @@ public class playerSprint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerDefaultSpeed = playerMovementScript.speed;
+        playerDefaultSpeed = playerMovementScript.curSpeed;
         cameraDefaultFOV = cameraComponent.fieldOfView;
     }
 
@@ -27,13 +27,13 @@ public class playerSprint : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint") && playerMovementScript.isGrounded)
         {
-            playerMovementScript.speed = sprintSpeed;
+            playerMovementScript.curSpeed = sprintSpeed;
             cameraComponent.fieldOfView = cameraSprintFOV;
         }
 
         if (Input.GetButtonUp("Sprint"))
         {
-            playerMovementScript.speed = playerDefaultSpeed;
+            playerMovementScript.curSpeed = playerDefaultSpeed;
             cameraComponent.fieldOfView = cameraDefaultFOV;
         }
     }
