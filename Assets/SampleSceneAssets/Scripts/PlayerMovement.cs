@@ -52,6 +52,15 @@ public class PlayerMovement : MonoBehaviour
     public float defaultCamHeight; // height for our camera when not crouching
     public float crouchedCamHeight; // height for our camera when crouched
     [SerializeField] bool crouched = false; // tells us if we are crouched
+
+    [SerializeField] GameObject obstacleDetector; // a empty gameobject with a trigger collider and a VaultingAndClimbingDetection script
+    [SerializeField] bool vaulting; // tells us if we are vaulting or not
+    [SerializeField] float vaultSpeed; // how fast we vault over an object
+    [SerializeField] float climbHeight; // how tall we want to be able to climb
+    [SerializeField] float reachDis; // how far away we want to grab
+
+    Vector3 myLocation; // used for vaulting saves where the player starts
+    Vector3 vaultLocation; // used for vaulting saves where the player should be going
     
 
     void Start()
@@ -78,23 +87,45 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime; // simulates gravity
 
-        if (isSliding) // checks if we're sliding
+        if (!vaulting)
         {
-            if(slideTime < slideTimeMax) // if the max time to slide hasn't been met yet
+            if (isSliding) // checks if we're sliding
             {
-                slideTime += Time.deltaTime;
+                if (slideTime < slideTimeMax) // if the max time to slide hasn't been met yet
+                {
+                    slideTime += Time.deltaTime;
+                }
+                else if (slideTime >= slideTimeMax) // if we reach the maximum time to slide
+                {
+                    CancelSlide();
+                }
             }
-            else if (slideTime >= slideTimeMax) // if we reach the maximum time to slide
+            else if (!isSliding) // if we aren't sliding move normally
             {
-                CancelSlide();
+                move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
+                controller.Move(move * curSpeed * Time.deltaTime);
+            }
+            controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
+
+            if (sprinting) // determines whether our obstacle detection is on
+            {
+                obstacleDetector.SetActive(true);
+            }
+            else
+            {
+                obstacleDetector.SetActive(false);
             }
         }
-        else // if we aren't sliding move normally
+        else // if we are vaulting
         {
-            move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
-            controller.Move(move * curSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(myLocation, vaultLocation, vaultSpeed); // moves our player to the new location
+
+            if (gameObject.transform.position == vaultLocation) // resets our bool so we aren't constantly vaulting
+            {
+                vaulting = false;
+            }
         }
-        controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
+        
     }
 
     public void OnMove(InputAction.CallbackContext value) // collects movement data from inputs on the keyboard or gamepad
@@ -117,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Sprint(InputAction.CallbackContext value)
     {
-        if(isGrounded && value.started) // starts sprinting
+        if(isGrounded && value.started && !vaulting) // starts sprinting
         {
             sprinting = true;
             curSpeed = sprintSpeed; // set our speed to the sprint speed
@@ -138,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
             CancelSlide();
         }
 
-        if (isGrounded) // prevents us from crouching or sliding in air
+        if (isGrounded && !vaulting) // prevents us from crouching or sliding in air
         {
             if (sprinting && !isSliding) // if we are sprinting and not sliding
             {
@@ -198,5 +229,37 @@ public class PlayerMovement : MonoBehaviour
         myCollider.height = crouchedPlayerHeight;
         myCollider.center = new Vector3(0f, crouchedPlayerCenter, 0f);
         cameraComponent.transform.localPosition = new Vector3(0f, crouchedCamHeight, 0f);
+    }
+
+    public void VaultDetection() // runs if the vault detector collider hits something and then determines if the player can vault over the object that was hit
+    {
+        RaycastHit hit; //tells us if the raycast has hit anything
+        Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
+        origin.y += 1f; // adjust the ray's position to be about the hip height of the player
+        
+        if (Physics.Raycast(origin, transform.forward, out hit, reachDis)) // we hit something and it is at least as tall as our hip height
+        {
+
+            Vector3 climbCheck = origin; // saves a new location to shoot a ray cast from that checks if we have space to climb
+            climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
+            
+            if (!Physics.Raycast(climbCheck, transform.forward, out hit, reachDis)) // checks if there is space for the character to climb up
+            {
+
+                Vector3 groundCheck = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
+
+                if (Physics.Raycast(groundCheck, Vector3.down, out hit, climbHeight)) // checks if there is space to climb up to
+                {
+                    Vault(hit.point); // sends the location that the ray hit to the vault function
+                }
+            }
+        }
+    }
+
+    public void Vault(Vector3 newLocation) // calculates the location of where the player should end up when vaulting 
+    {
+        vaulting = true; // tells the rest of the code we are vaulting now
+        myLocation = transform.position; // gets our current location
+        vaultLocation = newLocation; // sets the location we want to go to
     }
 }
