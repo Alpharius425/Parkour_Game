@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Vector3 velocity;
     public bool isGrounded; // checks if we are on the ground or in the air
 
-    Vector2 inputMovement; // saves input from movement keys
+    [SerializeField] Vector2 inputMovement; // saves input from movement keys
     Vector3 move; // controls our movement and speed
 
     [Header("Player Sprint Options")] // information for sprinting
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); // checks if we are on the ground
 
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded && velocity.y < 0 && !vaulting)
         {
             velocity.y = -2f;
 
@@ -85,10 +85,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        velocity.y += gravity * Time.deltaTime; // simulates gravity
-
         if (!vaulting)
         {
+            velocity.y += gravity * Time.deltaTime; // simulates gravity
             if (isSliding) // checks if we're sliding
             {
                 if (slideTime < slideTimeMax) // if the max time to slide hasn't been met yet
@@ -107,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             }
             controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
 
-            if (sprinting) // determines whether our obstacle detection is on
+            if (sprinting && inputMovement.y > 0) // determines whether our obstacle detection is on
             {
                 obstacleDetector.SetActive(true);
             }
@@ -119,13 +118,26 @@ public class PlayerMovement : MonoBehaviour
         else // if we are vaulting
         {
             transform.position = Vector3.Lerp(myLocation, vaultLocation, vaultSpeed); // moves our player to the new location
-
+            myCollider.enabled = false;
             if (gameObject.transform.position == vaultLocation) // resets our bool so we aren't constantly vaulting
             {
+                myCollider.enabled = true;
                 vaulting = false;
             }
         }
-        
+
+        // Debug rays for our vaulting
+        Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
+        //origin.y += 1f; // adjust the ray's position to be about the hip height of the player
+        Debug.DrawRay(origin, transform.forward, Color.blue);
+
+        Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
+        climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
+        Debug.DrawRay(climbCheck, transform.forward, Color.blue);
+
+        Vector3 groundCheck2 = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
+        Debug.DrawRay(groundCheck2, Vector3.down, Color.blue);
+
     }
 
     public void OnMove(InputAction.CallbackContext value) // collects movement data from inputs on the keyboard or gamepad
@@ -233,14 +245,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void VaultDetection() // runs if the vault detector collider hits something and then determines if the player can vault over the object that was hit
     {
+        // TODO: transform.forward is causing the player to jump slightly forward on the z axis needs to be fixed, also has trouble with larger objects may be related
         RaycastHit hit; //tells us if the raycast has hit anything
         Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
-        origin.y += 1f; // adjust the ray's position to be about the hip height of the player
+        //origin.y += 1f; // adjust the ray's position to be about the hip height of the player
         
         if (Physics.Raycast(origin, transform.forward, out hit, reachDis)) // we hit something and it is at least as tall as our hip height
         {
 
-            Vector3 climbCheck = origin; // saves a new location to shoot a ray cast from that checks if we have space to climb
+            Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
             climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
             
             if (!Physics.Raycast(climbCheck, transform.forward, out hit, reachDis)) // checks if there is space for the character to climb up
@@ -260,6 +273,6 @@ public class PlayerMovement : MonoBehaviour
     {
         vaulting = true; // tells the rest of the code we are vaulting now
         myLocation = transform.position; // gets our current location
-        vaultLocation = newLocation; // sets the location we want to go to
+        vaultLocation = newLocation + transform.localScale; // sets the location we want to go to
     }
 }
