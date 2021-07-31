@@ -121,15 +121,15 @@ public class PlayerMovement : MonoBehaviour
         // Debug rays for our vaulting
         Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
         //origin.y += 1f; // adjust the ray's position to be about the hip height of the player
-        Debug.DrawRay(origin, transform.forward, Color.blue);
+        Debug.DrawRay(origin, transform.forward * reachDis, Color.blue);
 
         Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
         climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
-        Debug.DrawRay(climbCheck, transform.forward, Color.blue);
+        Debug.DrawRay(climbCheck, transform.forward * reachDis, Color.blue);
 
         Vector3 groundCheck2 = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
         //groundCheck2.x += 1;
-        Debug.DrawRay(groundCheck2, Vector3.down, Color.blue);
+        Debug.DrawRay(groundCheck2, Vector3.down * climbHeight, Color.blue);
 
     }
 
@@ -149,9 +149,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (value.started) // when we push and hold the button
         {
-            obstacleDetector.SetActive(true); // turn on the obstacle detection
+            obstacleDetector.SetActive(true);
 
-            if (isGrounded && !detectsSomething) // check if we are on the ground
+            //if(detectsSomething)
+            //{
+            //    VaultDetection();
+            //}
+            if(isGrounded && !detectsSomething) // check if we are on the ground
             {
                 isGrounded = false; // tell us we aren't on the ground
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
@@ -159,8 +163,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(value.canceled) // when we let go of the button
         {
-            obstacleDetector.SetActive(false); // turn off the obstacle detection
-            detectsSomething = false;
+            obstacleDetector.SetActive(false);
         }
     }
 
@@ -264,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
             if(!Physics.Raycast(climbCheck, transform.forward, out hit, reachDis)) // checks if there is space for the character to climb up
             {
 
-                Vector3 groundCheck = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
+                Vector3 groundCheck = climbCheck + (transform.forward * reachDis); // makes another ray that looks forwardand down to find a place to go to
 
                 if (Physics.Raycast(groundCheck, Vector3.down, out hit, climbHeight)) // checks if there is space to climb up to
                 {

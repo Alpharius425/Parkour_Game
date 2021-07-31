@@ -9,15 +9,23 @@ public class VaultingAndClimbingDetection : MonoBehaviour
     [SerializeField] PlayerMovement player; // allows us to tell the player we hit something
     [SerializeField] LayerMask detectionLayers; // determines what we can detect
 
-    void OnTriggerEnter(Collider col) // plays if we detect something
+    void OnTriggerStay(Collider col) // plays if we detect something
     {
         GameObject obstacle = col.gameObject;
 
-        if(obstacle != player.gameObject) // checks if the thing we hit is on the right layers
+        if(obstacle.layer != detectionLayers) // checks if the thing we hit is on the right layers
         {
             player.detectsSomething = true;
             Debug.Log("I detected an obstacle " + obstacle.name);
-            player.VaultDetection(); // tells the player we hit something
+            player.VaultDetection();
+        }
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if(col.gameObject.layer != detectionLayers)
+        {
+            player.detectsSomething = false;
         }
     }
 }
