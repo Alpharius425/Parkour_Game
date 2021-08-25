@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float curClimbTime; // how long we have been climbing for
     [SerializeField] bool climbing; // helps us determine whether we are climbing or not
     [SerializeField] float climbSpeed; // how fast we move while climbing
+    [SerializeField] float timeBetweenClimb; // cooldown for when we can climb again. might keep might not
 
     Vector3 myLocation; // used for vaulting saves where the player starts
     Vector3 vaultLocation; // used for vaulting saves where the player should be going
@@ -114,8 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
                 if (curClimbTime >= maxClimbTime) // if we go over the max climb time
                 {
-                    climbing = false; // we are no longer climbing
-                    curClimbTime = 0; // reset our climb time
+                    StopClimbing();
                 }
             }
             else if (!isSliding || !climbing) // if we aren't sliding or climbing move normally
@@ -127,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
             if(!climbing) // only affected by gravity when not climbing
             {
                 controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
+                timeBetweenClimb -= Time.deltaTime; // lowers the climbing cooldown
             }
         }
         else // if we are vaulting
@@ -185,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(value.canceled) // when we let go of the button
         {
-            climbing = false; // cancels climbing when we let go of the button
+            StopClimbing();
             obstacleDetector.SetActive(false);
         }
     }
@@ -294,19 +295,32 @@ public class PlayerMovement : MonoBehaviour
 
                 if (Physics.Raycast(groundCheck, Vector3.down, out hit, climbHeight)) // checks if there is space to climb up to
                 {
-                    climbing = false;
+                    StopClimbing();
                     Vault(hit.point); // sends the location that the ray hit to the vault function
                 }
                 else
                 {
-                    climbing = true;
+                    if(timeBetweenClimb <= 0)
+                    {
+                        climbing = true;
+                    }
                 }
             }
             else
             {
-                climbing = true;
+                if (timeBetweenClimb <= 0)
+                {
+                    climbing = true;
+                }
             }
         }
+    }
+
+    void StopClimbing()
+    {
+        timeBetweenClimb = curClimbTime; // TEMP sets the climb time to be the amount of time we spent climbing 
+        climbing = false; // stop us from climbing
+        curClimbTime = 0; // resets the amount of time we can climb
     }
 
     public void Vault(Vector3 newLocation) // calculates the location of where the player should end up when vaulting 
