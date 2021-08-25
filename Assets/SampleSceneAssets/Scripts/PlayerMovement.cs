@@ -60,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float climbHeight; // how tall we want to be able to climb
     [SerializeField] float reachDis; // how far away we want to grab
 
+    [Header("Player Climbing Options")]
+    [SerializeField] float maxClimbTime; // how long the character can climb for
+    [SerializeField] float curClimbTime; // how long we have been climbing for
+    [SerializeField] bool climbing; // helps us determine whether we are climbing or not
+    [SerializeField] float climbSpeed; // how fast we move while climbing
+
     Vector3 myLocation; // used for vaulting saves where the player starts
     Vector3 vaultLocation; // used for vaulting saves where the player should be going
     
@@ -100,12 +106,28 @@ public class PlayerMovement : MonoBehaviour
                     CancelSlide();
                 }
             }
-            else if (!isSliding) // if we aren't sliding move normally
+            else if(climbing) // if we are climbing
+            {
+                move = transform.right * inputMovement.x + transform.up * inputMovement.y; // lets us move up or down while climbing
+                curClimbTime += Time.deltaTime; // starts ticking the climb time forward
+                controller.Move(move * climbSpeed * Time.deltaTime);
+
+                if (curClimbTime >= maxClimbTime) // if we go over the max climb time
+                {
+                    climbing = false; // we are no longer climbing
+                    curClimbTime = 0; // reset our climb time
+                }
+            }
+            else if (!isSliding || !climbing) // if we aren't sliding or climbing move normally
             {
                 move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
                 controller.Move(move * curSpeed * Time.deltaTime);
             }
-            controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
+
+            if(!climbing) // only affected by gravity when not climbing
+            {
+                controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
+            }
         }
         else // if we are vaulting
         {
@@ -163,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(value.canceled) // when we let go of the button
         {
+            climbing = false; // cancels climbing when we let go of the button
             obstacleDetector.SetActive(false);
         }
     }
@@ -254,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void VaultDetection() // runs if the vault detector collider hits something and then determines if the player can vault over the object that was hit
     {
-        // TODO: has trouble with getting over large objects
+        // TODO: has trouble with getting over objects slightly too far away
         RaycastHit hit; //tells us if the raycast has hit anything
         Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
         
@@ -271,8 +294,17 @@ public class PlayerMovement : MonoBehaviour
 
                 if (Physics.Raycast(groundCheck, Vector3.down, out hit, climbHeight)) // checks if there is space to climb up to
                 {
+                    climbing = false;
                     Vault(hit.point); // sends the location that the ray hit to the vault function
                 }
+                else
+                {
+                    climbing = true;
+                }
+            }
+            else
+            {
+                climbing = true;
             }
         }
     }
