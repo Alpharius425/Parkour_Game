@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(climbing) // if we are climbing
             {
-                move = transform.right * inputMovement.x + transform.up * inputMovement.y; // lets us move up or down while climbing
+                move = transform.up * inputMovement.y; // lets us move up or down while climbing  (transform.right * inputMovement.x) for if we decide to climb sideways 
                 curClimbTime += Time.deltaTime; // starts ticking the climb time forward
                 controller.Move(move * climbSpeed * Time.deltaTime);
 
