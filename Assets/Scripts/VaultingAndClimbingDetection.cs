@@ -8,7 +8,7 @@ public class VaultingAndClimbingDetection : MonoBehaviour
 
     [SerializeField] PlayerMovement player; // allows us to tell the player we hit something
     [SerializeField] LayerMask detectionLayers; // determines what we can detect
-
+     
     void OnTriggerStay(Collider col) // plays if we detect something
     {
         GameObject obstacle = col.gameObject;
