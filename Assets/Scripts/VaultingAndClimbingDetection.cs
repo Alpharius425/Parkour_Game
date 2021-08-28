@@ -16,7 +16,7 @@ public class VaultingAndClimbingDetection : MonoBehaviour
         if(obstacle.layer != detectionLayers) // checks if the thing we hit is on the right layers
         {
             player.detectsSomething = true;
-            Debug.Log("I detected an obstacle " + obstacle.name);
+            //Debug.Log("I detected an obstacle " + obstacle.name);
             player.VaultDetection();
         }
     }

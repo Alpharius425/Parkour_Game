@@ -67,6 +67,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float climbSpeed; // how fast we move while climbing
     [SerializeField] float timeBetweenClimb; // cooldown for when we can climb again. might keep might not
 
+    [Header("Player Wall running Options")]
+    public float maxWallRunTime; // how long the character can climb for
+    public float curWallRunTime; // how long we have been wall running for
+    public bool wallRunning; // helps us determine whether we are wallrunning or not
+    [SerializeField] float wallRunSpeed; // how fast we move while wall running
+    [SerializeField] WallRunDetection wallRunDetector;
+
     Vector3 myLocation; // used for vaulting saves where the player starts
     Vector3 vaultLocation; // used for vaulting saves where the player should be going
     
@@ -118,13 +125,25 @@ public class PlayerMovement : MonoBehaviour
                     StopClimbing();
                 }
             }
-            else if (!isSliding || !climbing) // if we aren't sliding or climbing move normally
+            else if(wallRunning)
+            {
+                move = transform.forward * inputMovement.y;
+                curWallRunTime -= Time.deltaTime;
+                controller.Move(move * wallRunSpeed * Time.deltaTime);
+
+                if(curWallRunTime < 0)
+                {
+                    wallRunning = false;
+                    wallRunDetector.Deactivte();
+                }
+            }
+            else if (!isSliding || !climbing || !wallRunning) // if we aren't sliding or climbing move normally
             {
                 move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
                 controller.Move(move * curSpeed * Time.deltaTime);
             }
 
-            if(!climbing) // only affected by gravity when not climbing
+            if(!climbing || !wallRunning) // only affected by gravity when not climbing
             {
                 controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
                 timeBetweenClimb -= Time.deltaTime; // lowers the climbing cooldown
@@ -173,12 +192,13 @@ public class PlayerMovement : MonoBehaviour
         if (value.started) // when we push and hold the button
         {
             obstacleDetector.SetActive(true);
+            wallRunDetector.gameObject.SetActive(true);
 
             //if(detectsSomething)
             //{
             //    VaultDetection();
             //}
-            if(isGrounded && !detectsSomething) // check if we are on the ground
+            if (isGrounded && !detectsSomething) // check if we are on the ground
             {
                 isGrounded = false; // tell us we aren't on the ground
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
@@ -188,6 +208,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StopClimbing();
             obstacleDetector.SetActive(false);
+            wallRunDetector.Deactivte();
         }
     }
 
