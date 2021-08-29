@@ -27,13 +27,14 @@ public class WallRunDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        if(col.gameObject == myPlayer.transform.parent) // if the object we detect leaving the collider is the parented object
+        if(col.gameObject == myPlayer.transform.parent.gameObject) // if the object we detect leaving the collider is the parented object
         {
-            Deactivte();
+            Debug.Log("I am not wall running on " + col.gameObject);
+            Deactivate();
         }
     }
 
-    public void Deactivte()
+    public void Deactivate()
     {
         myPlayer.transform.SetParent(null); // unparents the player
         myPlayerMovement.wallRunning = false; // sets wall running to false

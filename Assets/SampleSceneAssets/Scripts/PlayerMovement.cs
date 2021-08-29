@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
                 if(curWallRunTime < 0)
                 {
                     wallRunning = false;
-                    wallRunDetector.Deactivte();
+                    wallRunDetector.Deactivate();
                 }
             }
             else if (!isSliding || !climbing || !wallRunning) // if we aren't sliding or climbing move normally
@@ -208,7 +208,6 @@ public class PlayerMovement : MonoBehaviour
         {
             StopClimbing();
             obstacleDetector.SetActive(false);
-            wallRunDetector.Deactivte();
         }
     }
 
