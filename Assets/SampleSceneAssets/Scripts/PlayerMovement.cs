@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
+    [SerializeField] WallRunningAndClimbing wallRunScript;
     [SerializeField] PlayerInput myInputs; // saves our input system and allows us to change controls for different controllers or settings
 
     public Transform groundCheck;
@@ -24,17 +25,17 @@ public class PlayerMovement : MonoBehaviour
     public float curSpeed = 12f; // how fast we are currently going
     public float gravity = -10f; // how hard we are affected by gravity
     public float jumpHeight = 2f; // how much force we use to jump
-    bool jumping;
-    [SerializeField] Vector3 velocity;
+    public bool jumping;
+    public Vector3 velocity;
     public bool isGrounded; // checks if we are on the ground or in the air
 
-    [SerializeField] Vector2 inputMovement; // saves input from movement keys
+    public Vector2 inputMovement; // saves input from movement keys
     Vector3 move; // controls our movement and speed
 
     [Header("Player Sprint Options")] // information for sprinting
     public float sprintSpeed = 15f; // speed multiplier
     public float cameraSprintFOV = 105; // FOV when sprinting
-    float cameraDefaultFOV; // used to save our default FOV
+    public float cameraDefaultFOV; // used to save our default FOV
     public bool sprinting; // checks if the player is sprinting
 
     [Header("Player Crouch Options")]
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchedCamHeight; // height for our camera when crouched
     [SerializeField] bool crouched = false; // tells us if we are crouched
 
-    [SerializeField] GameObject obstacleDetector; // a empty gameobject with a trigger collider and a VaultingAndClimbingDetection script
+    //[SerializeField] GameObject obstacleDetector; // a empty gameobject with a trigger collider and a VaultingAndClimbingDetection script
     public bool detectsSomething = false;
     [SerializeField] bool vaulting; // tells us if we are vaulting or not
     [SerializeField] float vaultSpeed; // how fast we vault over an object
@@ -67,60 +68,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float climbSpeed; // how fast we move while climbing
     [SerializeField] float timeBetweenClimb; // cooldown for when we can climb again. might keep might not
 
-    [Header("Player Wall running Options")]
-    public float maxWallRunTime; // how long the character can climb for
-    public float curWallRunTime; // how long we have been wall running for
-    public bool wallRunning; // helps us determine whether we are wallrunning or not
-    [SerializeField] float wallRunSpeed; // how fast we move while wall running
-    [SerializeField] float maxWallDistance; // how far away we detect walls
-    [SerializeField] float minimumHeight; // how far off the ground we need to be to wall run
-    [SerializeField] float cameraAngleRoll = 20; // for if we want the camera to change angle when we wall run
-
-    public float jumpDuration; // prevents the player from chaining wall jumps back to back
-    public float wallBouncing; // sets the direction for the player
-    public float cameraTransitionDuration;
-
-    Vector3[] directions; // checks around player if theres a wall to run on
-    RaycastHit[] hits; // stores info about what we hit for wall running
-
-    Vector3 lastwallPosition;
-    Vector3 lastWallNormal;
-    float timeSinceJump;
-    float timeSinceWallAttach;
-    float timeSinceWallDetach;
-
-    bool CanWallRun() // checks several variables to see if we can start wall running
-    {
-        return !isGrounded && inputMovement.y > 0 && VerticalCheck();
-    }
-
-    bool VerticalCheck() // checks if we are at the minimum height to wall run
-    {
-        return !Physics.Raycast(transform.position, Vector3.down, minimumHeight); 
-    }
-
-    bool canAttach()
-    {
-        if(jumping)
-        {
-            timeSinceJump += Time.deltaTime;
-            if(timeSinceJump > jumpDuration)
-            {
-                timeSinceJump = 0;
-                jumping = false;
-            }
-            return false;
-        }
-        return true;
-    }
-
-    void OnWall(RaycastHit hit)
-    {
-        float d = Vector3.Dot(hit.normal, Vector3.up);
-        
-    }
-
-
     Vector3 myLocation; // used for vaulting saves where the player starts
     Vector3 vaultLocation; // used for vaulting saves where the player should be going
     
@@ -128,15 +75,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         cameraDefaultFOV = cameraComponent.fieldOfView; // saves our default FOV
-
-        directions = new Vector3[] // saves a list of directions for the wall run checker
-        {
-            Vector3.right,
-            Vector3.right + Vector3.forward,
-            Vector3.forward,
-            Vector3.left,
-            Vector3.left + Vector3.forward
-        };
     }
 
     // Update is called once per frame
@@ -181,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
                     StopClimbing();
                 }
             }
-            else if (!isSliding && !climbing && !wallRunning) // if we aren't sliding or climbing move normally
+            else if (!isSliding && !climbing && wallRunScript.isWallRunning == false) // if we aren't sliding or climbing move normally
             {
                 move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
                 controller.Move(move * curSpeed * Time.deltaTime);
@@ -191,60 +129,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 controller.Move(velocity * Time.deltaTime); // keeps the player's velocity no matter what so they move when sliding 
                 timeBetweenClimb -= Time.deltaTime; // lowers the climbing cooldown
-            }
-
-            //else if(wallRunning)
-            //{
-            //    //move = transform.forward * inputMovement.y;
-            //    curWallRunTime -= Time.deltaTime;
-            //    //controller.Move(move * wallRunSpeed * Time.deltaTime);
-
-            //    if(curWallRunTime < 0)
-            //    {
-            //        CancelWallRun();
-            //    }
-            //}
-
-            if (canAttach()) // if we can attach to something
-            {
-                Debug.Log("Can attach");
-                hits = new RaycastHit[directions.Length]; // saves our raycast info
-
-                for (int i = 0; i < directions.Length; i++) // a for loop for shooting raycast
-                {
-                    Vector3 dir = transform.TransformDirection(directions[i]); // determines which direction for the raycast to go
-                    Physics.Raycast(transform.position, dir, out hits[i], maxWallDistance); // shoots a raycast with the information above
-                    if (hits[i].collider != null) // if we hit something
-                    {
-                        Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green); //the line turns green
-                    }
-                    else // if we don't
-                    {
-                        Debug.DrawRay(transform.position, dir * maxWallDistance, Color.red); // the line turns red
-                    }
-                }
-
-                if(CanWallRun())
-                {
-                    hits = hits.ToList().Where(hits => hits.collider != null).OrderBy(hits => hits.distance).ToArray(); // saves every hit object to an array arranged by distance
-                    if(hits.Length > 0) // loop through that array and save that data
-                    {
-                        OnWall(hits[0]);
-                        lastwallPosition = hits[0].point;
-                        lastWallNormal = hits[0].normal;
-                    }
-                }
-
-                if(wallRunning)
-                {
-                    timeSinceWallDetach = 0;
-                    timeSinceWallAttach += Time.deltaTime;
-                }
-                else
-                {
-                    timeSinceWallAttach = 0;
-                    timeSinceWallDetach += Time.deltaTime;
-                }
             }
         }
         else // if we are vaulting
@@ -289,24 +173,24 @@ public class PlayerMovement : MonoBehaviour
 
         if (value.started) // when we push and hold the button
         {
-            obstacleDetector.SetActive(true);
-            //wallRunDetector.gameObject.SetActive(true);
+            //obstacleDetector.SetActive(true);
 
-            //if(detectsSomething)
-            //{
-            //    VaultDetection();
-            //}
-            if ((isGrounded || wallRunning || climbing) && !detectsSomething) // check if we are on the ground
+            if ((isGrounded || climbing) && !detectsSomething) // check if we are on the ground
             {
                 jumping = true;
                 isGrounded = false; // tell us we aren't on the ground
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+            }
+            else if(wallRunScript != null && wallRunScript.isWallRunning == true)
+            {
+                velocity = wallRunScript.GetWallJumpDirection();
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
             }
         }
         if(value.canceled) // when we let go of the button
         {
             StopClimbing();
-            obstacleDetector.SetActive(false);
+            //obstacleDetector.SetActive(false);
         }
     }
 
@@ -374,18 +258,10 @@ public class PlayerMovement : MonoBehaviour
         ResetSpeed();
     }
 
-    public void WallRun()
-    {
-        velocity = (transform.forward * inputMovement.y * wallRunSpeed); // sets our velocity  (transform.right * inputMovement.x * wallRunSpeed)
-    }
-
-    public void CancelWallRun()
-    {
-        wallRunning = false;
-        ResetSpeed();
-        //wallRunDetector.Deactivate();
-        curWallRunTime = maxWallRunTime;
-    }
+    //public void WallRun()
+    //{
+    //    velocity = (transform.forward * inputMovement.y * wallRunSpeed); // sets our velocity  (transform.right * inputMovement.x * wallRunSpeed)
+    //}
 
     public void ResetSpeed() // will reset our speed whenever we want the player to go back to their default speed like if they stop crouching or sprinting
     {

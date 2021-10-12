@@ -74,11 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d75480da103c2243b836590c128e82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPlayer: {fileID: 5881899092385311088}
   myPlayerMovement: {fileID: 5881899092385311095}
-  detectionLayers:
-    serializedVersion: 2
-    m_Bits: 1335
 --- !u!1 &5881899092258010002
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5881899092385311094}
   - component: {fileID: 5881899092385311095}
+  - component: {fileID: 944960941727378477}
   - component: {fileID: 6620440098949719048}
   - component: {fileID: 5881899092385311090}
   - component: {fileID: 5881899092385311089}
@@ -346,6 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 5881899092385311089}
+  wallRunScript: {fileID: 944960941727378477}
   myInputs: {fileID: 5881899092385311091}
   groundCheck: {fileID: 5881899092425906130}
   groundDistance: 0.4
@@ -357,11 +355,13 @@ MonoBehaviour:
   curSpeed: 10
   gravity: -20
   jumpHeight: 1.5
+  jumping: 0
   velocity: {x: 0, y: 0, z: 0}
   isGrounded: 0
   inputMovement: {x: 0, y: 0}
   sprintSpeed: 15
   cameraSprintFOV: 105
+  cameraDefaultFOV: 0
   sprinting: 0
   defaultPlayerHeight: 2
   crouchedPlayerHeight: 1.5
@@ -386,11 +386,28 @@ MonoBehaviour:
   climbing: 0
   climbSpeed: 0
   timeBetweenClimb: 0
-  maxWallRunTime: 0
-  curWallRunTime: 0
-  wallRunning: 0
-  wallRunSpeed: 0
-  wallRunDetector: {fileID: 3072978230077012488}
+--- !u!114 &944960941727378477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881899092385311088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73454c04b110914a8d63773a649cb7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPlayer: {fileID: 5881899092385311095}
+  maxWallDistance: 2
+  minimumHeight: 0
+  cameraAngleRoll: 20
+  normalizedAngleThreshold: 0.1
+  jumpDuration: 1
+  wallBouncing: 3
+  cameraTransitionDuration: 1
+  wallRunVolume: {fileID: 0}
+  isWallRunning: 0
 --- !u!114 &6620440098949719048
 MonoBehaviour:
   m_ObjectHideFlags: 0
