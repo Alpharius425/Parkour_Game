@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Respawn_Detection : MonoBehaviour
 {
+    // put on collider to respawn player
+
     [SerializeField] GameObject player;
     private void OnTriggerEnter(Collider col)
     {

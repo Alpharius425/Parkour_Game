@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RespawnCheckPoint : MonoBehaviour
 {
+    // put on an empty gameobject with a trigger collider
+
     private void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Player")) //if the player hits the collider

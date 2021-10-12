@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RespawnManager : MonoBehaviour
 {
+    // Put on an empty game object and it will automatically update the spawn areas
+
+
     public static RespawnManager respawnManager; // allows other scripts to use this script and object
 
     [SerializeField] GameObject spawnPosition; // where we want to spawn
