@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 11746.7705, g: 10549.07, b: 9588.699, a: 1}
+  m_IndirectSpecularColor: {r: 12913.309, g: 12619.207, b: 14573.375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15962,3 +15962,8 @@ MonoBehaviour:
   vaultSpeed: 1
   climbHeight: 1.25
   reachDis: 1.5
+  maxClimbTime: 0
+  curClimbTime: 0
+  climbing: 0
+  climbSpeed: 0
+  timeBetweenClimb: 0
