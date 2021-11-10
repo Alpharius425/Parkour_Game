@@ -6,11 +6,14 @@ using UnityEngine.Rendering;
 
 public class WallRunningAndClimbing : MonoBehaviour
 {
+    public Vector3 alongWall;
     [SerializeField] PlayerMovement myPlayer;
 
     [SerializeField] float maxWallDistance; // how far away we detect walls
     [SerializeField] float minimumHeight; // how far off the ground we need to be to wall run
     [SerializeField] float cameraAngleRoll = 20; // for if we want the camera to change angle when we wall run
+    [SerializeField] float maxAngleRoll;
+    
 
     [Range(0.0f, 1.0f)]
     public float normalizedAngleThreshold = 0.1f; // threshold to tell if we are wall running
@@ -29,10 +32,10 @@ public class WallRunningAndClimbing : MonoBehaviour
     public bool isWallRunning = false; // is the player wall running right now?
     Vector3 lastwallPosition;
     Vector3 lastWallNormal;
-    float timeSinceJump;
-    float timeSinceWallAttach;
-    float timeSinceWallDetach;
-    bool isJumping;
+    [SerializeField] float timeSinceJump = 0;
+    [SerializeField] float timeSinceWallAttach = 0;
+    [SerializeField] float timeSinceWallDetach = 0;
+    [SerializeField] bool isJumping = false;
 
     bool isPlayergrounded() => myPlayer.isGrounded;
 
@@ -50,7 +53,7 @@ public class WallRunningAndClimbing : MonoBehaviour
 
     bool canAttach() // checks if the player is able to attach to a wall
     {
-        if (myPlayer.jumping) // checks if we are jumping
+        if (myPlayer.isGrounded) // checks if we are jumping
         {
             timeSinceJump += Time.deltaTime; // determines how long its been since we jumped
             if (timeSinceJump > jumpDuration) // checks how long its been since we jumped
@@ -94,8 +97,10 @@ public class WallRunningAndClimbing : MonoBehaviour
             {
                 Vector3 dir = transform.TransformDirection(directions[i]); // determines which direction for the raycast to go
                 Physics.Raycast(transform.position, dir, out hits[i], maxWallDistance); // shoots a raycast with the information above
-                if (hits[i].collider != null) // if we hit something
+                if (hits[i].collider != null && hits[i].collider.gameObject != gameObject) // if we hit something
                 {
+                    isWallRunning = true;
+                    Debug.Log(hits[i].collider.name);
                     Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green); //the line turns green
                 }
                 else // if we don't
@@ -117,6 +122,7 @@ public class WallRunningAndClimbing : MonoBehaviour
 
             if (isWallRunning) // if we are wall running
             {
+                Debug.Log("Wall running");
                 timeSinceWallDetach = 0; // resets the time since we detached from a wall
                 //if(timeSinceWallAttach == 0 && wallRunVolume != null) // sets the volume
                 //{
@@ -126,6 +132,7 @@ public class WallRunningAndClimbing : MonoBehaviour
             }
             else
             {
+                Debug.Log("Not wall running");
                 timeSinceWallAttach = 0; // resets how long we've been on a wall for
                 //if(timeSinceWallDetach == 0 && wallRunVolume != null) // sets the volume back
                 //{
@@ -146,12 +153,12 @@ public class WallRunningAndClimbing : MonoBehaviour
         float d = Vector3.Dot(hit.normal, Vector3.up);
         if(d >= -normalizedAngleThreshold && d <= normalizedAngleThreshold)
         {
-            Vector3 alongWall = transform.TransformDirection(Vector3.forward);
+            alongWall = transform.TransformDirection(Vector3.forward);
 
             Debug.DrawRay(transform.position, alongWall.normalized * 10, Color.green);
             Debug.DrawRay(transform.position, lastWallNormal * 10, Color.magenta);
 
-            myPlayer.velocity = alongWall;
+            //myPlayer.velocity = alongWall;
         }
     }
 
@@ -167,23 +174,23 @@ public class WallRunningAndClimbing : MonoBehaviour
         return 0;
     }
 
-    //public float GetCameraRoll()
-    //{
-    //    float dir = CalculateSide();
-    //    float cameraAngle = myPlayer.cameraComponent.transform.eulerAngles.z;
-    //    float targetAngle = 0;
-    //    if(dir != 0)
-    //    {
-    //        targetAngle = Mathf.Sign(dir) * maxAngleRoll;
-    //    }
-    //    return Mathf.LerpingAngle(cameraAngle, targetAngle, Mathf.Max(timeSinceWallAttach, timeSinceWallDetach) / ca)
-    //}
+    public float GetCameraRoll()
+    {
+        float dir = CalculateSide();
+        float cameraAngle = myPlayer.cameraComponent.transform.eulerAngles.z;
+        float targetAngle = 0;
+        if (dir != 0)
+        {
+            targetAngle = Mathf.Sign(dir) * maxAngleRoll;
+        }
+        return Mathf.LerpAngle(cameraAngle, targetAngle, Mathf.Max(timeSinceWallAttach, timeSinceWallDetach) / cameraAngleRoll);
+    }
 
     public Vector3 GetWallJumpDirection()
     {
         if(isWallRunning)
         {
-            return lastWallNormal * wallBouncing + Vector3.up;
+            return lastWallNormal * wallBouncing + (Vector3.up * myPlayer.jumpHeight * -2f * myPlayer.gravity);
         }
         return Vector3.zero;
     }

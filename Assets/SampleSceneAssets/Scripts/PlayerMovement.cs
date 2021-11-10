@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded; // checks if we are on the ground or in the air
 
     public Vector2 inputMovement; // saves input from movement keys
-    Vector3 move; // controls our movement and speed
+    public Vector3 move; // controls our movement and speed
 
     [Header("Player Sprint Options")] // information for sprinting
     public float sprintSpeed = 15f; // speed multiplier
@@ -82,8 +82,9 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); // checks if we are on the ground
 
-        if (isGrounded && velocity.y < 0 && !vaulting)
+        if (isGrounded && velocity.y < 0 && !vaulting && wallRunScript.isWallRunning == false)
         {
+            jumping = false;
             velocity.y = -2f;
 
             if(!isSliding)
@@ -124,6 +125,14 @@ public class PlayerMovement : MonoBehaviour
                 move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
                 controller.Move(move * curSpeed * Time.deltaTime);
             }
+            else if( wallRunScript.isWallRunning)
+            {
+                velocity = (transform.right * inputMovement.x * wallRunScript.alongWall.x) + (transform.forward * inputMovement.y * wallRunScript.alongWall.y);
+                //move.x *= wallRunScript.alongWall.x; // multiplies speed along the wall we run on
+                //move.y *= wallRunScript.alongWall.y;
+                //velocity = (transform.right * inputMovement.x * wallRunScript.alongWall.x) + (transform.forward * inputMovement.y * wallRunScript.alongWall.y);
+                controller.Move(move * curSpeed * Time.deltaTime);
+            }
 
             if(!climbing) // only affected by gravity when not climbing
             {
@@ -142,18 +151,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Debug rays for our vaulting
-        Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
-        //origin.y += 1f; // adjust the ray's position to be about the hip height of the player
-        Debug.DrawRay(origin, transform.forward * reachDis, Color.blue);
+        //// Debug rays for our vaulting
+        //Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
+        ////origin.y += 1f; // adjust the ray's position to be about the hip height of the player
+        //Debug.DrawRay(origin, transform.forward * reachDis, Color.blue);
 
-        Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
-        climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
-        Debug.DrawRay(climbCheck, transform.forward * reachDis, Color.blue);
+        //Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
+        //climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
+        //Debug.DrawRay(climbCheck, transform.forward * reachDis, Color.blue);
 
-        Vector3 groundCheck2 = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
-        //groundCheck2.x += 1;
-        Debug.DrawRay(groundCheck2, Vector3.down * climbHeight, Color.blue);
+        //Vector3 groundCheck2 = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
+        ////groundCheck2.x += 1;
+        //Debug.DrawRay(groundCheck2, Vector3.down * climbHeight, Color.blue);
 
     }
 
@@ -171,21 +180,28 @@ public class PlayerMovement : MonoBehaviour
             CancelSlide();
         }
 
-        if (value.started) // when we push and hold the button
+        if (value.started) // when we push
         {
             //obstacleDetector.SetActive(true);
 
-            if ((isGrounded || climbing) && !detectsSomething) // check if we are on the ground
+            if ((isGrounded || climbing || wallRunScript.isWallRunning) && !detectsSomething) // check if we are on the ground
             {
                 jumping = true;
                 isGrounded = false; // tell us we aren't on the ground
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+                
+
+                if (wallRunScript != null && wallRunScript.isWallRunning == true)
+                {
+                    velocity = wallRunScript.GetWallJumpDirection();
+                    //velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+                }
+                else
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+                }
             }
-            else if(wallRunScript != null && wallRunScript.isWallRunning == true)
-            {
-                velocity = wallRunScript.GetWallJumpDirection();
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
-            }
+
+            
         }
         if(value.canceled) // when we let go of the button
         {
