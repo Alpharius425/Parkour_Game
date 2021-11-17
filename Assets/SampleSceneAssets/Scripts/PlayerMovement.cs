@@ -1,7 +1,7 @@
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
-
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
+    [SerializeField] WallRunningAndClimbing wallRunScript;
     [SerializeField] PlayerInput myInputs; // saves our input system and allows us to change controls for different controllers or settings
 
     public Transform groundCheck;
@@ -24,17 +25,17 @@ public class PlayerMovement : MonoBehaviour
     public float curSpeed = 12f; // how fast we are currently going
     public float gravity = -10f; // how hard we are affected by gravity
     public float jumpHeight = 2f; // how much force we use to jump
-
-    [SerializeField] Vector3 velocity;
+    public bool jumping;
+    public Vector3 velocity;
     public bool isGrounded; // checks if we are on the ground or in the air
 
-    [SerializeField] Vector2 inputMovement; // saves input from movement keys
-    Vector3 move; // controls our movement and speed
+    public Vector2 inputMovement; // saves input from movement keys
+    public Vector3 move; // controls our movement and speed
 
     [Header("Player Sprint Options")] // information for sprinting
     public float sprintSpeed = 15f; // speed multiplier
     public float cameraSprintFOV = 105; // FOV when sprinting
-    float cameraDefaultFOV; // used to save our default FOV
+    public float cameraDefaultFOV; // used to save our default FOV
     public bool sprinting; // checks if the player is sprinting
 
     [Header("Player Crouch Options")]
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchedCamHeight; // height for our camera when crouched
     [SerializeField] bool crouched = false; // tells us if we are crouched
 
-    [SerializeField] GameObject obstacleDetector; // a empty gameobject with a trigger collider and a VaultingAndClimbingDetection script
+    //[SerializeField] GameObject obstacleDetector; // a empty gameobject with a trigger collider and a VaultingAndClimbingDetection script
     public bool detectsSomething = false;
     [SerializeField] bool vaulting; // tells us if we are vaulting or not
     [SerializeField] float vaultSpeed; // how fast we vault over an object
@@ -81,8 +82,9 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); // checks if we are on the ground
 
-        if (isGrounded && velocity.y < 0 && !vaulting)
+        if (isGrounded && velocity.y < 0 && !vaulting && wallRunScript.isWallRunning == false)
         {
+            jumping = false;
             velocity.y = -2f;
 
             if(!isSliding)
@@ -118,9 +120,17 @@ public class PlayerMovement : MonoBehaviour
                     StopClimbing();
                 }
             }
-            else if (!isSliding || !climbing) // if we aren't sliding or climbing move normally
+            else if (!isSliding && !climbing && wallRunScript.isWallRunning == false) // if we aren't sliding or climbing move normally
             {
                 move = transform.right * inputMovement.x + transform.forward * inputMovement.y;
+                controller.Move(move * curSpeed * Time.deltaTime);
+            }
+            else if( wallRunScript.isWallRunning)
+            {
+                velocity = (transform.right * inputMovement.x * wallRunScript.alongWall.x) + (transform.forward * inputMovement.y * wallRunScript.alongWall.y);
+                //move.x *= wallRunScript.alongWall.x; // multiplies speed along the wall we run on
+                //move.y *= wallRunScript.alongWall.y;
+                //velocity = (transform.right * inputMovement.x * wallRunScript.alongWall.x) + (transform.forward * inputMovement.y * wallRunScript.alongWall.y);
                 controller.Move(move * curSpeed * Time.deltaTime);
             }
 
@@ -141,18 +151,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Debug rays for our vaulting
-        Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
-        //origin.y += 1f; // adjust the ray's position to be about the hip height of the player
-        Debug.DrawRay(origin, transform.forward * reachDis, Color.blue);
+        //// Debug rays for our vaulting
+        //Vector3 origin = transform.position; // sets up our ray to see if the obstacle is something we can climb over
+        ////origin.y += 1f; // adjust the ray's position to be about the hip height of the player
+        //Debug.DrawRay(origin, transform.forward * reachDis, Color.blue);
 
-        Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
-        climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
-        Debug.DrawRay(climbCheck, transform.forward * reachDis, Color.blue);
+        //Vector3 climbCheck = transform.position; // saves a new location to shoot a ray cast from that checks if we have space to climb
+        //climbCheck.y += climbHeight; // adjust the height of the new ray to take into account our climbing height
+        //Debug.DrawRay(climbCheck, transform.forward * reachDis, Color.blue);
 
-        Vector3 groundCheck2 = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
-        //groundCheck2.x += 1;
-        Debug.DrawRay(groundCheck2, Vector3.down * climbHeight, Color.blue);
+        //Vector3 groundCheck2 = climbCheck + transform.forward; // makes another ray that looks forwardand down to find a place to go to
+        ////groundCheck2.x += 1;
+        //Debug.DrawRay(groundCheck2, Vector3.down * climbHeight, Color.blue);
 
     }
 
@@ -170,24 +180,33 @@ public class PlayerMovement : MonoBehaviour
             CancelSlide();
         }
 
-        if (value.started) // when we push and hold the button
+        if (value.started) // when we push
         {
-            obstacleDetector.SetActive(true);
+            //obstacleDetector.SetActive(true);
 
-            //if(detectsSomething)
-            //{
-            //    VaultDetection();
-            //}
-            if(isGrounded && !detectsSomething) // check if we are on the ground
+            if ((isGrounded || climbing || wallRunScript.isWallRunning) && !detectsSomething) // check if we are on the ground
             {
+                jumping = true;
                 isGrounded = false; // tell us we aren't on the ground
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+                
+
+                if (wallRunScript != null && wallRunScript.isWallRunning == true)
+                {
+                    velocity = wallRunScript.GetWallJumpDirection();
+                    //velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+                }
+                else
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // jump
+                }
             }
+
+            
         }
         if(value.canceled) // when we let go of the button
         {
             StopClimbing();
-            obstacleDetector.SetActive(false);
+            //obstacleDetector.SetActive(false);
         }
     }
 
@@ -247,7 +266,6 @@ public class PlayerMovement : MonoBehaviour
 
         velocity = (transform.right * inputMovement.x * sprintSpeed) + (transform.forward * inputMovement.y * sprintSpeed); // sets our velocity
     }
-
     void CancelSlide()
     {
         isSliding = false;
@@ -255,6 +273,11 @@ public class PlayerMovement : MonoBehaviour
         ResetHeight();
         ResetSpeed();
     }
+
+    //public void WallRun()
+    //{
+    //    velocity = (transform.forward * inputMovement.y * wallRunSpeed); // sets our velocity  (transform.right * inputMovement.x * wallRunSpeed)
+    //}
 
     public void ResetSpeed() // will reset our speed whenever we want the player to go back to their default speed like if they stop crouching or sprinting
     {

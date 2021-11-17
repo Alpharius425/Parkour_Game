@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3072978230077012488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7632593467166882511}
+  - component: {fileID: 1154830331685562882}
+  - component: {fileID: 3109349711746490102}
+  - component: {fileID: 231709390107489021}
+  m_Layer: 0
+  m_Name: WallRunDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7632593467166882511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072978230077012488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5881899092385311094}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1154830331685562882
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072978230077012488}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.85, z: 0.5}
+  m_Center: {x: 0, y: 0.07, z: 0}
+--- !u!54 &3109349711746490102
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072978230077012488}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &231709390107489021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072978230077012488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d75480da103c2243b836590c128e82f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPlayerMovement: {fileID: 0}
 --- !u!1 &5881899092258010002
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +88,7 @@ GameObject:
   - component: {fileID: 5881899092258010003}
   - component: {fileID: 5881899092258010000}
   - component: {fileID: 5881899092258010004}
+  - component: {fileID: 1257659115}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,13 +283,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881899092258010002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eb578550bc4f824e97f0a72eac1f3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   playerBody: {fileID: 5881899092385311094}
+--- !u!114 &1257659115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881899092258010002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518199fcc152c5b4ea58381c3261583c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectRotation: 1
+  player: {fileID: 5881899092385311088}
+  myController: {fileID: 1826140721}
+  mouseSensitivity: 100
 --- !u!1 &5881899092385311088
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,12 +315,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5881899092385311094}
-  - component: {fileID: 5881899092385311095}
-  - component: {fileID: 6620440098949719048}
   - component: {fileID: 5881899092385311090}
   - component: {fileID: 5881899092385311089}
   - component: {fileID: 5881899092385311091}
   - component: {fileID: 5881899092385311092}
+  - component: {fileID: 1826140719}
+  - component: {fileID: 1826140720}
+  - component: {fileID: 1826140721}
   m_Layer: 9
   m_Name: PlayerControllerFPS
   m_TagString: Untagged
@@ -250,76 +343,10 @@ Transform:
   - {fileID: 5881899092258010006}
   - {fileID: 5881899092425906130}
   - {fileID: 6620440099057628102}
+  - {fileID: 7632593467166882511}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5881899092385311095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f6dfceb3e39a947a312f7eeaa2a113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 5881899092385311089}
-  myInputs: {fileID: 5881899092385311091}
-  groundCheck: {fileID: 5881899092425906130}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
-  cameraComponent: {fileID: 5881899092258010001}
-  playerDefaultSpeed: 10
-  curSpeed: 10
-  gravity: -20
-  jumpHeight: 1.5
-  velocity: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  inputMovement: {x: 0, y: 0}
-  sprintSpeed: 15
-  cameraSprintFOV: 105
-  sprinting: 0
-  defaultPlayerHeight: 2
-  crouchedPlayerHeight: 1.5
-  defaultPlayerCenter: 0
-  crouchedPlayerCenter: -0.25
-  myCollider: {fileID: 5881899092385311092}
-  crouchSpeed: 5
-  isSliding: 0
-  slideTimeMax: 2
-  slideTime: 0
-  defaultCamHeight: 0.7
-  crouchedCamHeight: 0.5
-  crouched: 0
-  obstacleDetector: {fileID: 6620440099057628099}
-  detectsSomething: 0
-  vaulting: 0
-  vaultSpeed: 1
-  climbHeight: 1.25
-  reachDis: 1.5
-  maxClimbTime: 0
-  curClimbTime: 0
-  climbing: 0
-  climbSpeed: 0
-  timeBetweenClimb: 0
---- !u!114 &6620440098949719048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 884ceda596dee994b96aee203fb262b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 5881899092385311088}
-  playerStartPosition: {fileID: 0}
 --- !u!114 &5881899092385311090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +354,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56dc0d5afc393704ba8ffde64080c7f0, type: 3}
   m_Name: 
@@ -346,7 +373,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.8288
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.7
@@ -380,9 +407,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5881899092385311095}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnJump
+      - m_Target: {fileID: 1826140720}
+        m_TargetAssemblyTypeName: PlayerInputDetector, Assembly-CSharp
+        m_MethodName: GetJumpInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -396,9 +423,9 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5881899092385311095}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMove
+      - m_Target: {fileID: 1826140720}
+        m_TargetAssemblyTypeName: PlayerInputDetector, Assembly-CSharp
+        m_MethodName: GetMoveInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -412,9 +439,9 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5881899092385311095}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Sprint
+      - m_Target: {fileID: 1826140720}
+        m_TargetAssemblyTypeName: PlayerInputDetector, Assembly-CSharp
+        m_MethodName: GetSprintInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -428,9 +455,9 @@ MonoBehaviour:
     m_ActionName: PlayerMovement/Sprint[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5881899092385311095}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Crouch
+      - m_Target: {fileID: 1826140720}
+        m_TargetAssemblyTypeName: PlayerInputDetector, Assembly-CSharp
+        m_MethodName: GetCrouchInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -461,6 +488,84 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1826140719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881899092385311088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14836e3e8e0a0694ca2fc712c0f1d420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 5881899092385311089}
+  myController: {fileID: 1826140721}
+  myCamera: {fileID: 1257659115}
+  movement: {x: 0, y: 0, z: 0}
+  gravity: -3
+  airControlsOn: 1
+  walkSpeed: 4
+  runSpeed: 8
+  crouchSpeed: 2
+  climbSpeed: 6
+  wallRunSpeed: 6
+  actualSpeed: 0
+  crouchHeight: 0
+  slideTime: 0
+  slideTimeMax: 0
+  jumpForce: 10
+  velocity: {x: 0, y: 0, z: 0}
+  jumpGravityDelay: 0
+  idleJumpMultiplier: 1
+  walkJumpMultiplier: 1
+  RunJumpMultiplier: 1
+  ClimbJumpMultiplier: 1
+  wallRunJumpMultiplier: 1
+  slideJumpMultiplier: 1
+  crouchJumpMultiplier: 1
+--- !u!114 &1826140720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881899092385311088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3078f1c91643e345bdfd1339078e8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementInput: {x: 0, y: 0}
+  canInput: 1
+  myController: {fileID: 1826140721}
+  myMovement: {fileID: 1826140719}
+  myInputs: {fileID: 5881899092385311091}
+--- !u!114 &1826140721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881899092385311088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a09e7ebe2e07b4290620bb81facbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  myMovement: {fileID: 1826140719}
+  myCamera: {fileID: 1257659115}
+  myInput: {fileID: 1826140720}
+  sprintHeld: 0
+  grounded: 0
+  downDetection: 1
+  detectionRange: 2
+  angleChange: 20
+  angleChanged: 0
+  onRightWall: 0
+  onLeftWall: 0
 --- !u!1 &5881899092425906141
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6620440099057628102
 Transform:
   m_ObjectHideFlags: 0
@@ -536,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2cebe1c3ab2855498065cfa6dc36810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5881899092385311095}
+  player: {fileID: 0}
   detectionLayers:
     serializedVersion: 2
     m_Bits: 311
