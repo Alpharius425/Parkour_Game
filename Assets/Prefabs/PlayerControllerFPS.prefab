@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d75480da103c2243b836590c128e82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPlayerMovement: {fileID: 5881899092385311095}
+  myPlayerMovement: {fileID: 0}
 --- !u!1 &5881899092258010002
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,9 +315,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5881899092385311094}
-  - component: {fileID: 5881899092385311095}
-  - component: {fileID: 944960941727378477}
-  - component: {fileID: 6620440098949719048}
   - component: {fileID: 5881899092385311090}
   - component: {fileID: 5881899092385311089}
   - component: {fileID: 5881899092385311091}
@@ -350,103 +347,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5881899092385311095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f6dfceb3e39a947a312f7eeaa2a113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 5881899092385311089}
-  wallRunScript: {fileID: 944960941727378477}
-  myInputs: {fileID: 5881899092385311091}
-  groundCheck: {fileID: 5881899092425906130}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
-  cameraComponent: {fileID: 5881899092258010001}
-  playerDefaultSpeed: 10
-  curSpeed: 10
-  gravity: -10
-  jumpHeight: 2.5
-  jumping: 0
-  velocity: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  inputMovement: {x: 0, y: 0}
-  move: {x: 0, y: 0, z: 0}
-  sprintSpeed: 15
-  cameraSprintFOV: 105
-  cameraDefaultFOV: 0
-  sprinting: 0
-  defaultPlayerHeight: 2
-  crouchedPlayerHeight: 1.5
-  defaultPlayerCenter: 0
-  crouchedPlayerCenter: -0.25
-  myCollider: {fileID: 5881899092385311092}
-  crouchSpeed: 5
-  isSliding: 0
-  slideTimeMax: 2
-  slideTime: 0
-  defaultCamHeight: 0.7
-  crouchedCamHeight: 0.5
-  crouched: 0
-  detectsSomething: 0
-  vaulting: 0
-  vaultSpeed: 1
-  climbHeight: 1.25
-  reachDis: 1.5
-  maxClimbTime: 2
-  curClimbTime: 0
-  climbing: 0
-  climbSpeed: 8
-  timeBetweenClimb: 0
---- !u!114 &944960941727378477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e73454c04b110914a8d63773a649cb7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alongWall: {x: 0, y: 0, z: 0}
-  myPlayer: {fileID: 5881899092385311095}
-  maxWallDistance: 3
-  minimumHeight: 0
-  cameraAngleRoll: 20
-  maxAngleRoll: 0
-  normalizedAngleThreshold: 0.1
-  jumpDuration: 1
-  wallBouncing: 3
-  cameraTransitionDuration: 1
-  isWallRunning: 0
-  timeSinceJump: 0
-  timeSinceWallAttach: 0
-  timeSinceWallDetach: 0
-  isJumping: 0
---- !u!114 &6620440098949719048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 884ceda596dee994b96aee203fb262b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 5881899092385311088}
-  playerStartPosition: {fileID: 0}
 --- !u!114 &5881899092385311090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,17 +504,18 @@ MonoBehaviour:
   myController: {fileID: 1826140721}
   myCamera: {fileID: 1257659115}
   movement: {x: 0, y: 0, z: 0}
-  gravity: -1
+  gravity: -3
+  airControlsOn: 1
   walkSpeed: 4
   runSpeed: 8
   crouchSpeed: 2
-  climbSpeed: 4
-  wallRunSpeed: 4
+  climbSpeed: 6
+  wallRunSpeed: 6
   actualSpeed: 0
   crouchHeight: 0
   slideTime: 0
   slideTimeMax: 0
-  jumpForce: 5
+  jumpForce: 10
   velocity: {x: 0, y: 0, z: 0}
   jumpGravityDelay: 0
   idleJumpMultiplier: 1
@@ -740,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2cebe1c3ab2855498065cfa6dc36810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5881899092385311095}
+  player: {fileID: 0}
   detectionLayers:
     serializedVersion: 2
     m_Bits: 311

@@ -13,6 +13,8 @@ public class PlayerInputDetector : MonoBehaviour
     public PlayerMovementUpdated myMovement;
     [SerializeField] PlayerInput myInputs; // saves our input system and allows us to change controls for different controllers or settings
 
+    public bool crouchToggled; // if true then the crouch is then on toggle detection instead of tap
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +25,26 @@ public class PlayerInputDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myMovement.Move(movementInput);
-        
-        if(movementInput == Vector2.zero && myController.grounded != false && myController.currentState != State.Idle) // sets our state to idle if we are grounded and not moving
+        if(myController.currentState != State.Sliding)
         {
-            myController.UpdateState(State.Idle);
+            myMovement.Move(movementInput);
+        }
+        
+        if(movementInput == Vector2.zero && myController.grounded != false) // Checks if we are grounded and not moving
+        {
+            if(myController.crouchHeld == true) // checks if we are holding down the crouch button
+            {
+                myController.UpdateState(State.Crouching); // if we holding crouch set us to crouching
+                //Debug.Log("I'm crouching");
+            }
+            else
+            {
+                if(myController.currentState != State.Crouching)
+                {
+                    myController.UpdateState(State.Idle); // if we aren't crouching set us to idle
+                    //Debug.Log("I'm idle");
+                }
+            }
         }
     }
 
@@ -37,7 +54,10 @@ public class PlayerInputDetector : MonoBehaviour
         {
             if(myController.sprintHeld != true) // checks if we are sprinting
             {
-                myController.UpdateState(State.Walking); // if we aren't sprinting update our state to walking normally
+                if(myController.crouchHeld != true)
+                {
+                    myController.UpdateState(State.Walking); // if we aren't sprinting or crouching update our state to walking normally
+                }
             }
             Vector2 newInput = Vector2.zero;
             newInput = value.ReadValue<Vector2>();
@@ -46,13 +66,41 @@ public class PlayerInputDetector : MonoBehaviour
         else if(!canInput || value.ReadValue<Vector2>() == Vector2.zero)
         {
             movementInput = Vector3.zero;
-            myController.UpdateState(State.Idle);
+            //myController.UpdateState(State.Idle);
         }
     }
 
     public void GetCrouchInput(InputAction.CallbackContext value)
     {
-        myController.CheckCrouch();
+        if(!crouchToggled)
+        {
+            if(value.started && myController.crouchHeld == false) // when we push down on the button
+            {
+                Debug.Log("Button down");
+                myController.crouchHeld = true;
+                myController.CheckCrouch();
+            }
+            if(value.canceled && myController.crouchHeld == true) // when we let go of the button
+            {
+                Debug.Log("button up");
+                myController.crouchHeld = false;
+                myController.CheckCrouch();
+            }
+        }
+        else
+        {
+            if(myController.crouchHeld == false)
+            {
+                myController.crouchHeld = true;
+                Debug.Log("Crouching");
+            }
+            else
+            {
+                myController.crouchHeld = false;
+                Debug.Log("Uncrouch");
+            }
+            Debug.Log("button pressed");
+        }
     }
 
     public void GetJumpInput(InputAction.CallbackContext value)
@@ -64,6 +112,7 @@ public class PlayerInputDetector : MonoBehaviour
     {
         if(value.started)
         {
+            myController.crouchHeld = false;
             myController.sprintHeld = true;
             myController.CheckSprint();
         }
@@ -71,7 +120,13 @@ public class PlayerInputDetector : MonoBehaviour
         if(value.canceled)
         {
             myController.sprintHeld = false;
-            myController.CheckSprint();
+
+            if(!myMovement.sliding)
+            {
+                myController.CheckSprint();
+            }
         }
+
+        Debug.Log("Sprint pushed");
     }
 }

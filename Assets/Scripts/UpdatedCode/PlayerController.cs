@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInputDetector myInput;
 
     public bool sprintHeld = false;
+    public bool crouchHeld = false;
 
     public bool grounded; // are we on the ground or not
     [SerializeField] float downDetection; // how far down we want to check for the ground
@@ -58,18 +59,7 @@ public class PlayerController : MonoBehaviour
 
         if(grounded && currentState == State.Jumping) // updates states when we hit the ground
         {
-            if(sprintHeld)
-            {
-                UpdateState(State.Running);
-            }
-            else if(myMovement.movement == Vector3.zero)
-            {
-                UpdateState(State.Idle);
-            }
-            else
-            {
-                UpdateState(State.Walking);
-            }
+            CheckMove();
         }
 
         for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
@@ -84,34 +74,34 @@ public class PlayerController : MonoBehaviour
                     {
                         UpdateState(State.Climbing);
                     }
-                    else
-                    {
-                        UpdateState(State.Wallrunning);
+                    //else
+                    //{
+                    //    UpdateState(State.Wallrunning);
 
-                        if (detectionDirections[i] == Vector3.right && onLeftWall != true) // checks which wall we should be on and prevents us from being attached to both
-                        {
-                            onRightWall = true;
+                    //    if (detectionDirections[i] == Vector3.right && onLeftWall != true) // checks which wall we should be on and prevents us from being attached to both
+                    //    {
+                    //        onRightWall = true;
 
-                            if (!angleChanged) // changes the camera angle
-                            {
-                                gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
-                                myCamera.ChangeAngle(-angleChange);
-                                angleChanged = true;
-                            }
+                    //        if (!angleChanged) // changes the camera angle
+                    //        {
+                    //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
+                    //            myCamera.ChangeAngle(-angleChange);
+                    //            angleChanged = true;
+                    //        }
 
-                        }
-                        else if (onRightWall != true)
-                        {
-                            onLeftWall = true;
+                    //    }
+                    //    else if (onRightWall != true)
+                    //    {
+                    //        onLeftWall = true;
 
-                            if (!angleChanged) // changes the camera angle
-                            {
-                                gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
-                                myCamera.ChangeAngle(angleChange);
-                                angleChanged = true;
-                            }
-                        }
-                    }
+                    //        if (!angleChanged) // changes the camera angle
+                    //        {
+                    //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
+                    //            myCamera.ChangeAngle(angleChange);
+                    //            angleChanged = true;
+                    //        }
+                    //    }
+                    //}
                     Debug.Log("We detect" + hit.collider.name);
                     Debug.DrawRay(transform.position, direction, Color.green);
                 }
@@ -143,7 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         if(currentState == State.Climbing || currentState == State.Running) // while we are running or climbing we're going to check if we can vault
         {
-            Debug.Log("Check vaulting"); // currently causes editor to crash
+            //Debug.Log("Check vaulting");
             VaultCheck();
         }
     }
@@ -152,7 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         currentState = newState;
 
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
     }
 
     public void CheckJump() // checks if we can jump
@@ -182,7 +172,12 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case State.Sliding:
-                    myMovement.Crouch();
+                    Debug.Log("Crouched during slide");
+
+                    if(crouchHeld)
+                    {
+                        myMovement.CancelSlide();
+                    }
                     break;
 
                 case State.Crouching:
@@ -202,9 +197,9 @@ public class PlayerController : MonoBehaviour
         }
         else // if we aren't running
         {
-            if (myInput.canInput && (currentState == State.Walking || currentState == State.Crouching))
+            if (myInput.canInput && (currentState == State.Walking || currentState == State.Crouching && currentState != State.Sliding))
             {
-                UpdateState(State.Running);
+                CheckMove();
             }
         }
     }
@@ -217,12 +212,23 @@ public class PlayerController : MonoBehaviour
             {
                 UpdateState(State.Running);
             }
+            else if(crouchHeld)
+            {
+                if(sprintHeld)
+                {
+                    UpdateState(State.Running);
+                }
+                else
+                {
+                    UpdateState(State.Crouching);
+                }
+            }
             else
             {
                 UpdateState(State.Walking);
             }
         }
-        else // if we aren't moving
+        else if (myInput.movementInput == Vector2.zero && crouchHeld == false) // if we aren't moving
         {
             UpdateState(State.Idle);
         }
