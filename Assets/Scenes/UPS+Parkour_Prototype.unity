@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 12934.775, g: 12638.934, b: 14064.094, a: 1}
+  m_IndirectSpecularColor: {r: 11745.772, g: 10548.416, b: 9588.379, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5224,6 +5224,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1385459060}
     - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: airSpeed
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: jumpForce
       value: 5
       objectReference: {fileID: 0}
@@ -5245,7 +5249,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: defaultHeight
-      value: 2
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: crouchCamHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: defaultCamHeight
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: crouchCenterHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: defaultCenterHeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: crouchToggled

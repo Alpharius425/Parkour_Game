@@ -29,11 +29,16 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     // crouch/slide info
     [SerializeField] float crouchHeight;
+    [SerializeField] float crouchCamHeight;
+    [SerializeField] float crouchCenterHeight;
     [SerializeField] float defaultHeight;
+    [SerializeField] float defaultCamHeight;
+    [SerializeField] float defaultCenterHeight;
 
     [SerializeField] float slideTime;
     [SerializeField] float slideTimeMax;
     public bool sliding = false;
+    Vector3 slideMove = Vector3.zero;
 
     // jump info
     [SerializeField] float jumpForce;
@@ -74,17 +79,16 @@ public class PlayerMovementUpdated : MonoBehaviour
             SetVelocity();
         }
 
-        //if(sliding) // controls how long the player slides
-        //{
-        //    velocity = movement;
-        //    SetVelocity();
-        //    slideTime -= Time.deltaTime;
-            
-        //    if(slideTime < 0)
-        //    {
-        //        CancelSlide();
-        //    }
-        //}
+        if (sliding) // controls how long the player slides
+        {
+            SlideMove();
+            slideTime -= Time.deltaTime;
+
+            if (slideTime < 0)
+            {
+                CancelSlide();
+            }
+        }
     }
 
     public void Move(Vector3 movementInput) // called from the player input script and gets the inputs from the player
@@ -150,9 +154,9 @@ public class PlayerMovementUpdated : MonoBehaviour
                     {
                         myController.crouchHeld = false;
                     }
-                    velocity = movement;
-                    Debug.Log(velocity);
-                    SetVelocity();
+                    //velocity = movement;
+                    //Debug.Log(velocity);
+                    //SetVelocity();
                     //ChangeHeight(crouchHeight);
                     break;
 
@@ -168,7 +172,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveInput() // called if we are movng via player input
     {
-        if(airControlsOn)
+        if(airControlsOn && !myController.grounded)
         {
             controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
         }
@@ -180,15 +184,6 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveVelocity(Vector3 movement) // called if we are moving via velocity like when we slide, jump or fall
     {
-        //if(sliding)
-        //{
-        //    controller.Move(movement * slideSpeed * Time.deltaTime);
-        //}
-        //else
-        //{
-        //    controller.Move(movement * Time.deltaTime);
-        //}
-
         controller.Move(movement * Time.deltaTime);
     }
 
@@ -213,6 +208,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
             case State.Crouching:
                 jumpPower = crouchJumpMultiplier;
+                UnCrouch();
                 break;
 
             case State.Climbing:
@@ -228,7 +224,8 @@ public class PlayerMovementUpdated : MonoBehaviour
 
             case State.Sliding:
                 jumpPower = slideJumpMultiplier;
-                myCamera.RotatePlayer();
+                CancelSlide();
+                //myCamera.RotatePlayer();
                 break;
 
             default:
@@ -261,7 +258,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         Debug.Log("Crouching");
 
         ChangeSpeed(crouchSpeed);
-        ChangeHeight(crouchHeight);
+        ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
         myController.UpdateState(State.Crouching);
     }
 
@@ -282,7 +279,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
         Debug.Log("Uncrouching");
 
-        ChangeHeight(defaultHeight);
+        ChangeHeight(defaultHeight, defaultCamHeight, defaultCenterHeight);
         if(myController.sprintHeld)
         {
             ChangeSpeed(runSpeed);
@@ -307,6 +304,8 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         Debug.Log("Sliding");
         myController.UpdateState(State.Sliding);
+        slideMove = movement;
+        ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
         //Move(myInput.movementInput);
         sliding = true;
     }
@@ -317,8 +316,13 @@ public class PlayerMovementUpdated : MonoBehaviour
         slideTime = slideTimeMax;
         UnCrouch();
         myController.CheckMove();
-        velocity = Vector3.zero;
-        SetVelocity();
+        //velocity = Vector3.zero;
+        //SetVelocity();
+    }
+
+    void SlideMove()
+    {
+        controller.Move(slideMove * slideSpeed * Time.deltaTime);
     }
 
     public void Climb()
@@ -329,13 +333,15 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     void ChangeSpeed(float newSpeed)
     {
-        actualSpeed = newSpeed;
-    }
+        if(myController.grounded)
+        {
+            actualSpeed = newSpeed;
+        }    }
 
-    public void ChangeHeight(float newHeight) // takes a new height for our player and changes our collider and camera height
+    public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
     {
         myCollider.height = newHeight;
-        //myCollider.center = new Vector3(0, newHeight, 0);
-        //myCamera.transform.localPosition = new Vector3(0, newHeight, 0);
+        myCollider.center = new Vector3(0, newColliderCenter, 0);
+        myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
     }
 }

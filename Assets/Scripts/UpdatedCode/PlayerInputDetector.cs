@@ -84,7 +84,10 @@ public class PlayerInputDetector : MonoBehaviour
             {
                 Debug.Log("button up");
                 myController.crouchHeld = false;
-                myController.CheckCrouch();
+                if(!myMovement.sliding)
+                {
+                    myController.CheckCrouch();
+                }
             }
         }
         else

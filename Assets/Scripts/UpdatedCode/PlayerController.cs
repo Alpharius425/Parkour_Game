@@ -74,34 +74,34 @@ public class PlayerController : MonoBehaviour
                     {
                         UpdateState(State.Climbing);
                     }
-                    //else
-                    //{
-                    //    UpdateState(State.Wallrunning);
+                    else
+                    {
+                        UpdateState(State.Wallrunning);
 
-                    //    if (detectionDirections[i] == Vector3.right && onLeftWall != true) // checks which wall we should be on and prevents us from being attached to both
-                    //    {
-                    //        onRightWall = true;
+                        if (detectionDirections[i] == Vector3.right && onLeftWall != true) // checks which wall we should be on and prevents us from being attached to both
+                        {
+                            onRightWall = true;
 
-                    //        if (!angleChanged) // changes the camera angle
-                    //        {
-                    //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
-                    //            myCamera.ChangeAngle(-angleChange);
-                    //            angleChanged = true;
-                    //        }
+                            if (!angleChanged) // changes the camera angle
+                            {
+                                gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
+                                myCamera.ChangeAngle(-angleChange);
+                                angleChanged = true;
+                            }
 
-                    //    }
-                    //    else if (onRightWall != true)
-                    //    {
-                    //        onLeftWall = true;
+                        }
+                        else if (onRightWall != true)
+                        {
+                            onLeftWall = true;
 
-                    //        if (!angleChanged) // changes the camera angle
-                    //        {
-                    //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
-                    //            myCamera.ChangeAngle(angleChange);
-                    //            angleChanged = true;
-                    //        }
-                    //    }
-                    //}
+                            if (!angleChanged) // changes the camera angle
+                            {
+                                gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
+                                myCamera.ChangeAngle(angleChange);
+                                angleChanged = true;
+                            }
+                        }
+                    }
                     Debug.Log("We detect" + hit.collider.name);
                     Debug.DrawRay(transform.position, direction, Color.green);
                 }
@@ -173,11 +173,8 @@ public class PlayerController : MonoBehaviour
 
                 case State.Sliding:
                     Debug.Log("Crouched during slide");
-
-                    if(crouchHeld)
-                    {
-                        myMovement.CancelSlide();
-                    }
+                    
+                    myMovement.CancelSlide();
                     break;
 
                 case State.Crouching:
