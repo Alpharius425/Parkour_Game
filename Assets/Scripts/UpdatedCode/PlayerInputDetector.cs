@@ -25,24 +25,27 @@ public class PlayerInputDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(myController.currentState != State.Sliding)
+        if(canInput)
         {
-            myMovement.Move(movementInput);
-        }
-        
-        if(movementInput == Vector2.zero && myController.grounded != false) // Checks if we are grounded and not moving
-        {
-            if(myController.crouchHeld == true) // checks if we are holding down the crouch button
+            if (myController.currentState != State.Sliding)
             {
-                myController.UpdateState(State.Crouching); // if we holding crouch set us to crouching
-                //Debug.Log("I'm crouching");
+                myMovement.Move(movementInput);
             }
-            else
+
+            if (movementInput == Vector2.zero && myController.grounded != false) // Checks if we are grounded and not moving
             {
-                if(myController.currentState != State.Crouching)
+                if (myController.crouchHeld == true) // checks if we are holding down the crouch button
                 {
-                    myController.UpdateState(State.Idle); // if we aren't crouching set us to idle
-                    //Debug.Log("I'm idle");
+                    myController.UpdateState(State.Crouching); // if we holding crouch set us to crouching
+                                                               //Debug.Log("I'm crouching");
+                }
+                else
+                {
+                    if (myController.currentState != State.Crouching)
+                    {
+                        myController.UpdateState(State.Idle); // if we aren't crouching set us to idle
+                                                              //Debug.Log("I'm idle");
+                    }
                 }
             }
         }
@@ -72,64 +75,68 @@ public class PlayerInputDetector : MonoBehaviour
 
     public void GetCrouchInput(InputAction.CallbackContext value)
     {
-        if(!crouchToggled)
+        if(canInput)
         {
-            if(value.started && myController.crouchHeld == false) // when we push down on the button
+            if (!crouchToggled) // not toggled
             {
-                Debug.Log("Button down");
-                myController.crouchHeld = true;
-                myController.CheckCrouch();
-            }
-            if(value.canceled && myController.crouchHeld == true) // when we let go of the button
-            {
-                Debug.Log("button up");
-                myController.crouchHeld = false;
-                if(!myMovement.sliding)
+                if (value.started && myController.crouchHeld == false) // when we push down on the button
                 {
+                    myController.crouchHeld = true;
+                    myController.CheckCrouch();
+                }
+                if (value.canceled && myController.crouchHeld == true) // when we let go of the button
+                {
+                    myController.crouchHeld = false;
+                    if (!myMovement.sliding)
+                    {
+                        myController.CheckCrouch();
+                    }
+                }
+            }
+            else // toggled
+            {
+                if (value.started && myController.crouchHeld && myController.currentState == State.Crouching)
+                {
+                    myController.crouchHeld = false;
+                    myController.CheckCrouch();
+                }
+                else if (value.started && myController.crouchHeld == false && myController.currentState != State.Crouching)
+                {
+                    myController.crouchHeld = true;
                     myController.CheckCrouch();
                 }
             }
-        }
-        else
-        {
-            if(myController.crouchHeld == false)
-            {
-                myController.crouchHeld = true;
-                Debug.Log("Crouching");
-            }
-            else
-            {
-                myController.crouchHeld = false;
-                Debug.Log("Uncrouch");
-            }
-            Debug.Log("button pressed");
         }
     }
 
     public void GetJumpInput(InputAction.CallbackContext value)
     {
-        myController.CheckJump();
+        if(canInput)
+        {
+            myController.CheckJump();
+        }
     }
 
     public void GetSprintInput(InputAction.CallbackContext value)
     {
-        if(value.started)
+        if(canInput)
         {
-            myController.crouchHeld = false;
-            myController.sprintHeld = true;
-            myController.CheckSprint();
-        }
-
-        if(value.canceled)
-        {
-            myController.sprintHeld = false;
-
-            if(!myMovement.sliding)
+            if (value.started)
             {
+                myController.crouchHeld = false;
+                myController.sprintHeld = true;
                 myController.CheckSprint();
             }
-        }
 
-        Debug.Log("Sprint pushed");
+            if (value.canceled)
+            {
+                myController.sprintHeld = false;
+
+                if (!myMovement.sliding)
+                {
+                    myController.CheckSprint();
+                }
+            }
+        }
     }
 }

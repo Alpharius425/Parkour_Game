@@ -54,7 +54,7 @@ public class CameraControl : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching) // checks to see if we are in a state that lets the camera change our rotation
+        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Wallrunning || myController.currentState == State.Climbing) // checks to see if we are in a state that lets the camera change our rotation
         {
             affectRotation = true;
         }
@@ -84,7 +84,10 @@ public class CameraControl : MonoBehaviour
 
     public void ResetZRotation()
     {
-        ChangeAngle(0);
+        Quaternion newAngle = transform.rotation; // gets the initial rotation
+        newAngle.z = 0; // gets the change of angle
+
+        transform.rotation = newAngle; // changes the angle of the camera
     }
 
     public void RotatePlayer() // sets the player's rotation to the camera

@@ -22,7 +22,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float runSpeed = 8f;
     [SerializeField] float crouchSpeed = 2f;
     [SerializeField] float climbSpeed = 4f;
-    [SerializeField] float wallRunSpeed = 4f;
+    //[SerializeField] float wallRunSpeed = 4f;
     [SerializeField] float slideSpeed = 8f;
     [SerializeField] float airSpeed;
     [SerializeField] private float actualSpeed; // the actual speed of the character
@@ -72,6 +72,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             if(velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
             {
                 myController.CheckMove();
+                //Debug.Log("Here");
                 velocity.y = -2;
                 
             }
@@ -139,10 +140,10 @@ public class PlayerMovementUpdated : MonoBehaviour
                     break;
 
                 case State.Wallrunning: // locks all movement except forward and back movement
-                    movement.x = 0;
-                    movement.y = 0;
-                    MoveInput();
-                    break;
+                    //movement.x = 0;
+                    //movement.y = 0;
+                    //MoveInput();
+                    return;
 
                 case State.Sliding: // locks our movement to the direction we were running in
                     if (!airControlsOn && myController.grounded == false)
@@ -191,7 +192,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         float jumpPower = 0;
 
-        
+        Debug.Log("about to jump");
         switch(myController.currentState) // checks what state we are in and changes our jump accordingly
         {
             case State.Idle:
@@ -217,9 +218,11 @@ public class PlayerMovementUpdated : MonoBehaviour
                 break;
 
             case State.Wallrunning:
-                jumpPower = walkJumpMultiplier;
+                myController.attachedObject.stop();
+                jumpPower = wallRunJumpMultiplier;
                 myCamera.ResetZRotation();
                 myCamera.RotatePlayer();
+                Debug.Log("here");
                 break;
 
             case State.Sliding:
@@ -255,8 +258,6 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void Crouch()
     {
-        Debug.Log("Crouching");
-
         ChangeSpeed(crouchSpeed);
         ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
         myController.UpdateState(State.Crouching);
@@ -277,7 +278,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             }
         }
 
-        Debug.Log("Uncrouching");
+        //Debug.Log("Uncrouching");
 
         ChangeHeight(defaultHeight, defaultCamHeight, defaultCenterHeight);
         if(myController.sprintHeld)
