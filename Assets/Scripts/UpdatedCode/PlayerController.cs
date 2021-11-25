@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum State
 {
-    Idle, Walking, Running, Crouching, Jumping, Climbing, Wallrunning, Vaulting, Sliding
+    Idle, Walking, Running, Crouching, Jumping, Climbing, Wallrunning, Vaulting, Sliding, noMove
 }
 public class PlayerController : MonoBehaviour
 {
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     // bools for what wall we are on
     [SerializeField] bool onRightWall = false;
     [SerializeField] bool onLeftWall = false;
+    public LerpTo attachedObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +75,15 @@ public class PlayerController : MonoBehaviour
                     {
                         UpdateState(State.Climbing);
                     }
-                    //else
+                    else
+                    {
+                        if(hit.collider.gameObject.GetComponent<LerpTo>() && gameObject.transform.parent == null) // checks if the player hits something with the lerp to script and isn't already parented to another
+                        {
+                            
+                            hit.collider.gameObject.GetComponent<LerpTo>().Attach();
+                        }
+                    }
+                    //else commented out until we can get a working wall run system
                     //{
                     //    UpdateState(State.Wallrunning);
 
@@ -119,9 +128,10 @@ public class PlayerController : MonoBehaviour
                     angleChanged = false;
                 }
 
-                if(currentState == State.Climbing)
+                if(currentState == State.Climbing || currentState == State.Wallrunning)
                 {
-                    CheckMove();
+                    //Debug.Log("here");
+                    //CheckMove();
                 }
             }
         }
@@ -147,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckJump() // checks if we can jump
     {
-        if(grounded && currentState != State.Jumping)
+        if((grounded || currentState == State.Wallrunning || currentState == State.Climbing)&& currentState != State.Jumping)
         {
             myMovement.Jump();
         }
@@ -173,18 +183,14 @@ public class PlayerController : MonoBehaviour
 
                 case State.Sliding:
                     Debug.Log("Crouched during slide");
-
-                    if(crouchHeld)
-                    {
-                        myMovement.CancelSlide();
-                    }
+                    
+                    myMovement.CancelSlide();
                     break;
 
                 case State.Crouching:
                     myMovement.UnCrouch();
                     break;
             }
-
         }
     }
 
@@ -206,32 +212,33 @@ public class PlayerController : MonoBehaviour
 
     public void CheckMove()
     {
-        if (myInput.movementInput != Vector2.zero) // checks if we are still moving
-        {
-            if(sprintHeld)
+            if (myInput.movementInput != Vector2.zero && currentState != State.Wallrunning) // checks if we are still moving
             {
-                UpdateState(State.Running);
-            }
-            else if(crouchHeld)
-            {
-                if(sprintHeld)
+                if (sprintHeld)
                 {
                     UpdateState(State.Running);
                 }
+                else if (crouchHeld)
+                {
+                    if (sprintHeld)
+                    {
+                        UpdateState(State.Running);
+                    }
+                    else
+                    {
+                        UpdateState(State.Crouching);
+                    }
+                }
                 else
                 {
-                    UpdateState(State.Crouching);
+                    UpdateState(State.Walking);
                 }
             }
-            else
+            else if (myInput.movementInput == Vector2.zero && crouchHeld == false) // if we aren't moving
             {
-                UpdateState(State.Walking);
+                UpdateState(State.Idle);
             }
-        }
-        else if (myInput.movementInput == Vector2.zero && crouchHeld == false) // if we aren't moving
-        {
-            UpdateState(State.Idle);
-        }
+        
     }
 
     public void VaultCheck()
