@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        if(hit.collider.gameObject.GetComponent<LerpTo>() && gameObject.transform.parent == null) // checks if the player hits something with the lerp to script and isn't already parented to another
+                        if(hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove) // checks if the player hits something with the lerp to script and isn't already parented to another
                         {
                             
                             hit.collider.gameObject.GetComponent<LerpTo>().Attach();
@@ -160,6 +160,10 @@ public class PlayerController : MonoBehaviour
         if((grounded || currentState == State.Wallrunning || currentState == State.Climbing)&& currentState != State.Jumping)
         {
             myMovement.Jump();
+        }
+        else
+        {
+            Debug.Log("Cant jump");
         }
     }
 

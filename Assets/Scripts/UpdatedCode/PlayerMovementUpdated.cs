@@ -67,7 +67,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning) // simulate gravity
+        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove) // simulate gravity
         {
             if(velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
             {

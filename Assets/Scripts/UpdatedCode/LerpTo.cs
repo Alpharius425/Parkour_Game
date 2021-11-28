@@ -23,7 +23,7 @@ public class LerpTo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(attached && player.transform.parent != null) // looks to see if we have the player attached to the object
+        if(attached && controller.attachedObject == this) // looks to see if we have the player attached to the object
         {
             distanceCovered = (Time.time - startTime) * speed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
@@ -36,6 +36,10 @@ public class LerpTo : MonoBehaviour
             if(wallrunning)
             {
                 player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
+            }
+            else
+            {
+                player.GetComponent<PlayerController>().UpdateState(State.noMove);
             }
         }
     }
@@ -62,10 +66,6 @@ public class LerpTo : MonoBehaviour
         rotation.x = 0f;
         rotation.z = 0f;
         player.transform.rotation = rotation;
-        if(player.transform.parent == gameObject)
-        {
-            player.transform.SetParent(null); // makes the player not a child of the object
-        }
         player.GetComponent<PlayerController>().attachedObject = null;
         Debug.Log("player is no longer attached");
     }
@@ -83,9 +83,12 @@ public class LerpTo : MonoBehaviour
         player.GetComponent<PlayerController>().attachedObject = this;
         startTime = Time.time;
         player.transform.LookAt(endPoint.transform.position); // makes our player look at the endpoint
+        //Quaternion rotation = player.transform.rotation;
+        //rotation.z = 0f;
+        //player.transform.rotation = rotation;
         startPoint = player.transform.position; // sets the starting point of the movement
         journeyDistance = Vector3.Distance(startPoint, endPoint.transform.position);
-        player.transform.SetParent(gameObject.transform); // parents the player to the object. useful if we have a moving object we want to attach to
+        //player.transform.SetParent(gameObject.transform); // parents the player to the object. useful if we have a moving object we want to attach to
         attached = true; // tells us we are attached to the object
         Debug.Log("player has attached");
     }
