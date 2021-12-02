@@ -93,8 +93,15 @@ public class CameraControl : MonoBehaviour
     public void RotatePlayer() // sets the player's rotation to the camera
     {
         Quaternion newAngle = transform.rotation; // gets the initial rotation
-        newAngle.x = player.transform.rotation.x;
+        RaycastHit hit;
+
+
+        //newAngle.x = player.transform.rotation.y;
         newAngle.y = 0;
+        newAngle.z = 0;
+        newAngle.w = 1;
+        Debug.Log("Player" + player.transform.rotation);
+        Debug.Log("New angle" + newAngle);
         player.transform.rotation = newAngle;
     }
 }

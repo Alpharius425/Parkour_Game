@@ -22,7 +22,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float downDetection; // how far down we want to check for the ground
     RaycastHit hit; // saves raycast hits
 
+    // wall run detection delays so we can't chain wall runs or get stuck when jumping
+    [SerializeField] float maxTimeToWallRun;
+    [SerializeField] float timeUntilWallRun;
+
+    // climb limits so we don't infinitely climb and have to play that one song from metal gear
+    [SerializeField] float maxClimbTime;
+    public float curClimbTime;
+    [SerializeField] LayerMask climbLayers;
+
     public float detectionRange; // determines how far away we look when we try to detect obstacles
+    public float vaultDetectionRange;
     Vector3[] detectionDirections;
     public float angleChange; // affects how much our angle shifts while wall running
     public bool angleChanged = false;
@@ -58,26 +68,47 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector3.down, Color.red);
         }
 
-        if(grounded && currentState == State.Jumping) // updates states when we hit the ground
+        if(grounded) // updates states when we hit the ground
         {
-            CheckMove();
+
+            if(currentState == State.Jumping)
+            {
+                ResetWallJumpTimer();
+                CheckMove();
+            }
+
+            if(curClimbTime < maxClimbTime && currentState != State.Climbing)
+            {
+                ResetClimbTime();
+            }
+        }
+
+        if(currentState != State.Wallrunning && timeUntilWallRun > 0)
+        {
+            timeUntilWallRun -= Time.deltaTime;
+        }
+
+        if(currentState == State.Climbing)
+        {
+            curClimbTime -= Time.deltaTime;
         }
 
         for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
         {
             Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
-            if(Physics.Raycast(transform.position, direction, out hit, detectionRange)) // shoots the ray we have selected now
+            if(Physics.Raycast(transform.position, direction, out hit, detectionRange, climbLayers)) // shoots the ray we have selected now
             {
 
                 if(hit.collider.gameObject != gameObject)
                 {
-                    if (detectionDirections[i] == Vector3.forward) // if its the front facing ray we start climbing
+                    if (detectionDirections[i] == Vector3.forward && curClimbTime > 0 && currentState != State.Vaulting) // if its the front facing ray we start climbing
                     {
+                        Debug.Log(hit.collider.gameObject.layer);
                         UpdateState(State.Climbing);
                     }
                     else
                     {
-                        if(hit.collider.gameObject.GetComponent<LerpTo>() && gameObject.transform.parent == null) // checks if the player hits something with the lerp to script and isn't already parented to another
+                        if(hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove && timeUntilWallRun < 0) // checks if the player hits something with the lerp to script and isn't already parented to another
                         {
                             
                             hit.collider.gameObject.GetComponent<LerpTo>().Attach();
@@ -131,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 if(currentState == State.Climbing || currentState == State.Wallrunning)
                 {
                     //Debug.Log("here");
-                    //CheckMove();
+                    CheckMove();
                 }
             }
         }
@@ -148,6 +179,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ResetWallJumpTimer()
+    {
+        timeUntilWallRun = maxTimeToWallRun;
+    }
+
+    public void ResetClimbTime()
+    {
+        curClimbTime = maxClimbTime;
+    }
+
     public void UpdateState(State newState) // updates our state
     {
         currentState = newState;
@@ -160,6 +201,10 @@ public class PlayerController : MonoBehaviour
         if((grounded || currentState == State.Wallrunning || currentState == State.Climbing)&& currentState != State.Jumping)
         {
             myMovement.Jump();
+        }
+        else
+        {
+            Debug.Log("Cant jump");
         }
     }
 
@@ -245,16 +290,20 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 vaultCheck = transform.position;
         RaycastHit vaultHit;
-        if(Physics.Raycast(vaultCheck, transform.forward, out vaultHit, detectionRange)) // checks if theres anything infront of the player
+        if(Physics.Raycast(vaultCheck, transform.forward, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
         {
+            Debug.DrawRay(vaultCheck, transform.forward, Color.blue);
             vaultCheck.y += 1f;
-            if(!Physics.Raycast(vaultCheck, transform.forward, out vaultHit, detectionRange)) // we scan above the player and check if theres nothing
+            if(!Physics.Raycast(vaultCheck, transform.forward, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
             {
+                Debug.DrawRay(vaultCheck, transform.forward, Color.blue);
                 vaultCheck += transform.forward;
 
-                if(Physics.Raycast(vaultCheck, Vector3.down, out vaultHit, detectionRange)) // if we scan forward and down from our player's head
+                if(Physics.Raycast(vaultCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                 {
+                    Debug.DrawRay(vaultCheck, Vector3.down, Color.blue);
                     UpdateState(State.Vaulting);
+                    myMovement.Vault(vaultHit.point);
                     Debug.Log("We should vault");
                 }
             }

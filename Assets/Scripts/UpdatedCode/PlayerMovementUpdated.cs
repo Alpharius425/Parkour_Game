@@ -56,7 +56,16 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float slideJumpMultiplier;
     [SerializeField] float crouchJumpMultiplier;
 
-    
+    // Vaulting info
+    [SerializeField] float vaultSpeed;
+    Vector3 newLocation;
+    Vector3 oldLocation;
+    [SerializeField] float journeyDistance; // saves the distance between our start and end points
+    [SerializeField] float distanceCovered; // how far we've gone in the journey
+    Vector3 riseCurve;
+    [SerializeField] float startTime; // saves reference for when we start moving
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +76,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning) // simulate gravity
+        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
         {
             if(velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
             {
@@ -88,6 +97,21 @@ public class PlayerMovementUpdated : MonoBehaviour
             if (slideTime < 0)
             {
                 CancelSlide();
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(myController.currentState == State.Vaulting)
+        {
+            distanceCovered = (Time.time - startTime) * vaultSpeed;
+            float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
+            gameObject.transform.position = Vector3.Slerp(riseCurve, newLocation, vaultSpeed);
+
+            if(gameObject.transform.position == newLocation)
+            {
+                myController.CheckMove();
             }
         }
     }
@@ -131,6 +155,10 @@ public class PlayerMovementUpdated : MonoBehaviour
                     break;
 
                 case State.Climbing: // changes our forward and back input to up and down input, locks left and right movement
+                    if(myController.curClimbTime < 0)
+                    {
+                        return;
+                    }
                     ChangeSpeed(climbSpeed);
                     Vector3 climbMovement = Vector3.zero;
                     //climbMovement.y = movement.z;
@@ -214,14 +242,13 @@ public class PlayerMovementUpdated : MonoBehaviour
 
             case State.Climbing:
                 jumpPower = ClimbJumpMultiplier;
-                myCamera.RotatePlayer();
+                myCamera.ResetZRotation();
                 break;
 
             case State.Wallrunning:
                 myController.attachedObject.stop();
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.ResetZRotation();
-                myCamera.RotatePlayer();
                 Debug.Log("here");
                 break;
 
@@ -236,6 +263,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Defaulted");
                 break;
         }
+        myCamera.RotatePlayer();
         velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);
         myController.UpdateState(State.Jumping);
@@ -337,12 +365,27 @@ public class PlayerMovementUpdated : MonoBehaviour
         if(myController.grounded)
         {
             actualSpeed = newSpeed;
-        }    }
+        }
+    }
 
     public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
     {
         myCollider.height = newHeight;
         myCollider.center = new Vector3(0, newColliderCenter, 0);
         myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
+    }
+
+    public void Vault(Vector3 newLocation) // takes the point that we found in our detection and begins to slerp towards it
+    {
+        Debug.Log("Should vault");
+        startTime = Time.time;
+        gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
+        journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
+
+        Vector3 center = (gameObject.transform.position + newLocation) * 0.5F;
+
+        center -= new Vector3(0, 1, 0);
+
+        riseCurve = gameObject.transform.position - center;
     }
 }
