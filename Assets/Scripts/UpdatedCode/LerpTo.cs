@@ -55,7 +55,7 @@ public class LerpTo : MonoBehaviour
         
         if(wallrunning)
         {
-            player.GetComponent<PlayerController>().CheckMove();
+            controller.CheckMove();
         }
         else
         {
@@ -65,8 +65,10 @@ public class LerpTo : MonoBehaviour
         Quaternion rotation = player.transform.rotation;
         rotation.x = 0f;
         rotation.z = 0f;
+        rotation.y = controller.myCamera.gameObject.transform.rotation.y;
         player.transform.rotation = rotation;
-        player.GetComponent<PlayerController>().attachedObject = null;
+        controller.ResetWallJumpTimer();
+        controller.attachedObject = null;
         Debug.Log("player is no longer attached");
     }
 
