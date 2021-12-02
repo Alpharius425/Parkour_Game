@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     // climb limits so we don't infinitely climb and have to play that one song from metal gear
     [SerializeField] float maxClimbTime;
     public float curClimbTime;
+    [SerializeField] LayerMask climbLayers;
 
     public float detectionRange; // determines how far away we look when we try to detect obstacles
     public float vaultDetectionRange;
@@ -95,13 +96,14 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
         {
             Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
-            if(Physics.Raycast(transform.position, direction, out hit, detectionRange)) // shoots the ray we have selected now
+            if(Physics.Raycast(transform.position, direction, out hit, detectionRange, climbLayers)) // shoots the ray we have selected now
             {
 
                 if(hit.collider.gameObject != gameObject)
                 {
                     if (detectionDirections[i] == Vector3.forward && curClimbTime > 0 && currentState != State.Vaulting) // if its the front facing ray we start climbing
                     {
+                        Debug.Log(hit.collider.gameObject.layer);
                         UpdateState(State.Climbing);
                     }
                     else
@@ -160,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 if(currentState == State.Climbing || currentState == State.Wallrunning)
                 {
                     //Debug.Log("here");
-                    //CheckMove();
+                    CheckMove();
                 }
             }
         }
@@ -290,13 +292,16 @@ public class PlayerController : MonoBehaviour
         RaycastHit vaultHit;
         if(Physics.Raycast(vaultCheck, transform.forward, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
         {
+            Debug.DrawRay(vaultCheck, transform.forward, Color.blue);
             vaultCheck.y += 1f;
             if(!Physics.Raycast(vaultCheck, transform.forward, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
             {
+                Debug.DrawRay(vaultCheck, transform.forward, Color.blue);
                 vaultCheck += transform.forward;
 
                 if(Physics.Raycast(vaultCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                 {
+                    Debug.DrawRay(vaultCheck, Vector3.down, Color.blue);
                     UpdateState(State.Vaulting);
                     myMovement.Vault(vaultHit.point);
                     Debug.Log("We should vault");

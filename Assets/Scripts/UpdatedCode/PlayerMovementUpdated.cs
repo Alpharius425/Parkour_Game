@@ -243,14 +243,12 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Climbing:
                 jumpPower = ClimbJumpMultiplier;
                 myCamera.ResetZRotation();
-                myCamera.RotatePlayer();
                 break;
 
             case State.Wallrunning:
                 myController.attachedObject.stop();
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.ResetZRotation();
-                myCamera.RotatePlayer();
                 Debug.Log("here");
                 break;
 
@@ -265,6 +263,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Defaulted");
                 break;
         }
+        myCamera.RotatePlayer();
         velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);
         myController.UpdateState(State.Jumping);
@@ -378,6 +377,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void Vault(Vector3 newLocation) // takes the point that we found in our detection and begins to slerp towards it
     {
+        Debug.Log("Should vault");
         startTime = Time.time;
         gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
         journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
