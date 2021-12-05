@@ -58,7 +58,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     // Vaulting info
     [SerializeField] float vaultSpeed;
-    Vector3 newLocation;
+    Vector3 newPosition;
     Vector3 oldLocation;
     [SerializeField] float journeyDistance; // saves the distance between our start and end points
     [SerializeField] float distanceCovered; // how far we've gone in the journey
@@ -107,11 +107,16 @@ public class PlayerMovementUpdated : MonoBehaviour
         {
             distanceCovered = (Time.time - startTime) * vaultSpeed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-            gameObject.transform.position = Vector3.Slerp(riseCurve, newLocation, vaultSpeed);
+            gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, vaultSpeed);
 
-            if(gameObject.transform.position == newLocation)
+            if(gameObject.transform.position == newPosition)
             {
                 myController.CheckMove();
+                Quaternion rotation = gameObject.transform.rotation;
+                rotation.x = 0f;
+                rotation.z = 0f;
+                rotation.y = myController.myCamera.gameObject.transform.rotation.y;
+                gameObject.transform.rotation = rotation;
             }
         }
     }
@@ -379,6 +384,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         Debug.Log("Should vault");
         startTime = Time.time;
+        oldLocation = gameObject.transform.position;
         gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
         journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
 
@@ -387,5 +393,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         center -= new Vector3(0, 1, 0);
 
         riseCurve = gameObject.transform.position - center;
+
+        newPosition = newLocation;
     }
 }
