@@ -271,18 +271,21 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Climbing:
                 jumpPower = ClimbJumpMultiplier;
                 myCamera.ResetZRotation();
+                myCamera.RotatePlayer();
                 break;
 
             case State.Wallrunning:
                 myController.attachedObject.stop();
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.ResetZRotation();
+                myCamera.RotatePlayer();
                 Debug.Log("here");
                 break;
 
             case State.Sliding:
                 jumpPower = slideJumpMultiplier;
                 CancelSlide();
+                myCamera.RotatePlayer();
                 //myCamera.RotatePlayer();
                 break;
 
@@ -295,7 +298,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         myAnimator.SetBool("Jumping", true);
         myAnimator.SetBool("Running", false);
         myAnimator.SetBool("Idle", false);
-        myCamera.RotatePlayer();
+        
         velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);
         myController.UpdateState(State.Jumping);
