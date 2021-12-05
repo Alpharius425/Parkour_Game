@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: -6312034
   multiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -41,14 +41,18 @@ MonoBehaviour:
     m_Value: 20000
   updateMode:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 2
   updatePeriod:
     m_OverrideState: 0
     m_Value: 0
     min: 0
   includeSunInBaking:
+    m_OverrideState: 1
+    m_Value: 1
+  m_SkyVersion: 1
+  m_ObsoleteEarthPreset:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1
   type:
     m_OverrideState: 1
     m_Value: 1
@@ -92,7 +96,7 @@ MonoBehaviour:
     min: 0
   aerosolDensity:
     m_OverrideState: 0
-    m_Value: 0.01192826
+    m_Value: 0
     min: 0
     max: 1
   aerosolTint:
@@ -112,7 +116,7 @@ MonoBehaviour:
     max: 1
   numberOfBounces:
     m_OverrideState: 0
-    m_Value: 8
+    m_Value: 10
     min: 1
     max: 10
   groundTint:
@@ -142,7 +146,7 @@ MonoBehaviour:
     m_Value: 1
     min: 0
   spaceRotation:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 0, y: 0, z: 0}
   colorSaturation:
     m_OverrideState: 0
@@ -176,10 +180,6 @@ MonoBehaviour:
     m_Value: 0
     min: -1
     max: 1
-  m_SkyVersion: 1
-  m_ObsoleteEarthPreset:
-    m_OverrideState: 0
-    m_Value: 1
 --- !u!114 &-4151792930034644520
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -193,16 +193,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
+  m_AdvancedMode: 1
   quality:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 2
   enabled:
     m_OverrideState: 1
     m_Value: 1
   colorMode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   color:
     m_OverrideState: 1
     m_Value: {r: 294.06674, g: 294.06674, b: 294.06674, a: 1}
@@ -210,27 +210,27 @@ MonoBehaviour:
     showAlpha: 0
     showEyeDropper: 1
   tint:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
   maxFogDistance:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 5000
     min: 0
   mipFogMaxMip:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.5
     min: 0
     max: 1
   mipFogNear:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 5001
     min: 0
   mipFogFar:
-    m_OverrideState: 0
-    m_Value: 1000
+    m_OverrideState: 1
+    m_Value: 5000
     min: 0
   baseHeight:
     m_OverrideState: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   albedo:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
     hdr: 0
     showAlpha: 1
@@ -257,11 +257,11 @@ MonoBehaviour:
     min: 0
     max: 1
   depthExtent:
-    m_OverrideState: 0
-    m_Value: 64
+    m_OverrideState: 1
+    m_Value: 0.1
     min: 0.1
   denoisingMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
   anisotropy:
     m_OverrideState: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
     min: 0
     max: 1
   m_FogControlMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   screenResolutionPercentage:
     m_OverrideState: 0
@@ -287,16 +287,19 @@ MonoBehaviour:
     min: 1
     max: 1024
   m_VolumetricFogBudget:
-    m_OverrideState: 0
-    m_Value: 0.333
+    m_OverrideState: 1
+    m_Value: 0.666
     min: 0
     max: 1
   m_ResolutionDepthRatio:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.5
     min: 0
     max: 1
   directionalLightsOnly:
+    m_OverrideState: 0
+    m_Value: 0
+  filter:
     m_OverrideState: 0
     m_Value: 0
 --- !u!114 &-3350059038633503935
