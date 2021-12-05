@@ -10,6 +10,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     public PlayerController myController;
     public CameraControl myCamera;
     public PlayerInputDetector myInput;
+    [SerializeField] Animator myAnimator;
 
     public Vector3 movement = Vector3.zero; // the character's actual movement
     [SerializeField] float gravity;
@@ -99,6 +100,11 @@ public class PlayerMovementUpdated : MonoBehaviour
                 CancelSlide();
             }
         }
+
+        if(myController.grounded)
+        {
+            myAnimator.SetBool("Jumping", false);
+        }
     }
 
     private void FixedUpdate()
@@ -117,6 +123,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 rotation.z = 0f;
                 rotation.y = myController.myCamera.gameObject.transform.rotation.y;
                 gameObject.transform.rotation = rotation;
+                myAnimator.SetBool("Vaulting", false);
             }
         }
     }
@@ -198,9 +205,21 @@ public class PlayerMovementUpdated : MonoBehaviour
                     //movement.y = gravity;
                     break;
 
+                case State.Idle:
+                    if(myController.grounded)
+                    {
+                        myAnimator.SetBool("Idle", true);
+                    }
+                    break;
+
                 default:
                     return;
             }
+        }
+
+        if(myController.currentState != State.Idle)
+        {
+            myAnimator.SetBool("Idle", false);
         }
     }
 
@@ -268,6 +287,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Defaulted");
                 break;
         }
+
+        myAnimator.SetBool("Jumping", true);
         myCamera.RotatePlayer();
         velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);
@@ -342,6 +363,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
         //Move(myInput.movementInput);
         sliding = true;
+        myAnimator.SetBool("Sliding", true);
     }
 
     public void CancelSlide()
@@ -350,6 +372,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         slideTime = slideTimeMax;
         UnCrouch();
         myController.CheckMove();
+        myAnimator.SetBool("Sliding", false);
         //velocity = Vector3.zero;
         //SetVelocity();
     }
@@ -395,5 +418,6 @@ public class PlayerMovementUpdated : MonoBehaviour
         riseCurve = gameObject.transform.position - center;
 
         newPosition = newLocation;
+        myAnimator.SetBool("Vaulting", true);
     }
 }
