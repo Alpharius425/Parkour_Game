@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
             curClimbTime -= Time.deltaTime;
         }
 
-        if(currentState == State.Running)
+        if(currentState == State.Running || currentState == State.Climbing)
         {
             for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
             {

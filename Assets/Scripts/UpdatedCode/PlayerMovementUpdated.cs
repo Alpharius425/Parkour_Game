@@ -144,6 +144,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(walkSpeed);
                     //movement.y = gravity;
                     MoveInput();
+                    myAnimator.SetBool("Running", true);
                     break;
 
                 case State.Running:
@@ -154,6 +155,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(runSpeed);
                     //movement.y = gravity;
                     MoveInput();
+                    myAnimator.SetBool("Running", true);
                     break;
 
                 case State.Crouching:
@@ -164,6 +166,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(crouchSpeed);
                     //movement.y = gravity;
                     MoveInput();
+                    myAnimator.SetBool("Running", true);
                     break;
 
                 case State.Climbing: // changes our forward and back input to up and down input, locks left and right movement
@@ -209,6 +212,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     if(myController.grounded)
                     {
                         myAnimator.SetBool("Idle", true);
+                        myAnimator.SetBool("Running", false);
                     }
                     break;
 
@@ -289,6 +293,8 @@ public class PlayerMovementUpdated : MonoBehaviour
         }
 
         myAnimator.SetBool("Jumping", true);
+        myAnimator.SetBool("Running", false);
+        myAnimator.SetBool("Idle", false);
         myCamera.RotatePlayer();
         velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);
