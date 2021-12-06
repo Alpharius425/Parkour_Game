@@ -10,7 +10,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     public PlayerController myController;
     public CameraControl myCamera;
     public PlayerInputDetector myInput;
-    [SerializeField] Animator myAnimator;
+    public Animator myAnimator;
 
     public Vector3 movement = Vector3.zero; // the character's actual movement
     [SerializeField] float gravity;
@@ -99,11 +99,6 @@ public class PlayerMovementUpdated : MonoBehaviour
             {
                 CancelSlide();
             }
-        }
-
-        if(myController.grounded)
-        {
-            myAnimator.SetBool("Jumping", false);
         }
     }
 
@@ -221,6 +216,13 @@ public class PlayerMovementUpdated : MonoBehaviour
             }
         }
 
+        if(myController.currentState == State.Jumping)
+        {
+            myAnimator.SetBool("Jumping", true);
+            myAnimator.SetBool("Idle", false);
+            myAnimator.SetBool("Running", false);
+        }
+
         if(myController.currentState != State.Idle)
         {
             myAnimator.SetBool("Idle", false);
@@ -247,7 +249,9 @@ public class PlayerMovementUpdated : MonoBehaviour
     public void Jump() // allows us to jump with a multiplier if we want
     {
         float jumpPower = 0;
-
+        myAnimator.SetBool("Jumping", true);
+        myAnimator.SetBool("Running", false);
+        myAnimator.SetBool("Idle", false);
         Debug.Log("about to jump");
         switch(myController.currentState) // checks what state we are in and changes our jump accordingly
         {
@@ -294,10 +298,6 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Defaulted");
                 break;
         }
-
-        myAnimator.SetBool("Jumping", true);
-        myAnimator.SetBool("Running", false);
-        myAnimator.SetBool("Idle", false);
         
         velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     public bool grounded; // are we on the ground or not
     [SerializeField] float downDetection; // how far down we want to check for the ground
+    [SerializeField] float timeUntilGroundCheck = 0f;
+    [SerializeField] float jumpLandTime = 0.3f;
     RaycastHit hit; // saves raycast hits
 
     // wall run detection delays so we can't chain wall runs or get stuck when jumping
@@ -71,16 +73,33 @@ public class PlayerController : MonoBehaviour
         if(grounded) // updates states when we hit the ground
         {
 
-            if(currentState == State.Jumping)
+            if(currentState == State.Jumping && timeUntilGroundCheck >= 1)
             {
                 ResetWallJumpTimer();
+                myMovement.myAnimator.SetBool("Jumping", false);
+                myMovement.myAnimator.SetBool("JumpLand", true);
                 CheckMove();
+                timeUntilGroundCheck = 0;
+            }
+
+            if(myMovement.myAnimator.GetBool("JumpLand") == true)
+            {
+                jumpLandTime -= Time.deltaTime;
+                if(jumpLandTime <= 0)
+                {
+                    myMovement.myAnimator.SetBool("JumpLand", false);
+                    jumpLandTime = 0.3f;
+                }
             }
 
             if(curClimbTime < maxClimbTime && currentState != State.Climbing)
             {
                 ResetClimbTime();
             }
+        }
+        else
+        {
+            timeUntilGroundCheck += Time.deltaTime;
         }
 
         if(currentState != State.Wallrunning && timeUntilWallRun > 0)
@@ -171,8 +190,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private void FixedUpdate()
