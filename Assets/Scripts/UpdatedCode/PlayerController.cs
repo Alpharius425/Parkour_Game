@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector3.down, Color.red);
         }
 
-        if(grounded) // updates states when we hit the ground
+        if(grounded && currentState != State.Climbing && currentState != State.Wallrunning) // updates states when we hit the ground
         {
 
             if(currentState == State.Jumping && timeUntilGroundCheck >= 1)
