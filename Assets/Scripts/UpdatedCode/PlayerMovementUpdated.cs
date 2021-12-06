@@ -106,6 +106,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         if(myController.currentState == State.Vaulting)
         {
+            Debug.Log("Vaulting");
             distanceCovered = (Time.time - startTime) * vaultSpeed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
             gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, vaultSpeed);
@@ -119,6 +120,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 rotation.y = myController.myCamera.gameObject.transform.rotation.y;
                 gameObject.transform.rotation = rotation;
                 myAnimator.SetBool("Vaulting", false);
+                Debug.Log("Finished vaulting");
             }
         }
     }

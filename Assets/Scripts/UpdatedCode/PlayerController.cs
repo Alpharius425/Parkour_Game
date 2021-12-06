@@ -306,22 +306,26 @@ public class PlayerController : MonoBehaviour
 
     public void VaultCheck()
     {
-        Debug.Log("Checking for vault");
         RaycastHit vaultHit;
         Vector3 direction = transform.TransformDirection(vaultCheck);
+
+        Debug.Log("Checking for vault");
         Debug.DrawRay(transform.position, direction, Color.blue);
+
         if (Physics.Raycast(direction, transform.forward, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
         {
-            if(vaultHit.collider.gameObject != this)
+            if(vaultHit.collider.gameObject != gameObject)
             {
-                Debug.Log("Hit something we might vault over");
-                Debug.DrawRay(transform.position, direction, Color.blue);
                 direction.y += 2f;
+
+                Debug.Log("Hit" + vaultHit.collider.gameObject + "we might vault over");
+                Debug.DrawRay(direction, direction, Color.blue);
                 if (!Physics.Raycast(direction, transform.forward, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
                 {
+                    direction += (transform.forward * 2);
+
                     Debug.Log("We see space above the object");
-                    direction += transform.forward;
-                    Debug.DrawRay(transform.position, direction, Color.blue);
+                    Debug.DrawRay(direction, direction, Color.blue);
                     if (Physics.Raycast(direction, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                     {
                         UpdateState(State.Vaulting);
@@ -329,6 +333,10 @@ public class PlayerController : MonoBehaviour
                         Debug.Log("We should vault");
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("detect player");
             }
         }
     }
