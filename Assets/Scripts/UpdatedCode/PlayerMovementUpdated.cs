@@ -200,6 +200,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     break;
 
                 case State.Jumping:
+                    MoveInput();
                     //movement.y = gravity;
                     break;
 
@@ -214,6 +215,11 @@ public class PlayerMovementUpdated : MonoBehaviour
                 default:
                     return;
             }
+        }
+
+        if(myController.grounded == false)
+        {
+            myController.UpdateState(State.Jumping);
         }
 
         if(myController.currentState == State.Jumping)
