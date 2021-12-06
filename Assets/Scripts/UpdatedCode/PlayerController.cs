@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public float detectionRange; // determines how far away we look when we try to detect obstacles
     public float vaultDetectionRange;
+    Vector3 vaultCheck;
     Vector3[] detectionDirections;
     public float angleChange; // affects how much our angle shifts while wall running
     public bool angleChanged = false;
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour
             Vector3.left,
             Vector3.forward
         };
+
+        vaultCheck = Vector3.forward;
     }
 
     // Update is called once per frame
@@ -119,15 +122,11 @@ public class PlayerController : MonoBehaviour
                 Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
                 if (Physics.Raycast(transform.position, direction, out hit, detectionRange, climbLayers)) // shoots the ray we have selected now
                 {
-
                     if (hit.collider.gameObject != gameObject)
                     {
                         if (detectionDirections[i] == Vector3.forward && curClimbTime > 0 && currentState != State.Vaulting) // if its the front facing ray we start climbing
                         {
-                            Debug.Log(hit.collider.gameObject.layer);
                             UpdateState(State.Climbing);
-                            Debug.DrawRay(gameObject.transform.position, transform.forward, Color.blue);
-                            Debug.DrawRay(gameObject.transform.position, Vector3.down, Color.blue);
                         }
                         else
                         {
@@ -165,7 +164,6 @@ public class PlayerController : MonoBehaviour
                         //        }
                         //    }
                         //}
-                        Debug.Log("We detect" + hit.collider.name);
                         Debug.DrawRay(transform.position, direction, Color.green);
                     }
                 }
@@ -176,11 +174,11 @@ public class PlayerController : MonoBehaviour
                     onRightWall = false;
                     Debug.DrawRay(transform.position, direction, Color.red);
 
-                    if (angleChanged) // changes the camera angle back to normal
-                    {
-                        myCamera.ResetAngle();
-                        angleChanged = false;
-                    }
+                    //if (angleChanged) // changes the camera angle back to normal
+                    //{
+                    //    myCamera.ResetAngle();
+                    //    angleChanged = false;
+                    //}
 
                     if (currentState == State.Climbing || currentState == State.Wallrunning)
                     {
@@ -249,7 +247,6 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case State.Sliding:
-                    Debug.Log("Crouched during slide");
                     
                     myMovement.CancelSlide();
                     break;
@@ -265,7 +262,6 @@ public class PlayerController : MonoBehaviour
     {
         if(currentState == State.Running) // if we're already running and want to stop
         {
-            Debug.Log("Stop running pls"); // potentially causing a crash
             CheckMove();
         }
         else // if we aren't running
@@ -310,23 +306,28 @@ public class PlayerController : MonoBehaviour
 
     public void VaultCheck()
     {
-        Vector3 vaultCheck = transform.position;
+        Debug.Log("Checking for vault");
         RaycastHit vaultHit;
-        if(Physics.Raycast(vaultCheck, transform.forward, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
+        Vector3 direction = transform.TransformDirection(vaultCheck);
+        Debug.DrawRay(transform.position, direction, Color.blue);
+        if (Physics.Raycast(direction, transform.forward, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
         {
-            
-            vaultCheck.y += 1f;
-            if(!Physics.Raycast(vaultCheck, transform.forward, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
+            if(vaultHit.collider.gameObject != this)
             {
-                
-                vaultCheck += transform.forward;
-
-                if(Physics.Raycast(vaultCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
+                Debug.Log("Hit something we might vault over");
+                Debug.DrawRay(transform.position, direction, Color.blue);
+                direction.y += 2f;
+                if (!Physics.Raycast(direction, transform.forward, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
                 {
-                    
-                    UpdateState(State.Vaulting);
-                    myMovement.Vault(vaultHit.point);
-                    Debug.Log("We should vault");
+                    Debug.Log("We see space above the object");
+                    direction += transform.forward;
+                    Debug.DrawRay(transform.position, direction, Color.blue);
+                    if (Physics.Raycast(direction, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
+                    {
+                        UpdateState(State.Vaulting);
+                        myMovement.Vault(vaultHit.point);
+                        Debug.Log("We should vault");
+                    }
                 }
             }
         }

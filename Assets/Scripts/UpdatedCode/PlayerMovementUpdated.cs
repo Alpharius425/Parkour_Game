@@ -217,7 +217,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             }
         }
 
-        if(myController.grounded == false)
+        if(myController.grounded == false && myController.currentState != State.Climbing && myController.currentState != State.Wallrunning)
         {
             myController.UpdateState(State.Jumping);
         }

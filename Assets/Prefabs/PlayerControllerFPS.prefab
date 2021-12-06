@@ -555,18 +555,18 @@ MonoBehaviour:
   myInput: {fileID: 1826140720}
   myAnimator: {fileID: 8836748305666955059}
   movement: {x: 0, y: 0, z: 0}
-  gravity: -10
+  gravity: -15
   airControlsOn: 1
   myCollider: {fileID: 5881899092385311092}
-  walkSpeed: 4
-  runSpeed: 8
-  crouchSpeed: 2
-  climbSpeed: 6
-  slideSpeed: 8
-  airSpeed: 0.75
+  walkSpeed: 5
+  runSpeed: 10
+  crouchSpeed: 3
+  climbSpeed: 7
+  slideSpeed: 10
+  airSpeed: 1
   actualSpeed: 0
-  crouchHeight: 1
-  crouchCamHeight: 0.5
+  crouchHeight: 0.9
+  crouchCamHeight: 0.6
   crouchCenterHeight: 0
   defaultHeight: 1.5
   defaultCamHeight: 0.7
@@ -605,7 +605,7 @@ MonoBehaviour:
   myController: {fileID: 1826140721}
   myMovement: {fileID: 1826140719}
   myInputs: {fileID: 5881899092385311091}
-  myPauseMenu: {fileID: 0}
+  myPauseMenu: {fileID: 2129536001831327930, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
   crouchToggled: 1
 --- !u!114 &1826140721
 MonoBehaviour:
