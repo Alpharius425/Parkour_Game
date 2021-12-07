@@ -105,18 +105,19 @@ public class PlayerMovementUpdated : MonoBehaviour
         if(myController.currentState == State.Vaulting)
         {
             Debug.Log("Vaulting");
-            distanceCovered = (Time.time - startTime) * vaultSpeed;
-            float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-            gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, fractionOfJourney);
-            //transform.position += (center * 0.5f);
+            //distanceCovered = (Time.time - startTime) * vaultSpeed;
+            //float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
+            //gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, fractionOfJourney);
+            ////transform.position += (center * 0.5f);
+            myAnimator.SetBool("Vaulting", false);
 
             if (gameObject.transform.position == newPosition)
             {
                 //transform.position += center;
                 myController.CheckMove();
-                myCamera.RotatePlayer();
+                //myCamera.RotatePlayer();
                 myAnimator.SetBool("Vaulting", false);
-                Debug.Log("Finished vaulting");
+                //Debug.Log("Finished vaulting");
             }
         }
         Debug.DrawLine(oldLocation, newPosition);
@@ -138,7 +139,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(walkSpeed);
                     //movement.y = gravity;
                     MoveInput();
-                    myAnimator.SetBool("Running", true);
+                    myAnimator.SetBool("Idle", true);
+                    //myAnimator.SetBool("Running", true);
                     break;
 
                 case State.Running:
@@ -160,7 +162,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(crouchSpeed);
                     //movement.y = gravity;
                     MoveInput();
-                    myAnimator.SetBool("Running", true);
+                    myAnimator.SetBool("Idle", true);
+                    //myAnimator.SetBool("Running", true);
                     break;
 
                 case State.Climbing: // changes our forward and back input to up and down input, locks left and right movement
@@ -419,22 +422,27 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void Vault(Vector3 newLocation) // takes the point that we found in our detection and begins to slerp towards it
     {
-        Debug.Log("Should vault");
-        startTime = Time.time;
-        oldLocation = gameObject.transform.position;
-        Debug.Log("Old location" + oldLocation);
-        gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
-        journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
+        Vector3 pos = transform.position;
+        pos.y += 2f;
+        transform.position = pos;
 
-        center = (oldLocation + newLocation) * 0.5F;
 
-        Debug.Log("Center" + center);
-        center -= new Vector3(0, 1, 0);
+        //Debug.Log("Should vault");
+        //startTime = Time.time;
+        //oldLocation = gameObject.transform.position;
+        //Debug.Log("Old location" + oldLocation);
+        //gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
+        //journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
 
-        riseCurve = gameObject.transform.position - center;
+        //center = (oldLocation + newLocation) * 0.5F;
 
-        newPosition = newLocation;
+        //Debug.Log("Center" + center);
+        //center -= new Vector3(0, 1, 0);
+
+        //riseCurve = gameObject.transform.position - center;
+
+        //newPosition = newLocation;
         myController.UpdateState(State.Vaulting);
-        myAnimator.SetBool("Vaulting", true);
+        //myAnimator.SetBool("Vaulting", true);
     }
 }

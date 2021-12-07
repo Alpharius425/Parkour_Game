@@ -356,7 +356,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881899092385311088}
-  m_LocalRotation: {x: 0, y: -0.7213753, z: 0, w: 0.6925443}
+  m_LocalRotation: {x: 0, y: -0.72137344, z: 0, w: 0.69254625}
   m_LocalPosition: {x: -57.6, y: 9.362205, z: -2.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -367,7 +367,7 @@ Transform:
   - {fileID: 3185905202654330185}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -92.336, z: 0}
 --- !u!114 &5881899092385311090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,7 +557,6 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   gravity: -15
   airControlsOn: 1
-  myCollider: {fileID: 5881899092385311092}
   walkSpeed: 5
   runSpeed: 10
   crouchSpeed: 3
@@ -605,7 +604,7 @@ MonoBehaviour:
   myController: {fileID: 1826140721}
   myMovement: {fileID: 1826140719}
   myInputs: {fileID: 5881899092385311091}
-  myPauseMenu: {fileID: 2129536001831327930, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+  myPauseMenu: {fileID: 0}
   crouchToggled: 1
 --- !u!114 &1826140721
 MonoBehaviour:
@@ -637,7 +636,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   detectionRange: 2
-  vaultDetectionRange: 3
+  vaultDetectionRange: 2.5
+  vaultLayers:
+    serializedVersion: 2
+    m_Bits: 5120
   angleChange: 20
   angleChanged: 0
   onRightWall: 0
