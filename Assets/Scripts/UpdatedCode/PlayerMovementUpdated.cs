@@ -16,8 +16,6 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float gravity;
     [SerializeField] bool airControlsOn = true;
 
-    [SerializeField] CapsuleCollider myCollider;
-
     // speed info
     [SerializeField] float walkSpeed = 4f;
     [SerializeField] float runSpeed = 8f;
@@ -110,7 +108,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             distanceCovered = (Time.time - startTime) * vaultSpeed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
             gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, fractionOfJourney);
-            //transform.position += (center * 0.5f);
+            transform.position += (center * 0.5f);
 
 
             if (gameObject.transform.position == newPosition)
@@ -415,8 +413,8 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
     {
-        myCollider.height = newHeight;
-        myCollider.center = new Vector3(0, newColliderCenter, 0);
+        controller.height = newHeight;
+        controller.center = new Vector3(0, newColliderCenter, 0);
         myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
     }
 
