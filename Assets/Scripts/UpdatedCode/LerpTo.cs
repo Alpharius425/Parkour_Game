@@ -62,11 +62,7 @@ public class LerpTo : MonoBehaviour
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
 
-        Quaternion rotation = player.transform.rotation;
-        rotation.x = 0f;
-        rotation.z = 0f;
-        rotation.y = controller.myCamera.gameObject.transform.rotation.y;
-        player.transform.rotation = rotation;
+        player.GetComponent<CameraControl>().RotatePlayer();
         controller.ResetWallJumpTimer();
         controller.attachedObject = null;
         Debug.Log("player is no longer attached");

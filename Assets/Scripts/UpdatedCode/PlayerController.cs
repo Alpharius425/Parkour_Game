@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool onLeftWall = false;
     public LerpTo attachedObject = null;
 
+
+    Vector3 topCheck;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,13 +57,14 @@ public class PlayerController : MonoBehaviour
             Vector3.left,
             Vector3.forward
         };
-
         vaultCheck = Vector3.forward;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.DrawRay(topCheck, Vector3.down);
         if(Physics.Raycast(transform.position, Vector3.down, out hit, downDetection)) // checks if the player is on the ground or not
         {
             grounded = true;
@@ -115,7 +118,7 @@ public class PlayerController : MonoBehaviour
             curClimbTime -= Time.deltaTime;
         }
 
-        if(currentState == State.Running || currentState == State.Climbing)
+        if(currentState == State.Running || currentState == State.Climbing || currentState == State.Jumping)
         {
             for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
             {
@@ -192,7 +195,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(currentState == State.Climbing || currentState == State.Running) // while we are running or climbing we're going to check if we can vault
+        if(currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping) // while we are running or climbing we're going to check if we can vault
         {
             //Debug.Log("Check vaulting");
             VaultCheck();
@@ -308,29 +311,26 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit vaultHit;
         Vector3 direction = transform.TransformDirection(vaultCheck);
+        //topCheck = Vector3.zero;
+        //topCheck.y += 0.5f;
 
-        Debug.Log("Checking for vault");
+        //Debug.Log(direction);
         Debug.DrawRay(transform.position, direction, Color.blue);
 
-        if (Physics.Raycast(direction, transform.forward, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
+        if (Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
         {
             if(vaultHit.collider.gameObject != gameObject)
             {
-                direction.y += 2f;
-
-                Debug.Log("Hit" + vaultHit.collider.gameObject + "we might vault over");
-                Debug.DrawRay(direction, direction, Color.blue);
-                if (!Physics.Raycast(direction, transform.forward, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
+                direction.y += 0.2f;
+                //Debug.Log("initial hit" + vaultHit.point);
+                if (!Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
                 {
-                    direction += (transform.forward * 2);
-
-                    Debug.Log("We see space above the object");
-                    Debug.DrawRay(direction, direction, Color.blue);
-                    if (Physics.Raycast(direction, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
+                    topCheck = transform.position + transform.forward + Vector3.up;
+                    if (Physics.Raycast(topCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                     {
+                        Debug.Log("Second hit" + vaultHit.point);
                         UpdateState(State.Vaulting);
                         myMovement.Vault(vaultHit.point);
-                        Debug.Log("We should vault");
                     }
                 }
             }

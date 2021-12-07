@@ -54,7 +54,7 @@ public class CameraControl : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Wallrunning || myController.currentState == State.Climbing) // checks to see if we are in a state that lets the camera change our rotation
+        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Wallrunning || myController.currentState == State.Climbing || myController.currentState == State.Jumping) // checks to see if we are in a state that lets the camera change our rotation
         {
             affectRotation = true;
         }
