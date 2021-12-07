@@ -24,12 +24,14 @@ public class PauseMenu : MonoBehaviour
             Paused = false;
             Time.timeScale = 1;             //makes time go at 100% of the usual rate so it move
             PauseMenuUI.SetActive(false);    //deactivates the pause menu
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
             Paused = true;
             Time.timeScale = 0;             //makes time go at 0% of the usual rate so it does not move
             PauseMenuUI.SetActive(true);    //activates the pause menu
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
