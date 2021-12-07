@@ -375,7 +375,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881899092385311088}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56dc0d5afc393704ba8ffde64080c7f0, type: 3}
   m_Name: 
@@ -518,6 +518,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f2a93d29-755b-4d45-b074-ff3a4cad31e6
     m_ActionName: PlayerMovement/ChangeSelection[/Keyboard/upArrow,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1826140720}
+        m_TargetAssemblyTypeName: PlayerInputDetector, Assembly-CSharp
+        m_MethodName: ThrowInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 75034d33-2ea1-4ad1-8874-1a8882a10a31
+    m_ActionName: PlayerMovement/BoxThrow[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: PlayerMovement
@@ -605,6 +621,7 @@ MonoBehaviour:
   myMovement: {fileID: 1826140719}
   myInputs: {fileID: 5881899092385311091}
   myPauseMenu: {fileID: 0}
+  myPackages: {fileID: 5881899092385311090}
   crouchToggled: 1
 --- !u!114 &1826140721
 MonoBehaviour:
