@@ -442,7 +442,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //riseCurve = gameObject.transform.position - center;
 
         //newPosition = newLocation;
-        myController.UpdateState(State.Vaulting);
+        //myController.UpdateState(State.Vaulting);
         //myAnimator.SetBool("Vaulting", true);
     }
 }

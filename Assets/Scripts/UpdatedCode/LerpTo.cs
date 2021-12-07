@@ -81,6 +81,7 @@ public class LerpTo : MonoBehaviour
         player.GetComponent<PlayerController>().attachedObject = this;
         startTime = Time.time;
         player.transform.LookAt(endPoint.transform.position); // makes our player look at the endpoint
+        controller = player.GetComponent<PlayerController>();
         //Quaternion rotation = player.transform.rotation;
         //rotation.z = 0f;
         //player.transform.rotation = rotation;

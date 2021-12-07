@@ -34,13 +34,22 @@ public class packageThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    if (shootTimer < 0)
+        //    {
+        //        Instantiate(projectileObject, targetPosition, playerProjectilePosition.transform.rotation);
+        //        shootTimer = shootCountdown;
+        //    }
+        //}
+    }
+
+    public void ThrowPackage()
+    {
+        if (shootTimer < 0)
         {
-            if (shootTimer < 0)
-            {
-                Instantiate(projectileObject, targetPosition, playerProjectilePosition.transform.rotation);
-                shootTimer = shootCountdown;
-            }
+            Instantiate(projectileObject, targetPosition, playerProjectilePosition.transform.rotation);
+            shootTimer = shootCountdown;
         }
     }
 }
