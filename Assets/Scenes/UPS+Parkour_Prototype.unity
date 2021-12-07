@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 12169.092, g: 10975.436, b: 10022.512, a: 1}
+  m_IndirectSpecularColor: {r: 13310.455, g: 12788.031, b: 13270.008, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3214,6 +3214,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RespawnDetector
       objectReference: {fileID: 0}
+    - target: {fileID: 4916938199688329542, guid: 7c3c4e589e7143942859812e387fd0cd, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c3c4e589e7143942859812e387fd0cd, type: 3}
 --- !u!1 &414719157
@@ -5399,17 +5403,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1826140719, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: vaultSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: myPauseMenu
       value: 
       objectReference: {fileID: 694828588}
     - target: {fileID: 1826140721, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: detectionRange
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1826140721, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: vaultDetectionRange
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5881899092385311088, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_Name
@@ -5421,15 +5429,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5881899092385311094, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.07
+      value: -1.37
       objectReference: {fileID: 0}
     - target: {fileID: 5881899092385311094, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.36
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 5881899092385311094, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.83584213
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 5881899092385311094, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_LocalRotation.w

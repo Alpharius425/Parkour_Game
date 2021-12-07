@@ -16,8 +16,6 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float gravity;
     [SerializeField] bool airControlsOn = true;
 
-    [SerializeField] CapsuleCollider myCollider;
-
     // speed info
     [SerializeField] float walkSpeed = 4f;
     [SerializeField] float runSpeed = 8f;
@@ -67,7 +65,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float startTime; // saves reference for when we start moving
 
 
-
+    Vector3 center;
     // Start is called before the first frame update
     void Start()
     {
@@ -109,20 +107,20 @@ public class PlayerMovementUpdated : MonoBehaviour
             Debug.Log("Vaulting");
             distanceCovered = (Time.time - startTime) * vaultSpeed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-            gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, vaultSpeed);
+            gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, fractionOfJourney);
+            transform.position += (center * 0.5f);
 
-            if(gameObject.transform.position == newPosition)
+
+            if (gameObject.transform.position == newPosition)
             {
+                transform.position += center;
                 myController.CheckMove();
-                Quaternion rotation = gameObject.transform.rotation;
-                rotation.x = 0f;
-                rotation.z = 0f;
-                rotation.y = myController.myCamera.gameObject.transform.rotation.y;
-                gameObject.transform.rotation = rotation;
+                myCamera.RotatePlayer();
                 myAnimator.SetBool("Vaulting", false);
                 Debug.Log("Finished vaulting");
             }
         }
+        Debug.DrawLine(oldLocation, newPosition);
     }
 
     public void Move(Vector3 movementInput) // called from the player input script and gets the inputs from the player
@@ -415,8 +413,8 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
     {
-        myCollider.height = newHeight;
-        myCollider.center = new Vector3(0, newColliderCenter, 0);
+        controller.height = newHeight;
+        controller.center = new Vector3(0, newColliderCenter, 0);
         myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
     }
 
@@ -425,11 +423,13 @@ public class PlayerMovementUpdated : MonoBehaviour
         Debug.Log("Should vault");
         startTime = Time.time;
         oldLocation = gameObject.transform.position;
+        Debug.Log("Old location" + oldLocation);
         gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
         journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
 
-        Vector3 center = (gameObject.transform.position + newLocation) * 0.5F;
+        center = (oldLocation + newLocation) * 0.5F;
 
+        Debug.Log("Center" + center);
         center -= new Vector3(0, 1, 0);
 
         riseCurve = gameObject.transform.position - center;
