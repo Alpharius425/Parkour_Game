@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public float detectionRange; // determines how far away we look when we try to detect obstacles
     public float vaultDetectionRange;
     Vector3 vaultCheck;
+    [SerializeField] LayerMask vaultLayers;
+
     Vector3[] detectionDirections;
     public float angleChange; // affects how much our angle shifts while wall running
     public bool angleChanged = false;
@@ -317,7 +319,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(direction);
         Debug.DrawRay(transform.position, direction, Color.blue);
 
-        if (Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange)) // checks if theres anything infront of the player
+        if (Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange, vaultLayers)) // checks if theres anything infront of the player
         {
             if(vaultHit.collider.gameObject != gameObject)
             {
@@ -329,7 +331,7 @@ public class PlayerController : MonoBehaviour
                     if (Physics.Raycast(topCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                     {
                         Debug.Log("Second hit" + vaultHit.point);
-                        UpdateState(State.Vaulting);
+                        
                         myMovement.Vault(vaultHit.point);
                     }
                 }
