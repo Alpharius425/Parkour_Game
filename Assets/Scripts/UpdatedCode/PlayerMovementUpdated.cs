@@ -108,12 +108,11 @@ public class PlayerMovementUpdated : MonoBehaviour
             distanceCovered = (Time.time - startTime) * vaultSpeed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
             gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, fractionOfJourney);
-            transform.position += (center * 0.5f);
-
+            //transform.position += (center * 0.5f);
 
             if (gameObject.transform.position == newPosition)
             {
-                transform.position += center;
+                //transform.position += center;
                 myController.CheckMove();
                 myCamera.RotatePlayer();
                 myAnimator.SetBool("Vaulting", false);
@@ -435,6 +434,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         riseCurve = gameObject.transform.position - center;
 
         newPosition = newLocation;
+        myController.UpdateState(State.Vaulting);
         myAnimator.SetBool("Vaulting", true);
     }
 }
