@@ -147,7 +147,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 21.451567
+  m_FocalLength: 21.5
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -259,9 +259,9 @@ MonoBehaviour:
   taaMotionVectorRejection: 0
   taaAntiHistoryRinging: 0
   physicalParameters:
-    m_Iso: 200
+    m_Iso: 100
     m_ShutterSpeed: 0.005
-    m_Aperture: 2
+    m_Aperture: 8
     m_BladeCount: 9
     m_Curvature: {x: 2, y: 11}
     m_BarrelClipping: 0.25
@@ -357,8 +357,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881899092385311088}
-  m_LocalRotation: {x: 0, y: -0.72137344, z: 0, w: 0.69254625}
-  m_LocalPosition: {x: -57.6, y: 9.362205, z: -2.35}
+  m_LocalRotation: {x: -0.039109178, y: 0.11551498, z: 0.0045517194, w: 0.9925251}
+  m_LocalPosition: {x: -35.14308, y: 17.08, z: 92.82332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5881899092258010006}
@@ -367,7 +367,7 @@ Transform:
   - {fileID: 7632593467166882511}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -92.336, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.513, y: 13.277, z: 0}
 --- !u!114 &5881899092385311090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,8 +586,8 @@ MonoBehaviour:
   defaultHeight: 1.5
   defaultCamHeight: 0.7
   defaultCenterHeight: 0
-  slideTime: 3
-  slideTimeMax: 3
+  slideTime: 1
+  slideTimeMax: 1
   sliding: 0
   jumpForce: 5
   velocity: {x: 0, y: 0, z: 0}
@@ -635,14 +635,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a09e7ebe2e07b4290620bb81facbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 9
+  currentState: 0
   myMovement: {fileID: 1826140719}
   myCamera: {fileID: 1257659115}
   myInput: {fileID: 1826140720}
   sprintHeld: 0
   crouchHeld: 0
   grounded: 0
-  downDetection: 1
+  downDetection: 2
   timeUntilGroundCheck: 0
   jumpLandTime: 0.3
   maxTimeToWallRun: 3

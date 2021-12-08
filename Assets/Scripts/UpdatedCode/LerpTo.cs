@@ -62,7 +62,7 @@ public class LerpTo : MonoBehaviour
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
 
-        player.GetComponent<CameraControl>().RotatePlayer();
+        //player.GetComponent<CameraControl>().RotatePlayer();
         controller.ResetWallJumpTimer();
         controller.attachedObject = null;
         Debug.Log("player is no longer attached");
