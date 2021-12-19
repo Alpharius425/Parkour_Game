@@ -29,6 +29,13 @@ public class PlayerInputDetector : MonoBehaviour
     {
         if(canInput)
         {
+            // Left mouse click for ThrowPackage. Uses Input Manager, since the Input System can't listen for any mouse inputs at the moment.
+            if (Input.GetMouseButton(0))
+            {
+                //Debug.Log("Left Click");
+                myPackages.ThrowPackage();
+            }
+
             if (myController.currentState != State.Sliding)
             {
                 myMovement.Move(movementInput);
