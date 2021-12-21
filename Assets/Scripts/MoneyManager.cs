@@ -27,7 +27,7 @@ public class MoneyManager : MonoBehaviour
         moneyText.SetText("$" + money);
         moneyCardText.SetText("+ $" + value);
         moneyCardText.gameObject.SetActive(true);
-        Invoke("DisableMoneyCard", moneyCardCountdown); // Calls DisableMoneyCard(), Interval seconds from now.
+        Invoke("DisableMoneyCard", moneyCardCountdown); // Calls DisableMoneyCard(), moneyCardCountdown seconds from now.
         return;
     }
 
