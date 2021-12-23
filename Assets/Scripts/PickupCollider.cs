@@ -32,6 +32,8 @@ public class PickupCollider : MonoBehaviour
 
             // Package Throw Script
             packageThrowScript.bonusPackageObject = other.gameObject;
+
+            bonusPackageInHand = true;
             return;
         }
         else return;

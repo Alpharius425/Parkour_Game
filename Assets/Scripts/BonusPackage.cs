@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BonusPackage : MonoBehaviour
 {
-    public static BonusPackage Instance;
-    
     private PickupCollider pickupColliderScript;
 
     //[HideInInspector] public bool packagePickedUp = false;
@@ -17,7 +15,6 @@ public class BonusPackage : MonoBehaviour
     [SerializeField] private GameObject PackageDeliveryPoint;
 
     private void Awake() {
-        Instance = this;
         moveToTarget = GameObject.FindGameObjectWithTag("MainCamera");
         //pickupColliderScript = PickupCollider.Instance;
         pickupColliderScript = GameObject.Find("PickupCollider").GetComponent<PickupCollider>();
