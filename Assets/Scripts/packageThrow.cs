@@ -18,8 +18,6 @@ public class packageThrow : MonoBehaviour
 
     Vector3 targetPosition;
 
-    // Start is called before the first frame update
-
     private void Awake() {
         Instance = this;
         targetPosition = playerProjectilePosition.transform.position;
@@ -44,12 +42,15 @@ public class packageThrow : MonoBehaviour
         {
             if (pickupColliderScript.bonusPackageInHand)
             {
+                // Enables physics for bonusPackageInHand.
                 bonusPackageObject.GetComponent<Rigidbody>().useGravity = true;
                 bonusPackageObject.GetComponent<MeshCollider>().isTrigger = false;
 
+                // Moves and adds force to bonusPackageInHand.
                 bonusPackageObject.transform.position = targetPosition;
-                bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(SmallPackageScript.forceVector, ForceMode.Impulse);
-                
+                bonusPackageObject.transform.rotation = playerProjectilePosition.transform.rotation;
+
+
                 pickupColliderScript.BonusPackageThrown();
                 bonusPackageObject = null;
             }

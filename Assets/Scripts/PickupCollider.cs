@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PickupCollider : MonoBehaviour
 {
@@ -13,9 +12,17 @@ public class PickupCollider : MonoBehaviour
     private GameObject bonusPackageObject = null;
     private BonusPackage bonusPackageScript = null;
 
+    // When bonus package is thrown.
+    private float forwardSpeed = 20f;
+    private float upSpeed = 5f;
+    private Vector3 forceVector3;
+
     private void Awake()
     {
         Instance = this;
+
+        // When bonus package is thrown.
+        forceVector3 = new Vector3(0f, upSpeed, forwardSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,8 +60,8 @@ public class PickupCollider : MonoBehaviour
         bonusPackageUI.SetActive(false);
 
         bonusPackageObject.SetActive(true);
-        
-        
+        bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
+
         Invoke("BonusPackageThrownInvoke", 1);
     }
 

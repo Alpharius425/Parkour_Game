@@ -16,7 +16,6 @@ public class BonusPackage : MonoBehaviour
 
     private void Awake() {
         moveToTarget = GameObject.FindGameObjectWithTag("MainCamera");
-        //pickupColliderScript = PickupCollider.Instance;
         pickupColliderScript = GameObject.Find("PickupCollider").GetComponent<PickupCollider>();
     }
 

@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class smallPackage : MonoBehaviour
 {
-    public static smallPackage Instance;
-
     [Header("Projectile Options")]
     public float forwardSpeed;
     public float upSpeed;
     public float projectileLifetime;
-    public Vector3 forceVector; // For Bonus Package Throw in packageThrow script.
+    //public Vector3 forceVector; // For Bonus Package Throw in packageThrow script.
 
     Vector3 forceVector3;
 
-    // Start is called before the first frame update
     void Awake() {
-        Instance = this;
         forceVector3 = new Vector3 (0f,upSpeed,forwardSpeed);
-        forceVector = forceVector3; // For Bonus Package Throw in packageThrow script.
+        //forceVector = forceVector3; // For Bonus Package Throw in packageThrow script.
         gameObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
+        Invoke("DestroyObject", projectileLifetime);
     }
 
-    // Update is called once per frame
+    /*
     void Update()
     {
         projectileLifetime -= Time.deltaTime;
@@ -34,5 +31,10 @@ public class smallPackage : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    */
+
+    private void DestroyObject() {
+        Destroy(gameObject);
     }
 }
