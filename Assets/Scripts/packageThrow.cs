@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class packageThrow : MonoBehaviour
 {
+    public static packageThrow Instance;
+
     [Header("Game Objects")]
     public GameObject playerProjectilePosition;
     public GameObject projectileObject;
     public float shootCountdown = 1f;
     float shootTimer = 1f;
 
+    [SerializeField] private smallPackage SmallPackageScript;
+    [SerializeField] private PickupCollider pickupColliderScript;
+    private GameObject bonusPackageObject;
+
     Vector3 targetPosition;
 
     // Start is called before the first frame update
-    void Start()
-    {
+
+    private void Awake() {
+        Instance = this;
         targetPosition = playerProjectilePosition.transform.position;
     }
 
@@ -31,25 +38,25 @@ public class packageThrow : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    if (shootTimer < 0)
-        //    {
-        //        Instantiate(projectileObject, targetPosition, playerProjectilePosition.transform.rotation);
-        //        shootTimer = shootCountdown;
-        //    }
-        //}
-    }
-
     public void ThrowPackage()
     {
         if (shootTimer < 0)
         {
-            Instantiate(projectileObject, targetPosition, playerProjectilePosition.transform.rotation);
+            if (pickupColliderScript.bonusPackageInHand)
+            {
+                bonusPackageObject.SetActive(true);
+                bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(SmallPackageScript.forceVector, ForceMode.Impulse);
+                pickupColliderScript.BonusPackageThrown();
+                bonusPackageObject = null;
+            }
+            else {
+                Instantiate(projectileObject, targetPosition, playerProjectilePosition.transform.rotation);
+            }
             shootTimer = shootCountdown;
         }
+    }
+
+    public void BonusPackageInHand(GameObject bonusPackage) {
+        bonusPackageObject = bonusPackage;
     }
 }

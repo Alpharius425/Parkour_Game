@@ -6,6 +6,8 @@ public class BonusPackage : MonoBehaviour
 {
     public static BonusPackage Instance;
     
+    [SerializeField] private PickupCollider pickupColliderScript;
+
     //[HideInInspector] public bool packagePickedUp = false;
     [HideInInspector] public bool movePackage = false;
     
@@ -23,8 +25,6 @@ public class BonusPackage : MonoBehaviour
         if (movePackage) {
             transform.position = Vector3.MoveTowards(transform.position, moveToTarget.transform.position, Time.deltaTime * itemPickupSpeed);
             if (transform.position == moveToTarget.transform.position) {
-                // FINISH CODE HERE: If the bonus package position is equal to the target position, movePackage = false.
-                Debug.Log("0");
                 packageInHand();
                 movePackage = false;
             }
@@ -37,6 +37,8 @@ public class BonusPackage : MonoBehaviour
     }
 
     private void packageInHand() {
-        Debug.Log("1");
+        pickupColliderScript.bonusPackageInHand = true;
+        pickupColliderScript.itemPickedUp(gameObject);
+        gameObject.SetActive(false);
     }
 }
