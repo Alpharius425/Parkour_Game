@@ -6,7 +6,7 @@ public class BonusPackage : MonoBehaviour
 {
     public static BonusPackage Instance;
     
-    [SerializeField] private PickupCollider pickupColliderScript;
+    private PickupCollider pickupColliderScript;
 
     //[HideInInspector] public bool packagePickedUp = false;
     [HideInInspector] public bool movePackage = false;
@@ -19,26 +19,18 @@ public class BonusPackage : MonoBehaviour
     private void Awake() {
         Instance = this;
         moveToTarget = GameObject.FindGameObjectWithTag("MainCamera");
+        //pickupColliderScript = PickupCollider.Instance;
+        pickupColliderScript = GameObject.Find("PickupCollider").GetComponent<PickupCollider>();
     }
 
     private void Update() {
         if (movePackage) {
             transform.position = Vector3.MoveTowards(transform.position, moveToTarget.transform.position, Time.deltaTime * itemPickupSpeed);
             if (transform.position == moveToTarget.transform.position) {
-                packageInHand();
+                //packageInHand();
+                pickupColliderScript.BonusPackagePickedUp();
                 movePackage = false;
             }
         }
-    }
-
-    public void packagePickedUp() {
-        GetComponent<Rigidbody>().useGravity = false;
-        GetComponent<MeshCollider>().isTrigger = true;
-    }
-
-    private void packageInHand() {
-        pickupColliderScript.bonusPackageInHand = true;
-        pickupColliderScript.itemPickedUp(gameObject);
-        gameObject.SetActive(false);
     }
 }

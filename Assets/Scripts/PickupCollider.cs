@@ -10,6 +10,8 @@ public class PickupCollider : MonoBehaviour
     public bool bonusPackageInHand = false;
     [SerializeField] private GameObject bonusPackageUI;
     [SerializeField] private packageThrow packageThrowScript;
+    private GameObject bonusPackageObject = null;
+    private BonusPackage bonusPackageScript = null;
 
     private void Awake()
     {
@@ -20,18 +22,29 @@ public class PickupCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("BonusPackage") && !bonusPackageInHand)
         {
-            other.GetComponent<BonusPackage>().movePackage = true;
-            other.GetComponent<BonusPackage>().packagePickedUp();
+            // Bonus Package Object & Script
+            bonusPackageObject = other.gameObject;
+            bonusPackageScript = other.GetComponent<BonusPackage>();
+            bonusPackageScript.movePackage = true;
+
+            bonusPackageObject.GetComponent<Rigidbody>().useGravity = false;
+            bonusPackageObject.GetComponent<MeshCollider>().isTrigger = true;
+
+            // Package Throw Script
+            packageThrowScript.bonusPackageObject = other.gameObject;
             return;
         }
         else return;
     }
 
-    public void itemPickedUp(GameObject itemPickedUp) {
-        if (itemPickedUp.tag == "BonusPackage") {
-            bonusPackageUI.SetActive(true);
-            packageThrowScript.BonusPackageInHand(itemPickedUp);
-        }
+    public void BonusPackagePickedUp() {
+        bonusPackageInHand = true;
+
+        // UI
+        bonusPackageUI.SetActive(true);
+
+        // Bonus Package Object
+        bonusPackageObject.SetActive(false);
     }
 
     public void BonusPackageThrown() {
@@ -42,7 +55,4 @@ public class PickupCollider : MonoBehaviour
     public void BonusPackageThrownInvoke() {
         bonusPackageInHand = false;
     }
-
-    // GET EVERYTHING RELATED TO BONUS PACKAGES INTO THIS SCRIPT (AT LEAST AS MUCH AS YOU CAN).
-    // This script will be the main "manager" for bonus package scripts: This script will determine what to do when the bonus package is in-hand or not, etc.
 }

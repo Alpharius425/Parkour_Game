@@ -11,10 +11,10 @@ public class packageThrow : MonoBehaviour
     public GameObject projectileObject;
     public float shootCountdown = 1f;
     float shootTimer = 1f;
-
+    
     [SerializeField] private smallPackage SmallPackageScript;
     [SerializeField] private PickupCollider pickupColliderScript;
-    private GameObject bonusPackageObject;
+    [HideInInspector] public GameObject bonusPackageObject;
 
     Vector3 targetPosition;
 
@@ -54,9 +54,5 @@ public class packageThrow : MonoBehaviour
             }
             shootTimer = shootCountdown;
         }
-    }
-
-    public void BonusPackageInHand(GameObject bonusPackage) {
-        bonusPackageObject = bonusPackage;
     }
 }
