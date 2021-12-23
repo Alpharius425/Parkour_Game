@@ -10,9 +10,10 @@ public class BonusPackage : MonoBehaviour
     [HideInInspector] public bool movePackage = false;
     
     private GameObject moveToTarget; // Set to the player's MainCamera on Awake().
+    [SerializeField] private int deliveryReward;
     [SerializeField] private float itemPickupSpeed;
 
-    [SerializeField] private GameObject PackageDeliveryPoint;
+    public GameObject PackageDeliveryPoint;
 
     private void Awake() {
         moveToTarget = GameObject.FindGameObjectWithTag("MainCamera");
@@ -23,10 +24,14 @@ public class BonusPackage : MonoBehaviour
         if (movePackage) {
             transform.position = Vector3.MoveTowards(transform.position, moveToTarget.transform.position, Time.deltaTime * itemPickupSpeed);
             if (transform.position == moveToTarget.transform.position) {
-                //packageInHand();
                 pickupColliderScript.BonusPackagePickedUp();
                 movePackage = false;
             }
         }
+    }
+
+    public void BonusPackageDelivered() {
+        FindObjectOfType<MoneyManager>().AddMoney(deliveryReward);
+        Destroy(gameObject);
     }
 }

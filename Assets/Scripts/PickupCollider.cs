@@ -52,6 +52,9 @@ public class PickupCollider : MonoBehaviour
         // UI
         bonusPackageUI.SetActive(true);
 
+        // Bonus Package Delivery Point
+        bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(true);
+
         // Bonus Package Object
         bonusPackageObject.SetActive(false);
     }
@@ -63,9 +66,19 @@ public class PickupCollider : MonoBehaviour
         bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
 
         Invoke("BonusPackageThrownInvoke", 1);
+
+        // Bonus Package Delivery Point
+        Invoke("DisableBonusDeliveryPoint", 3);
     }
 
     public void BonusPackageThrownInvoke() {
         bonusPackageInHand = false;
+    }
+
+    public void DisableBonusDeliveryPoint() {
+        if (bonusPackageObject != null) {
+            bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(false);
+        }
+        else return;
     }
 }
