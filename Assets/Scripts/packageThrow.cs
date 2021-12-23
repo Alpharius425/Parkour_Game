@@ -44,8 +44,12 @@ public class packageThrow : MonoBehaviour
         {
             if (pickupColliderScript.bonusPackageInHand)
             {
-                bonusPackageObject.SetActive(true);
+                bonusPackageObject.GetComponent<Rigidbody>().useGravity = true;
+                bonusPackageObject.GetComponent<MeshCollider>().isTrigger = false;
+
+                bonusPackageObject.transform.position = targetPosition;
                 bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(SmallPackageScript.forceVector, ForceMode.Impulse);
+                
                 pickupColliderScript.BonusPackageThrown();
                 bonusPackageObject = null;
             }

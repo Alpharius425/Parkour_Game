@@ -49,7 +49,11 @@ public class PickupCollider : MonoBehaviour
 
     public void BonusPackageThrown() {
         bonusPackageUI.SetActive(false);
-        Invoke("BonusPackageThrownInvoke", 2);
+
+        bonusPackageObject.SetActive(true);
+        
+        
+        Invoke("BonusPackageThrownInvoke", 1);
     }
 
     public void BonusPackageThrownInvoke() {
