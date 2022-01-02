@@ -6,7 +6,6 @@ public class BonusPackage : MonoBehaviour
 {
     private PickupCollider pickupColliderScript;
 
-    //[HideInInspector] public bool packagePickedUp = false;
     [HideInInspector] public bool movePackage = false;
     
     private GameObject moveToTarget; // Set to the player's MainCamera on Awake().

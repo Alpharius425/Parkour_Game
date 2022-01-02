@@ -76,7 +76,7 @@ public class PickupCollider : MonoBehaviour
     }
 
     public void DisableBonusDeliveryPoint() {
-        if (bonusPackageObject != null) {
+        if (!bonusPackageInHand) {
             bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(false);
         }
         else return;
