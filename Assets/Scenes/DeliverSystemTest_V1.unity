@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1420.9149, g: 1078.9929, b: 883.12573, a: 1}
+  m_IndirectSpecularColor: {r: 4779.8613, g: 7342.7437, b: 13156.512, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5302,13 +5302,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178317410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
   m_LocalPosition: {x: -10, y: 4, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1546264187}
   m_Father: {fileID: 556602254}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!20 &193219302 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5881899092258010001, guid: 77f678b125fbe6e49947285d17337625, type: 3}
@@ -6183,17 +6184,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556602253}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: -5, z: 10}
+  m_LocalPosition: {x: 10, y: -1.8228, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 178317414}
   - {fileID: 109432969}
   - {fileID: 999429469}
   - {fileID: 1306494662}
-  - {fileID: 1546264187}
   - {fileID: 2576518638742084729}
-  m_Father: {fileID: 1651080184}
-  m_RootOrder: 6
+  m_Father: {fileID: 745826655}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &586211672
 PrefabInstance:
@@ -6436,6 +6436,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627547602}
   m_CullTransparentMesh: 1
+--- !u!21 &634186317
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs/DefaultCompositionGraph 1
+  m_Shader: {fileID: -6465566751694194690, guid: c24511715310f01498db040ee0bce763, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - BaseLayer:
+        m_Texture: {fileID: 1482206569}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _BlendMode: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _DepthOffsetEnable: 0
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _EnableBlendModePreserveSpecularLighting: 0
+    - _EnableFogOnTransparent: 1
+    - _OpaqueCullMode: 2
+    - _RenderQueueType: 1
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SurfaceType: 0
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1001 &647418305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6548,6 +6629,11 @@ MeshCollider:
 --- !u!1 &745826650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5881899092258010002, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+  m_PrefabInstance: {fileID: 1801900385}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &745826655 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5881899092258010006, guid: 77f678b125fbe6e49947285d17337625, type: 3}
   m_PrefabInstance: {fileID: 1801900385}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &765266052
@@ -11374,12 +11460,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546264186}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 4, z: -12}
+  m_LocalRotation: {x: -0.17364816, y: -0, z: -0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 10, z: 5}
   m_Children: []
-  m_Father: {fileID: 556602254}
-  m_RootOrder: 4
+  m_Father: {fileID: 178317414}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1546264188
 MonoBehaviour:
@@ -11675,87 +11761,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 069210ebe9aff7940b26792cae68958e, type: 3}
   m_PrefabInstance: {fileID: 1676437451}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1739321211
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs/DefaultCompositionGraph 1
-  m_Shader: {fileID: -6465566751694194690, guid: c24511715310f01498db040ee0bce763, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - BaseLayer:
-        m_Texture: {fileID: 1482206569}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _AddPrecomputedVelocity: 0
-    - _AlphaCutoffEnable: 0
-    - _AlphaDstBlend: 0
-    - _AlphaSrcBlend: 1
-    - _AlphaToMask: 0
-    - _AlphaToMaskInspectorValue: 0
-    - _BlendMode: 0
-    - _CullMode: 2
-    - _CullModeForward: 2
-    - _DepthOffsetEnable: 0
-    - _DoubleSidedEnable: 0
-    - _DoubleSidedNormalMode: 2
-    - _DstBlend: 0
-    - _EnableBlendModePreserveSpecularLighting: 0
-    - _EnableFogOnTransparent: 1
-    - _OpaqueCullMode: 2
-    - _RenderQueueType: 1
-    - _SrcBlend: 1
-    - _StencilRef: 0
-    - _StencilRefDepth: 0
-    - _StencilRefDistortionVec: 4
-    - _StencilRefGBuffer: 2
-    - _StencilRefMV: 32
-    - _StencilWriteMask: 6
-    - _StencilWriteMaskDepth: 8
-    - _StencilWriteMaskDistortionVec: 4
-    - _StencilWriteMaskGBuffer: 14
-    - _StencilWriteMaskMV: 40
-    - _SurfaceType: 0
-    - _TransparentBackfaceEnable: 0
-    - _TransparentCullMode: 2
-    - _TransparentDepthPostpassEnable: 0
-    - _TransparentDepthPrepassEnable: 0
-    - _TransparentSortPriority: 0
-    - _TransparentWritingMotionVec: 0
-    - _TransparentZWrite: 0
-    - _UseShadowThreshold: 0
-    - _ZTestDepthEqualForOpaque: 4
-    - _ZTestGBuffer: 4
-    - _ZTestTransparent: 4
-    - _ZWrite: 1
-    m_Colors:
-    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1739474835
 GameObject:
   m_ObjectHideFlags: 1
@@ -11785,7 +11790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e46d2393531446428690b5a5f21645d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1739321211}
+  m_Material: {fileID: 634186317}
   m_OutputDisplay: 0
   m_InputLayers:
   - m_LayerName: BaseLayer
@@ -12921,7 +12926,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 556602254}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
 --- !u!33 &2672270116170898714
 MeshFilter:
