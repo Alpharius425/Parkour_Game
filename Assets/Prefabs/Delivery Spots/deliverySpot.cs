@@ -9,6 +9,10 @@ public class deliverySpot : MonoBehaviour
     [SerializeField] private MoneyManager moneyManager;
     [SerializeField] private int moneyReward;
 
+    private void Awake() {
+        ArrowObject.Instance.SetTarget(gameObject); // Sets next target object for ArrowObject.
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Package")
@@ -24,6 +28,7 @@ public class deliverySpot : MonoBehaviour
             else
             {
                 gameObject.transform.position = deliverySpots[deliverySpotCount].transform.position;
+                ArrowObject.Instance.SetTarget(gameObject); // Sets next target object for ArrowObject.
                 deliverySpotCount += 1;
             }
         }
