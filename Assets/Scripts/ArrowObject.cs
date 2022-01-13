@@ -9,6 +9,7 @@ public class ArrowObject : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject arrowFromPlayer;
+    [SerializeField] private GameObject targetObject;
     //[SerializeField] private Transform fromTransform;
     public Vector3 targetPosition;
     public Quaternion targetRotation;
@@ -22,7 +23,9 @@ public class ArrowObject : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        ArrowLookAt();
+        //ArrowLookAt();
+
+        transform.LookAt(targetObject.transform);
     }
 
     private void ArrowLookAt() {
@@ -37,11 +40,12 @@ public class ArrowObject : MonoBehaviour
 
         //transform.rotation = debugDirectionVector;
 
-        transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, targetRotation, 1000 * Time.deltaTime);
+        //transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, targetRotation, 1000 * Time.deltaTime);
     }
 
     public void SetTarget(GameObject incomingTarget) {
-        targetPosition = incomingTarget.transform.position;
-        targetRotation = incomingTarget.transform.rotation;
+        //targetPosition = incomingTarget.transform.position;
+        //targetRotation = incomingTarget.transform.rotation;
+        targetObject = incomingTarget;
     }
 }
