@@ -32,7 +32,6 @@ public class deliverySpot : MonoBehaviour
             else
             {
                 gameObject.transform.position = deliverySpots[deliverySpotCount].transform.position;
-                ArrowObject.Instance.SetTarget(gameObject); // Sets next target object for ArrowObject.
                 deliverySpotCount += 1;
             }
         }

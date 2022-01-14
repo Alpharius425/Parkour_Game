@@ -65,7 +65,7 @@ public class PickupCollider : MonoBehaviour
         bonusPackageObject.SetActive(true);
         bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
 
-        Invoke("BonusPackageThrownInvoke", 1);
+        Invoke("BonusPackageThrownInvoke", 0.5f);
 
         // Bonus Package Delivery Point
         Invoke("DisableBonusDeliveryPoint", 3);
@@ -76,7 +76,7 @@ public class PickupCollider : MonoBehaviour
     }
 
     public void DisableBonusDeliveryPoint() {
-        if (!bonusPackageInHand) {
+        if ((!bonusPackageInHand) && (bonusPackageObject != null)) {
             bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(false);
         }
         else return;

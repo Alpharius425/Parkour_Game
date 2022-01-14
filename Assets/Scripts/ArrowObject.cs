@@ -14,11 +14,12 @@ public class ArrowObject : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        //transform.LookAt(targetObject.transform);
-        transform.LookAt(deliverySpot.Instance.transform);
-    }
-
-    public void SetTarget(GameObject incomingTarget) {
-        targetObject = incomingTarget;
+        if (deliverySpot.Instance != null)
+        {
+            transform.LookAt(deliverySpot.Instance.transform);
+        }
+        else {
+            gameObject.SetActive(false);
+        }
     }
 }
