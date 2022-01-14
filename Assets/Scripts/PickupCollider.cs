@@ -57,6 +57,11 @@ public class PickupCollider : MonoBehaviour
 
         // Bonus Package Object
         bonusPackageObject.SetActive(false);
+
+        // Arrow Object
+        ArrowObject.Instance.bonusPackageObject = bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint;
+        ArrowObject.Instance.lookingAtBonus = true;
+        ArrowObject.Instance.lookAtBonusBool = true;
     }
 
     public void BonusPackageThrown() {
@@ -64,6 +69,11 @@ public class PickupCollider : MonoBehaviour
 
         bonusPackageObject.SetActive(true);
         bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
+
+        // Arrow Object
+        ArrowObject.Instance.bonusPackageObject = null;
+        ArrowObject.Instance.lookingAtBonus = false;
+        ArrowObject.Instance.lookAtDeliveryBool = true;
 
         Invoke("BonusPackageThrownInvoke", 0.5f);
 
