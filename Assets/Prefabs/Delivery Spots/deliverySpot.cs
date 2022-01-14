@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class deliverySpot : MonoBehaviour
 {
+    public static deliverySpot Instance;
+
     public GameObject[] deliverySpots;
     int deliverySpotCount = 0;
     [SerializeField] private MoneyManager moneyManager;
     [SerializeField] private int moneyReward;
 
     private void Awake() {
-        ArrowObject.Instance.SetTarget(gameObject); // Sets next target object for ArrowObject.
+        Instance = this;
+
+        //ArrowObject.Instance.SetTarget(gameObject); // Sets next target object for ArrowObject.
     }
 
     private void OnTriggerEnter(Collider other)
