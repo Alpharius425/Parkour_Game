@@ -13,15 +13,13 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource sfxAudioSource;
     [SerializeField] private AudioSource musicAudioSource;
 
-    
-    [Header("Settings")]
+    [Header("Random SFX Pitch")]
     [Space(5)]
     // Random pitch adjustment range.
-    public float LowPitchRange = .95f;
-    public float HighPitchRange = 1.05f;
+    private float LowPitchRange; // Default: 0.95f
+    private float HighPitchRange; // Default: 1.05f
 
     private void Awake() {
-
         // Singleton instance
         if (Instance == null) {
             Instance = this;
@@ -32,15 +30,13 @@ public class AudioManager : MonoBehaviour
     }
 
     // Play a single clip through the sound effects source.
-    public void Play(AudioClip clip)
-    {
+    public void Play(AudioClip clip) {
         sfxAudioSource.clip = clip;
         sfxAudioSource.Play();
     }
 
     // Play a single clip through the music source.
-    public void PlayMusic(AudioClip clip)
-    {
+    public void PlayMusic(AudioClip clip) {
         musicAudioSource.clip = clip;
         musicAudioSource.Play();
     }
