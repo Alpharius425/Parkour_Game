@@ -4893,8 +4893,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1009107876}
   - component: {fileID: 1009107875}
-  - component: {fileID: 1009107877}
   - component: {fileID: 1009107874}
+  - component: {fileID: 1009107877}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -4956,6 +4956,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3688357268c007f40a33f05c5ccf0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxAudioSource: {fileID: 0}
+  musicAudioSource: {fileID: 0}
+  LowPitchRange: 0.95
+  HighPitchRange: 1.05
 --- !u!1 &1032996386
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,9 +13,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource sfxAudioSource;
     [SerializeField] private AudioSource musicAudioSource;
 
-    [Space(10)]
+    
     [Header("Settings")]
-
+    [Space(5)]
     // Random pitch adjustment range.
     public float LowPitchRange = .95f;
     public float HighPitchRange = 1.05f;
