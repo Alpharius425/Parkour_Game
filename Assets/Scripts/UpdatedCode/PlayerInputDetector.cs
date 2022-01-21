@@ -13,6 +13,7 @@ public class PlayerInputDetector : MonoBehaviour
     public PlayerMovementUpdated myMovement;
     [SerializeField] PlayerInput myInputs; // saves our input system and allows us to change controls for different controllers or settings
     public PauseMenu myPauseMenu;
+    public packageThrow myPackages;
 
     public bool crouchToggled; // if true then the crouch is then on toggle detection instead of tap
 
@@ -160,6 +161,14 @@ public class PlayerInputDetector : MonoBehaviour
         if(myPauseMenu.PauseMenuUI.activeInHierarchy)
         {
 
+        }
+    }
+
+    public void ThrowInput(InputAction.CallbackContext value)
+    {
+        if(canInput)
+        {
+            myPackages.ThrowPackage();
         }
     }
 }
