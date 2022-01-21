@@ -66,16 +66,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        Debug.DrawRay(topCheck, Vector3.down);
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, downDetection)) // checks if the player is on the ground or not
+        if(currentState != State.Vaulting && currentState != State.Wallrunning)
         {
-            grounded = true;
-            Debug.DrawRay(transform.position, Vector3.down, Color.green);
-        }
-        else
-        {
-            grounded = false;
-            Debug.DrawRay(transform.position, Vector3.down, Color.red);
+            Debug.DrawRay(topCheck, Vector3.down);
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, downDetection)) // checks if the player is on the ground or not
+            {
+                grounded = true;
+                Debug.DrawRay(transform.position, Vector3.down, Color.green);
+            }
+            else
+            {
+                grounded = false;
+                Debug.DrawRay(transform.position, Vector3.down, Color.red);
+            }
         }
 
         if(grounded && currentState != State.Climbing && currentState != State.Wallrunning) // updates states when we hit the ground
@@ -199,7 +202,7 @@ public class PlayerController : MonoBehaviour
     {
         if(currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping) // while we are running or climbing we're going to check if we can vault
         {
-            //Debug.Log("Check vaulting");
+            Debug.Log("Check vaulting");
             VaultCheck();
         }
     }

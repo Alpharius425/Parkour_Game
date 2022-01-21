@@ -5,13 +5,12 @@ using UnityEngine;
 public class Respawn_Detection : MonoBehaviour
 {
     // put on collider to respawn player
-
-    [SerializeField] GameObject player;
-    private void OnTriggerEnter(Collider col)
+    
+    private void OnTrigger(Collider col)
     {
-        if(col.gameObject == player) //if the player hits the collider
+        if(col.gameObject.tag == "Player") //if the player hits the collider
         {
-            RespawnManager.respawnManager.Respawn(col.gameObject);
+            //RespawnManager.respawnManager.Respawn(col.gameObject);
             Debug.Log(RespawnManager.respawnManager.gameObject + " is the respawn manager");
         }
     }
