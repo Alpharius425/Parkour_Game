@@ -57,11 +57,11 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     // Vaulting info
     [SerializeField] float vaultSpeed;
-    Vector3 newPosition;
     Vector3 oldLocation;
     [SerializeField] float journeyDistance; // saves the distance between our start and end points
     [SerializeField] float distanceCovered; // how far we've gone in the journey
     Vector3 riseCurve;
+    Vector3 fallCurve;
     [SerializeField] float startTime; // saves reference for when we start moving
 
 
@@ -104,23 +104,25 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         if(myController.currentState == State.Vaulting)
         {
+            myInput.canInput = false;
+            GetComponent<CharacterController>().enabled = false;
             Debug.Log("Vaulting");
-            //distanceCovered = (Time.time - startTime) * vaultSpeed;
-            //float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-            //gameObject.transform.position = Vector3.Slerp(riseCurve, newPosition, fractionOfJourney);
-            ////transform.position += (center * 0.5f);
+            distanceCovered = (Time.time - startTime) * vaultSpeed;
+            float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
+            gameObject.transform.position = Vector3.Slerp(riseCurve, fallCurve, fractionOfJourney * vaultSpeed);
+            transform.position += center;
             myAnimator.SetBool("Vaulting", false);
 
-            if (gameObject.transform.position == newPosition)
+            if (gameObject.transform.position == fallCurve)
             {
-                //transform.position += center;
+                myInput.canInput = true;
+                Debug.Log("Vaulting finished");
                 myController.CheckMove();
                 //myCamera.RotatePlayer();
                 myAnimator.SetBool("Vaulting", false);
-                //Debug.Log("Finished vaulting");
+                GetComponent<CharacterController>().enabled = true;
             }
         }
-        Debug.DrawLine(oldLocation, newPosition);
     }
 
     public void Move(Vector3 movementInput) // called from the player input script and gets the inputs from the player
@@ -327,6 +329,11 @@ public class PlayerMovementUpdated : MonoBehaviour
         }
     }
 
+    public void ResetVelocity()
+    {
+        velocity = Vector3.zero;
+    }
+
     public void Crouch()
     {
         ChangeSpeed(crouchSpeed);
@@ -422,27 +429,27 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void Vault(Vector3 newLocation) // takes the point that we found in our detection and begins to slerp towards it
     {
-        Vector3 pos = transform.position;
-        pos.y += 2f;
-        transform.position = pos;
+        //Vector3 pos = transform.position;
+        //pos.y += 2f;
+        //transform.position = pos;
 
+        Debug.Log("New location" + newLocation);
+        Debug.Log("Should vault");
+        startTime = Time.time;
+        oldLocation = gameObject.transform.position;
+        gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
+        journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
 
-        //Debug.Log("Should vault");
-        //startTime = Time.time;
-        //oldLocation = gameObject.transform.position;
-        //Debug.Log("Old location" + oldLocation);
-        //gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
-        //journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
+        center = (oldLocation + newLocation) * 0.5F;
+        
+        center -= new Vector3(0, 1, 0);
 
-        //center = (oldLocation + newLocation) * 0.5F;
+        riseCurve = gameObject.transform.position - center;
+        fallCurve = newLocation - center;
 
-        //Debug.Log("Center" + center);
-        //center -= new Vector3(0, 1, 0);
-
-        //riseCurve = gameObject.transform.position - center;
-
-        //newPosition = newLocation;
-        //myController.UpdateState(State.Vaulting);
-        //myAnimator.SetBool("Vaulting", true);
+        fallCurve += Vector3.up;
+        Debug.Log("Fall curve" + fallCurve);
+        myController.UpdateState(State.Vaulting);
+        myAnimator.SetBool("Vaulting", true);
     }
 }
