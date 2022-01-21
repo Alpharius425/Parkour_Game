@@ -63,6 +63,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 riseCurve;
     Vector3 fallCurve;
     [SerializeField] float startTime; // saves reference for when we start moving
+    [SerializeField] float timeSpentVaulting;
 
 
     Vector3 center;
@@ -112,8 +113,8 @@ public class PlayerMovementUpdated : MonoBehaviour
             gameObject.transform.position = Vector3.Slerp(riseCurve, fallCurve, fractionOfJourney * vaultSpeed);
             transform.position += center;
             myAnimator.SetBool("Vaulting", false);
-
-            if (gameObject.transform.position == fallCurve)
+            timeSpentVaulting += Time.deltaTime;
+            if (timeSpentVaulting == journeyDistance / vaultSpeed)
             {
                 myInput.canInput = true;
                 Debug.Log("Vaulting finished");
@@ -121,6 +122,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 //myCamera.RotatePlayer();
                 myAnimator.SetBool("Vaulting", false);
                 GetComponent<CharacterController>().enabled = true;
+                timeSpentVaulting = 0;
             }
         }
     }
@@ -432,19 +434,19 @@ public class PlayerMovementUpdated : MonoBehaviour
         //Vector3 pos = transform.position;
         //pos.y += 2f;
         //transform.position = pos;
-
-        Debug.Log("New location" + newLocation);
+        
         Debug.Log("Should vault");
         startTime = Time.time;
         oldLocation = gameObject.transform.position;
         gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
-        journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
+        journeyDistance = Vector3.Distance(oldLocation, newLocation);
 
         center = (oldLocation + newLocation) * 0.5F;
-        
+
+        Debug.Log("oldLocation" + oldLocation + "newLocation" + newLocation);
         center -= new Vector3(0, 1, 0);
 
-        riseCurve = gameObject.transform.position - center;
+        riseCurve = oldLocation - center;
         fallCurve = newLocation - center;
 
         fallCurve += Vector3.up;
