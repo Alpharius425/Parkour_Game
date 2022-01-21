@@ -13,9 +13,11 @@ public class smallPackage : MonoBehaviour
 
     void Awake() {
         forceVector3 = new Vector3 (0f,upSpeed,forwardSpeed);
-        //forceVector = forceVector3; // For Bonus Package Throw in packageThrow script.
         gameObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
         Invoke("DestroyObject", projectileLifetime);
+
+        // SFX
+        GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom1);
     }
 
     private void DestroyObject() {

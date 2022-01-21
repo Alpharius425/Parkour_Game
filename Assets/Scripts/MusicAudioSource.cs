@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class MusicAudioSource : MonoBehaviour
 {
-    [Header("Settings")]
     public AudioClip[] musicClips;
-    [SerializeField] private bool musicIsOn;
-
-    [Header("Debug")]
+    
+    [Header("Settings")]
     [Space(5)]
+    [SerializeField] private bool musicIsOn;
     [Range(0.0f,1.0f)]
     [SerializeField] private float debugVolume;
     private float volume;
@@ -35,8 +34,11 @@ public class MusicAudioSource : MonoBehaviour
         } 
     }
 
+    // Function to randomly play music clips from musicClips[].
     public void PlayRandomMusicClip() {
-        GetComponent<AudioSource>().clip = musicClips[Random.Range(0, musicClips.Length)];
-        GetComponent<AudioSource>().Play();
+        if (musicIsOn) {
+            GetComponent<AudioSource>().clip = musicClips[Random.Range(0, musicClips.Length)];
+            GetComponent<AudioSource>().Play();
+        }
     }
 }
