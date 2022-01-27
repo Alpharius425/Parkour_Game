@@ -27,6 +27,8 @@ public class deliverySpot : MonoBehaviour
             if (deliverySpotCount == deliverySpots.Length)
             {
                 Debug.Log("Last delivery spot hit.");
+                TimerManager.instance.StopTimer();
+                GameManager.Instance.EndLevel();
                 Destroy(gameObject);
             }
             else

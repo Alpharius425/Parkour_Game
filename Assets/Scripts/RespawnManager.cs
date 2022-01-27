@@ -41,6 +41,8 @@ public class RespawnManager : MonoBehaviour
         player.transform.position = spawnPosition.transform.position;
         player.transform.rotation = spawnPosition.transform.rotation;
         player.GetComponent<CharacterController>().enabled = true;
-        // (time += time penalty) PlaceHolder for time penalty
+
+        // adds time to the counter
+        TimerManager.instance.ChangeTime(timePenalty);
     }
 }

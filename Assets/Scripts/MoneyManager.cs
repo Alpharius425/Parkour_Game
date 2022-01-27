@@ -22,7 +22,8 @@ public class MoneyManager : MonoBehaviour
     }
 
     // Adds money to the total money, and displays it on the Money Card text for a brief time.
-    public void AddMoney(int value) {
+    public void AddMoney(int value)
+    {
         money += value;
         moneyText.SetText("$" + money);
         moneyCardText.SetText("+ $" + value);
