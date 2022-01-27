@@ -20,6 +20,7 @@ public class smallPackage : MonoBehaviour
         GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom1);
     }
 
+    // SFX
     private void OnCollisionEnter(Collision collision) {
         if ((collision.gameObject.GetComponent<Collider>() != null) && (collision.gameObject.GetComponent<Collider>().isTrigger == false) && collision.gameObject.tag != "Player") {
             GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom2);
