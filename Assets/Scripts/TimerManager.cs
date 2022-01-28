@@ -10,6 +10,7 @@ public class TimerManager : MonoBehaviour
     public float curTime;
     [SerializeField] bool countingUp;
     [SerializeField] bool startTimerOnStart;
+    [SerializeField] bool overTime;
 
     [SerializeField] private TextMeshProUGUI timerText;
 
@@ -24,8 +25,9 @@ public class TimerManager : MonoBehaviour
         {
             countingUp = true;
         }
-    }
 
+        overTime = false;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -33,6 +35,12 @@ public class TimerManager : MonoBehaviour
         {
             curTime += Time.deltaTime;
             timerText.SetText(curTime.ToString("f2"));
+        }
+
+        if(curTime > GameManager.Instance.levelGoalTime && overTime != true)
+        {
+            overTime = true;
+            timerText.color = Color.red;
         }
     }
 

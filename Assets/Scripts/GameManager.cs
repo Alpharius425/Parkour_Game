@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     // for now hold the level variables like how much time it takes and what the score multiplier is
-    [SerializeField] float levelGoalTime;
+    public float levelGoalTime;
     [SerializeField] float levelMultiplier;
 
     [SerializeField] GameObject endLevelScreen;
@@ -33,24 +33,27 @@ public class GameManager : MonoBehaviour
     // calculates how much money the player should get when they finish a level
     public void CalculateLevelScore(float playerTime, float averageLevelTime, float scoreMultiplier)
     {
-        float initialScore = (averageLevelTime / playerTime) * scoreMultiplier; // calculates the score from the player's time compared to the level time and score multiplier
-
-        int newScore = Mathf.RoundToInt(initialScore); // rounds our score to the nearest int
-
-        if (newScore < initialScore) // checks if we rounded down and adds one if we did.
+        if(playerTime < levelGoalTime)
         {
-            newScore += 1;
+            float initialScore = (averageLevelTime / playerTime) * scoreMultiplier; // calculates the score from the player's time compared to the level time and score multiplier
+
+            int newScore = Mathf.RoundToInt(initialScore); // rounds our score to the nearest int
+
+            if (newScore < initialScore) // checks if we rounded down and adds one if we did.
+            {
+                newScore += 1;
+            }
+
+            // updates the money manager
+            MoneyManager.Instance.AddMoney(newScore);
+            totalLevelRewardText.SetText("Total money earned " + newScore);
+            levelMultiplierText.SetText("Level multiplier " + levelMultiplier.ToString());
         }
-        
-        // updates the money manager
-        MoneyManager.Instance.AddMoney(newScore);
 
         // updates the UI for our end level menu
         endLevelScreen.SetActive(true);
         levelGoalTimeText.SetText("Level goal time " + levelGoalTime.ToString());
         playerTimeText.SetText("Player time " + TimerManager.instance.curTime.ToString("F2"));
-        levelMultiplierText.SetText("Level multiplier " + levelMultiplier.ToString());
-        totalLevelRewardText.SetText("Total money earned " + newScore);
 
         // if we don't beat the level time have the player time turn red if we beat it turn green
         if (playerTime > levelGoalTime)
