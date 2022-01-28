@@ -6,6 +6,7 @@ public class PickupCollider : MonoBehaviour
 {
     public static PickupCollider Instance;
 
+    [Header("Settings")]
     public bool bonusPackageInHand = false;
     [SerializeField] private GameObject bonusPackageUI;
     [SerializeField] private packageThrow packageThrowScript;
@@ -17,9 +18,19 @@ public class PickupCollider : MonoBehaviour
     private float upSpeed = 5f;
     private Vector3 forceVector3;
 
+
+    [Header("Sound")]
+    [Space(5)]
+    [SerializeField] private GameObject sfxAudioSourceObject;
+    //private SFXAudioSource sfxAudioSourceScript;
+    
+
     private void Awake()
     {
         Instance = this;
+
+        // SFX
+        //sfxAudioSourceScript = sfxAudioSourceObject.GetComponent<SFXAudioSource>();
 
         // When bonus package is thrown.
         forceVector3 = new Vector3(0f, upSpeed, forwardSpeed);
@@ -52,6 +63,9 @@ public class PickupCollider : MonoBehaviour
         // UI
         bonusPackageUI.SetActive(true);
 
+        // SFX - Item Pickup
+        sfxAudioSourceObject.GetComponent<SFXAudioSource>().PlaySFXClipRandom(sfxAudioSourceObject.GetComponent<SFXAudioSource>().sfxClipsRandom1);
+
         // Bonus Package Delivery Point
         bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(true);
 
@@ -69,6 +83,9 @@ public class PickupCollider : MonoBehaviour
 
         bonusPackageObject.SetActive(true);
         bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
+
+        // SFX - Item Throw
+        bonusPackageObject.GetComponent<SFXAudioSource>().PlaySFXClipRandom(bonusPackageObject.GetComponent<SFXAudioSource>().sfxClipsRandom1);
 
         // Arrow Object
         ArrowObject.Instance.bonusPackageObject = null;

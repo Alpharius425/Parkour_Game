@@ -6,15 +6,17 @@ public class deliverySpot : MonoBehaviour
 {
     public static deliverySpot Instance;
 
+    [Header("Settings")]
     public GameObject[] deliverySpots;
     int deliverySpotCount = 0;
     [SerializeField] private MoneyManager moneyManager;
     [SerializeField] private int moneyReward;
 
+    [Header("VFX")]
+    [SerializeField] private GameObject vfxObject;
+
     private void Awake() {
         Instance = this;
-
-        //ArrowObject.Instance.SetTarget(gameObject); // Sets next target object for ArrowObject.
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,14 +28,22 @@ public class deliverySpot : MonoBehaviour
 
             if (deliverySpotCount == deliverySpots.Length)
             {
+                SpawnVFX();
+
                 Debug.Log("Last delivery spot hit.");
                 Destroy(gameObject);
             }
             else
             {
+                SpawnVFX();
+
                 gameObject.transform.position = deliverySpots[deliverySpotCount].transform.position;
                 deliverySpotCount += 1;
             }
         }
+    }
+
+    private void SpawnVFX() {
+        Instantiate(vfxObject, gameObject.transform.position, transform.rotation);
     }
 }

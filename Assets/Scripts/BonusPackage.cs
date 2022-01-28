@@ -8,15 +8,21 @@ public class BonusPackage : MonoBehaviour
 
     [HideInInspector] public bool movePackage = false;
     
+    [Header("Settings")]
     private GameObject moveToTarget; // Set to the player's MainCamera on Awake().
     [SerializeField] private int deliveryReward;
     [SerializeField] private float itemPickupSpeed;
 
+    [Header("Game Objects")]
+    [Space(5)]
     public GameObject PackageDeliveryPoint;
 
     private void Awake() {
         moveToTarget = GameObject.FindGameObjectWithTag("MainCamera");
         pickupColliderScript = GameObject.Find("PickupCollider").GetComponent<PickupCollider>();
+
+        // SFX - Throwing
+        //GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom1);
     }
 
     private void Update() {
@@ -26,6 +32,15 @@ public class BonusPackage : MonoBehaviour
                 pickupColliderScript.BonusPackagePickedUp();
                 movePackage = false;
             }
+        }
+    }
+
+    // SFX
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((collision.gameObject.GetComponent<Collider>() != null) && (collision.gameObject.GetComponent<Collider>().isTrigger == false) && collision.gameObject.tag != "Player")
+        {
+            GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom2);
         }
     }
 
