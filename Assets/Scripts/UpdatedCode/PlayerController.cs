@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
             curClimbTime -= Time.deltaTime;
         }
 
+        /*
         if(currentState == State.Running || currentState == State.Climbing || currentState == State.Jumping)
         {
             for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
@@ -196,6 +197,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private void FixedUpdate()
@@ -335,7 +337,7 @@ public class PlayerController : MonoBehaviour
                     {
                         Debug.Log("Second hit" + vaultHit.point);
                         
-                        myMovement.Vault(vaultHit.point);
+                        //myMovement.Vault(vaultHit.point);
                     }
                 }
             }
