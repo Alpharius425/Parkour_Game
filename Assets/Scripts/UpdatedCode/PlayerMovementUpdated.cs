@@ -65,6 +65,9 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float startTime; // saves reference for when we start moving
     [SerializeField] float timeSpentVaulting;
 
+    RaycastHit hit;
+    [SerializeField] float slideDetectionRange;
+
 
     Vector3 center;
     // Start is called before the first frame update
@@ -94,6 +97,11 @@ public class PlayerMovementUpdated : MonoBehaviour
             SlideMove();
             slideTime -= Time.deltaTime;
 
+            if(Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
+            {
+                CancelSlide(); // stop sliding
+            }
+
             if (slideTime < 0)
             {
                 CancelSlide();
@@ -108,19 +116,26 @@ public class PlayerMovementUpdated : MonoBehaviour
             myInput.canInput = false;
             GetComponent<CharacterController>().enabled = false;
             Debug.Log("Vaulting");
-            distanceCovered = (Time.time - startTime) * vaultSpeed;
-            float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
+
+            distanceCovered = (Time.time - startTime) / journeyDistance * vaultSpeed;
+            float fractionOfJourney = distanceCovered; // saves how much of the distance we've already passed
             gameObject.transform.position = Vector3.Slerp(riseCurve, fallCurve, fractionOfJourney * vaultSpeed);
             transform.position += center;
+
             myAnimator.SetBool("Vaulting", false);
+
             timeSpentVaulting += Time.deltaTime;
-            if (timeSpentVaulting == journeyDistance / vaultSpeed)
+            if (timeSpentVaulting <= journeyDistance / vaultSpeed)
             {
                 myInput.canInput = true;
+
                 Debug.Log("Vaulting finished");
+
                 myController.CheckMove();
                 //myCamera.RotatePlayer();
+
                 myAnimator.SetBool("Vaulting", false);
+
                 GetComponent<CharacterController>().enabled = true;
                 timeSpentVaulting = 0;
             }
