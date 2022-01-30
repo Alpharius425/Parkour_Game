@@ -65,6 +65,8 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float startTime; // saves reference for when we start moving
 
 
+    RaycastHit hit;
+
     Vector3 center;
     // Start is called before the first frame update
     void Start()
@@ -308,8 +310,19 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Defaulted");
                 break;
         }
+
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
+        {
+            if(hit.collider.gameObject.GetComponent<JumpBooster>() != null)
+            {
+                velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier);
+            }
+            else
+            {
+                velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
+            }
+        }
         
-        velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
         controller.Move(movement * Time.deltaTime);
         myController.UpdateState(State.Jumping);
     }
