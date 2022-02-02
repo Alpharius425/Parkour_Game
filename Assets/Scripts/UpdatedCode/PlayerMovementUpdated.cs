@@ -63,6 +63,10 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 riseCurve;
     Vector3 fallCurve;
     [SerializeField] float startTime; // saves reference for when we start moving
+    [SerializeField] float timeSpentVaulting;
+
+    RaycastHit hit;
+    [SerializeField] float slideDetectionRange;
 
 
     RaycastHit hit;
@@ -95,6 +99,11 @@ public class PlayerMovementUpdated : MonoBehaviour
             SlideMove();
             slideTime -= Time.deltaTime;
 
+            if(Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
+            {
+                CancelSlide(); // stop sliding
+            }
+
             if (slideTime < 0)
             {
                 CancelSlide();
@@ -109,20 +118,28 @@ public class PlayerMovementUpdated : MonoBehaviour
             myInput.canInput = false;
             GetComponent<CharacterController>().enabled = false;
             Debug.Log("Vaulting");
-            distanceCovered = (Time.time - startTime) * vaultSpeed;
-            float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
+
+            distanceCovered = (Time.time - startTime) / journeyDistance * vaultSpeed;
+            float fractionOfJourney = distanceCovered; // saves how much of the distance we've already passed
             gameObject.transform.position = Vector3.Slerp(riseCurve, fallCurve, fractionOfJourney * vaultSpeed);
             transform.position += center;
+
             myAnimator.SetBool("Vaulting", false);
 
-            if (gameObject.transform.position == fallCurve)
+            timeSpentVaulting += Time.deltaTime;
+            if (timeSpentVaulting >= journeyDistance / vaultSpeed)
             {
                 myInput.canInput = true;
+
                 Debug.Log("Vaulting finished");
+
                 myController.CheckMove();
                 //myCamera.RotatePlayer();
+
                 myAnimator.SetBool("Vaulting", false);
+
                 GetComponent<CharacterController>().enabled = true;
+                timeSpentVaulting = 0;
             }
         }
     }
@@ -445,19 +462,19 @@ public class PlayerMovementUpdated : MonoBehaviour
         //Vector3 pos = transform.position;
         //pos.y += 2f;
         //transform.position = pos;
-
-        Debug.Log("New location" + newLocation);
+        
         Debug.Log("Should vault");
         startTime = Time.time;
         oldLocation = gameObject.transform.position;
         gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
-        journeyDistance = Vector3.Distance(gameObject.transform.position, newLocation);
+        journeyDistance = Vector3.Distance(oldLocation, newLocation);
 
         center = (oldLocation + newLocation) * 0.5F;
-        
+
+        Debug.Log("oldLocation" + oldLocation + "newLocation" + newLocation);
         center -= new Vector3(0, 1, 0);
 
-        riseCurve = gameObject.transform.position - center;
+        riseCurve = oldLocation - center;
         fallCurve = newLocation - center;
 
         fallCurve += Vector3.up;
