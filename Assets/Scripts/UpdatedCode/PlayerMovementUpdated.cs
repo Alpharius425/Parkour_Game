@@ -69,7 +69,6 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float slideDetectionRange;
 
 
-    RaycastHit hit;
 
     Vector3 center;
     // Start is called before the first frame update
