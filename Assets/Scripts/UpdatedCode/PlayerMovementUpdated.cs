@@ -125,7 +125,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             myAnimator.SetBool("Vaulting", false);
 
             timeSpentVaulting += Time.deltaTime;
-            if (timeSpentVaulting <= journeyDistance / vaultSpeed)
+            if (timeSpentVaulting >= journeyDistance / vaultSpeed)
             {
                 myInput.canInput = true;
 
