@@ -120,7 +120,7 @@ public class PlayerInputDetector : MonoBehaviour
 
     public void GetJumpInput(InputAction.CallbackContext value)
     {
-        if(canInput)
+        if(canInput && value.started)
         {
             myController.CheckJump();
         }

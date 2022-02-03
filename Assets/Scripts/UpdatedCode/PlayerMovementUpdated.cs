@@ -133,7 +133,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Vaulting finished");
 
                 myController.CheckMove();
-                //myCamera.RotatePlayer();
+                myCamera.RotatePlayer();
 
                 myAnimator.SetBool("Vaulting", false);
 
