@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
                         }
                         else
                         {
-                            if (hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove && timeUntilWallRun < 0) // checks if the player hits something with the lerp to script and isn't already parented to another
+                            if (hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove && timeUntilWallRun <= 0) // checks if the player hits something with the lerp to script and isn't already parented to another
                             {
 
                                 hit.collider.gameObject.GetComponent<LerpTo>().Attach();
