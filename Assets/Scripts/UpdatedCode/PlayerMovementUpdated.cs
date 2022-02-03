@@ -112,7 +112,14 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(myController.currentState == State.Vaulting)
+        // Zeroes Z and X rotation.
+        // Specifically fixing the rotation issues when vaulting.
+        if (transform.rotation.z != 0 || transform.rotation.x != 0) {
+            CancelZandXRotation();
+        }
+
+
+        if (myController.currentState == State.Vaulting)
         {
             myInput.canInput = false;
             GetComponent<CharacterController>().enabled = false;
@@ -481,4 +488,13 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Vaulting);
         myAnimator.SetBool("Vaulting", true);
     }
+
+    private void CancelZandXRotation() {
+        Quaternion quat = transform.rotation;
+
+        quat.z = 0f;
+        quat.x = 0f;
+    }
+
+    
 }
