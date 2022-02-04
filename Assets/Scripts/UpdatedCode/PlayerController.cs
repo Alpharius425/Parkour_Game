@@ -14,12 +14,12 @@ public class PlayerController : MonoBehaviour
     public PlayerMovementUpdated myMovement;
     public CameraControl myCamera;
     public PlayerInputDetector myInput;
+    [SerializeField] CharacterController myController;
 
     public bool sprintHeld = false;
     public bool crouchHeld = false;
 
     public bool grounded; // are we on the ground or not
-    [SerializeField] float downDetection; // how far down we want to check for the ground
     [SerializeField] float timeUntilGroundCheck = 0f;
     [SerializeField] float jumpLandTime = 0.3f;
     RaycastHit hit; // saves raycast hits
@@ -68,17 +68,7 @@ public class PlayerController : MonoBehaviour
 
         if(currentState != State.Vaulting && currentState != State.Wallrunning)
         {
-            Debug.DrawRay(topCheck, Vector3.down);
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, downDetection)) // checks if the player is on the ground or not
-            {
-                grounded = true;
-                Debug.DrawRay(transform.position, Vector3.down, Color.green);
-            }
-            else
-            {
-                grounded = false;
-                Debug.DrawRay(transform.position, Vector3.down, Color.red);
-            }
+            grounded = myController.isGrounded;
         }
 
         if(grounded && currentState != State.Climbing && currentState != State.Wallrunning) // updates states when we hit the ground

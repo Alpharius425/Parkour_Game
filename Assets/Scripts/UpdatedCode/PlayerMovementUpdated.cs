@@ -12,37 +12,15 @@ public class PlayerMovementUpdated : MonoBehaviour
     public PlayerInputDetector myInput;
     public Animator myAnimator;
 
-    public Vector3 movement = Vector3.zero; // the character's actual movement
-    [SerializeField] float gravity;
-    [SerializeField] bool airControlsOn = true;
-
-    // speed info
+    [Header("Moving Settings")]
     [SerializeField] float walkSpeed = 4f;
+
+    [Header("Sprinting Settings")]
     [SerializeField] float runSpeed = 8f;
-    [SerializeField] float crouchSpeed = 2f;
-    [SerializeField] float climbSpeed = 4f;
-    //[SerializeField] float wallRunSpeed = 4f;
-    [SerializeField] float slideSpeed = 8f;
-    [SerializeField] float airSpeed;
-    [SerializeField] private float actualSpeed; // the actual speed of the character
 
-    // crouch/slide info
-    [SerializeField] float crouchHeight;
-    [SerializeField] float crouchCamHeight;
-    [SerializeField] float crouchCenterHeight;
-    [SerializeField] float defaultHeight;
-    [SerializeField] float defaultCamHeight;
-    [SerializeField] float defaultCenterHeight;
-
-    [SerializeField] float slideTime;
-    [SerializeField] float slideTimeMax;
-    public bool sliding = false;
-    Vector3 slideMove = Vector3.zero;
-
-    // jump info
+    [Header("Jumping Settings")]
     [SerializeField] float jumpForce;
-    //public bool grounded = false;
-    public Vector3 velocity = Vector3.zero;
+    [SerializeField] float airSpeed;
     Vector3 jumpDir;
     [SerializeField] float jumpGravityDelay; // how long until gravity takes hold of us again
 
@@ -55,7 +33,16 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float slideJumpMultiplier;
     [SerializeField] float crouchJumpMultiplier;
 
-    // Vaulting info
+    [Header("Crouching Settings")]
+    [SerializeField] float crouchSpeed = 2f;
+    [SerializeField] float crouchHeight;
+    [SerializeField] float crouchCamHeight;
+    [SerializeField] float crouchCenterHeight;
+    [SerializeField] float defaultHeight;
+    [SerializeField] float defaultCamHeight;
+    [SerializeField] float defaultCenterHeight;
+
+    [Header("Vaulting Settings")]
     [SerializeField] float vaultSpeed;
     Vector3 oldLocation;
     [SerializeField] float journeyDistance; // saves the distance between our start and end points
@@ -64,13 +51,32 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 fallCurve;
     [SerializeField] float startTime; // saves reference for when we start moving
     [SerializeField] float timeSpentVaulting;
+    Vector3 center;
 
-    RaycastHit hit;
+    [Header("Sliding Settings")]
+    [SerializeField] float slideSpeed = 8f;
+    [SerializeField] float slideTime;
+    [SerializeField] float slideTimeMax;
+    public bool sliding = false;
+    Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
 
+    [Header("Wallrunning Settings")]
+    //[SerializeField] float wallRunSpeed = 4f;
+
+    [Header("Climbing Settings")]
+    [SerializeField] float climbSpeed = 4f;
 
 
-    Vector3 center;
+    public Vector3 movement = Vector3.zero; // the character's actual movement
+    [SerializeField] float gravity;
+    [SerializeField] bool airControlsOn = true;
+    
+    
+    [SerializeField] private float actualSpeed; // the actual speed of the character
+    public Vector3 velocity = Vector3.zero;
+    RaycastHit hit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +93,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 myController.CheckMove();
                 //Debug.Log("Here");
                 velocity.y = -2;
-                
+
             }
             
             SetVelocity();
@@ -147,6 +153,14 @@ public class PlayerMovementUpdated : MonoBehaviour
                 GetComponent<CharacterController>().enabled = true;
                 timeSpentVaulting = 0;
             }
+        }
+    }
+
+    void ChangeSpeed(float newSpeed)
+    {
+        if (myController.grounded)
+        {
+            actualSpeed = newSpeed;
         }
     }
 
@@ -281,6 +295,26 @@ public class PlayerMovementUpdated : MonoBehaviour
         controller.Move(movement * Time.deltaTime);
     }
 
+    public void SetVelocity()
+    {
+        if (!sliding)
+        {
+            velocity.x = 0;
+            velocity.z = 0;
+        }
+
+        if (myController.currentState != State.Climbing && myController.currentState != State.Vaulting)
+        {
+            velocity.y += gravity * Time.deltaTime;
+            MoveVelocity(velocity);
+        }
+    }
+
+    public void ResetVelocity()
+    {
+        velocity = Vector3.zero;
+    }
+
     public void Jump() // allows us to jump with a multiplier if we want
     {
         float jumpPower = 0;
@@ -350,24 +384,11 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Jumping);
     }
 
-    public void SetVelocity()
+    public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
     {
-        if(!sliding)
-        {
-            velocity.x = 0;
-            velocity.z = 0;
-        }
-
-        if(myController.currentState != State.Climbing && myController.currentState != State.Vaulting)
-        {
-            velocity.y += gravity * Time.deltaTime;
-            MoveVelocity(velocity);
-        }
-    }
-
-    public void ResetVelocity()
-    {
-        velocity = Vector3.zero;
+        controller.height = newHeight;
+        controller.center = new Vector3(0, newColliderCenter, 0);
+        myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
     }
 
     public void Crouch()
@@ -380,9 +401,9 @@ public class PlayerMovementUpdated : MonoBehaviour
     public void UnCrouch()
     {
         RaycastHit heightCheck; // usd to check if we have enough space to stand
-        if(Physics.Raycast(transform.position, Vector3.up, out heightCheck, 1.5f)) // checks if theres something above the player preventing them from standing
+        if (Physics.Raycast(transform.position, Vector3.up, out heightCheck, 1.5f)) // checks if theres something above the player preventing them from standing
         {
-            if(sliding) // if we can't stand up and we check when sliding we just crouch
+            if (sliding) // if we can't stand up and we check when sliding we just crouch
             {
                 Crouch();
             }
@@ -395,7 +416,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //Debug.Log("Uncrouching");
 
         ChangeHeight(defaultHeight, defaultCamHeight, defaultCenterHeight);
-        if(myController.sprintHeld)
+        if (myController.sprintHeld)
         {
             ChangeSpeed(runSpeed);
             myController.UpdateState(State.Running);
@@ -404,7 +425,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         {
             ChangeSpeed(walkSpeed);
 
-            if(movement == Vector3.zero)
+            if (movement == Vector3.zero)
             {
                 myController.UpdateState(State.Idle);
             }
@@ -448,21 +469,6 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Climbing);
     }
 
-    void ChangeSpeed(float newSpeed)
-    {
-        if(myController.grounded)
-        {
-            actualSpeed = newSpeed;
-        }
-    }
-
-    public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
-    {
-        controller.height = newHeight;
-        controller.center = new Vector3(0, newColliderCenter, 0);
-        myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
-    }
-
     public void Vault(Vector3 newLocation) // takes the point that we found in our detection and begins to slerp towards it
     {
         //Vector3 pos = transform.position;
@@ -495,6 +501,4 @@ public class PlayerMovementUpdated : MonoBehaviour
         quat.z = 0f;
         quat.x = 0f;
     }
-
-    
 }

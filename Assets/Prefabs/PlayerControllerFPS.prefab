@@ -137,7 +137,7 @@ MonoBehaviour:
       isFptlEnabled: 0
   clearColorMode: 2
   backgroundColorHDR: {r: 0, g: 0, b: 0, a: 0}
-  clearDepth: 0
+  clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
     m_Bits: 2147491840
@@ -1672,27 +1672,10 @@ MonoBehaviour:
   myCamera: {fileID: 1257659115}
   myInput: {fileID: 1826140720}
   myAnimator: {fileID: 8836748305666955059}
-  movement: {x: 0, y: 0, z: 0}
-  gravity: -15
-  airControlsOn: 1
   walkSpeed: 5
   runSpeed: 10
-  crouchSpeed: 3
-  climbSpeed: 7
-  slideSpeed: 10
-  airSpeed: 1
-  actualSpeed: 0
-  crouchHeight: 0.9
-  crouchCamHeight: 0.6
-  crouchCenterHeight: 0
-  defaultHeight: 1.5
-  defaultCamHeight: 0.7
-  defaultCenterHeight: 0
-  slideTime: 1
-  slideTimeMax: 1
-  sliding: 0
   jumpForce: 5
-  velocity: {x: 0, y: 0, z: 0}
+  airSpeed: 1
   jumpGravityDelay: 0
   idleJumpMultiplier: 1
   walkJumpMultiplier: 1
@@ -1701,12 +1684,29 @@ MonoBehaviour:
   wallRunJumpMultiplier: 1
   slideJumpMultiplier: 1
   crouchJumpMultiplier: 1
-  vaultSpeed: 1
+  crouchSpeed: 3
+  crouchHeight: 0.9
+  crouchCamHeight: 0.6
+  crouchCenterHeight: 0
+  defaultHeight: 1.5
+  defaultCamHeight: 0.7
+  defaultCenterHeight: 0
+  vaultSpeed: 5
   journeyDistance: 0
   distanceCovered: 0
   startTime: 0
   timeSpentVaulting: 0
+  slideSpeed: 10
+  slideTime: 1
+  slideTimeMax: 1
+  sliding: 0
   slideDetectionRange: 0
+  climbSpeed: 7
+  movement: {x: 0, y: 0, z: 0}
+  gravity: -15
+  airControlsOn: 1
+  actualSpeed: 0
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1826140720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1743,10 +1743,10 @@ MonoBehaviour:
   myMovement: {fileID: 1826140719}
   myCamera: {fileID: 1257659115}
   myInput: {fileID: 1826140720}
+  myController: {fileID: 5881899092385311089}
   sprintHeld: 0
   crouchHeld: 0
   grounded: 0
-  downDetection: 2
   timeUntilGroundCheck: 0
   jumpLandTime: 0.3
   maxTimeToWallRun: 3
