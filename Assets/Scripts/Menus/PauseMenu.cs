@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject restartButton;
     public bool Paused = false;
     [SerializeField] int currentLevel;
+    [SerializeField] PlayerInputDetector myInputs;
 
     void Start()
     {
@@ -32,6 +33,15 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0;             //makes time go at 0% of the usual rate so it does not move
             PauseMenuUI.SetActive(true);    //activates the pause menu
             Cursor.lockState = CursorLockMode.None;
+        }
+        
+        if (Paused)
+        {
+            myInputs.canInput = false;
+        }
+        else
+        {
+            myInputs.canInput = true;
         }
     }
 
