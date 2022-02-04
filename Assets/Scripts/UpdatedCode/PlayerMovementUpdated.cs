@@ -146,7 +146,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 Debug.Log("Vaulting finished");
 
                 myController.CheckMove();
-                myCamera.RotatePlayer();
+                //myCamera.RotatePlayer();
 
                 myAnimator.SetBool("Vaulting", false);
 
@@ -500,5 +500,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
         quat.z = 0f;
         quat.x = 0f;
+
+        transform.rotation = quat;
     }
 }
