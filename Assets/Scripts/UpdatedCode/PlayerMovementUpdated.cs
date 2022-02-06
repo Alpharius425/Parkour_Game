@@ -16,6 +16,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     [Header("Acceleration Settings")]
     [SerializeField] float moveAccel = 4f;
+    [SerializeField] float sprintAccel = 4f;
     [SerializeField] float moveDecel = 4f;
 
     [Header("Moving Settings")]
@@ -166,27 +167,26 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     void ChangeSpeed(float newSpeed) {
         if (myController.grounded) {
+            // If the current speed is less than the newSpeed, then the current speed will increase at the acceleration rate.
             if (actualSpeed < newSpeed) {
-                controller.Move(movement * actualSpeed * Time.deltaTime);
-                actualSpeed += moveAccel * Time.deltaTime;
-            }
-            else if (actualSpeed > newSpeed) {
-                controller.Move(movement * actualSpeed * Time.deltaTime);
-                actualSpeed -= moveDecel * Time.deltaTime;
-            }
-            else if (actualSpeed == newSpeed) {
-                controller.Move(movement * newSpeed * Time.deltaTime);
-
-                /*
-                switch (myController.currentState) {
-                    case State.Walking:
-                        controller.Move(movement * maxWalkSpeed * Time.deltaTime);
-                        break;
-                    case State.Running:
-                        controller.Move(movement * maxRunSpeed * Time.deltaTime);
-                        break;
+                controller.Move(movement * actualSpeed * Time.fixedDeltaTime / 2f);
+                
+                // Checks whether the current speed will accelerate at the sprinting accel value, or at the regular accel value.
+                if (myController.currentState == State.Running && actualSpeed >= walkSpeed) {
+                    actualSpeed += sprintAccel * Time.fixedDeltaTime / 2f;
                 }
-                */
+                else actualSpeed += moveAccel * Time.fixedDeltaTime / 2f;
+            }
+
+            // If the current speed is more than the newSpeed, then the current speed will decrease at the deceleration rate.
+            else if (actualSpeed > newSpeed) {
+                controller.Move(movement * actualSpeed * Time.fixedDeltaTime / 2f);
+                actualSpeed -= moveDecel * Time.fixedDeltaTime / 2f;
+            }
+
+            // Once the current speed reaches the newSpeed value, then it the current speed will be set to the newSpeed value instead.
+            else if (actualSpeed == newSpeed) {
+                controller.Move(movement * newSpeed * Time.fixedDeltaTime / 2f);
             }
         }
     }
