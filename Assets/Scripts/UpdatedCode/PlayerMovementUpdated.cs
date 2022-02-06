@@ -307,14 +307,14 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveInput() // called if we are movng via player input
     {
-        if(airControlsOn && !myController.grounded)
+        if (airControlsOn && !myController.grounded)
         {
             controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
         }
-        else
-        {
-            controller.Move(movement * actualSpeed * Time.deltaTime);
-        }
+        //else
+        //{
+        //    controller.Move(movement * actualSpeed * Time.deltaTime);
+        //}
     }
 
     public void MoveVelocity(Vector3 movement) // called if we are moving via velocity like when we slide, jump or fall
@@ -407,7 +407,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             }
         }
         
-        controller.Move(movement * Time.deltaTime);
+        controller.Move(movement * Time.fixedDeltaTime);
         myController.UpdateState(State.Jumping);
     }
 
