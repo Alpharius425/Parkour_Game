@@ -315,7 +315,10 @@ public class PlayerMovementUpdated : MonoBehaviour
                     if (actualSpeed < maxRunSpeed)
                     {
                         controller.Move(movement * actualSpeed * Time.deltaTime);
-                        actualSpeed += runAccel * Time.deltaTime;
+                        if (actualSpeed < maxWalkSpeed) {
+                            actualSpeed += walkAccel * Time.deltaTime;
+                        } 
+                        else actualSpeed += runAccel * Time.deltaTime;
                     }
                     // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
                     else controller.Move(movement * maxRunSpeed* Time.deltaTime);
