@@ -22,7 +22,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float walkDecel = 1.5f;    // Speed deceleration multiplier from running to walking.
 
     [Header("Sprinting Settings")]
-    [SerializeField] float runSpeed = 8f;
+    public float runSpeed = 8f;
     [SerializeField] float maxRunSpeed = 8f;
     [SerializeField] float runAccel = 1.5f;     // Speed acceleration multiplier from walking to running.
     [SerializeField] float runDecel = 1.5f;     // Speed deceleration multiplier from walking to running.
@@ -310,6 +310,15 @@ public class PlayerMovementUpdated : MonoBehaviour
                     }
                     // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
                     else controller.Move(movement * maxWalkSpeed * Time.deltaTime);
+                    break;
+                case State.Running:
+                    if (actualSpeed < maxRunSpeed)
+                    {
+                        controller.Move(movement * actualSpeed * Time.deltaTime);
+                        actualSpeed += runAccel * Time.deltaTime;
+                    }
+                    // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
+                    else controller.Move(movement * maxRunSpeed* Time.deltaTime);
                     break;
             }
             

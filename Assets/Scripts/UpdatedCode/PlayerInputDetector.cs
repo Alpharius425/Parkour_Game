@@ -75,6 +75,7 @@ public class PlayerInputDetector : MonoBehaviour
             newInput = value.ReadValue<Vector2>();
             movementInput = newInput;
 
+            // Move() - acceleration
             if (value.started)
             {
                 PlayerMovementUpdated.Instance.actualSpeed = PlayerMovementUpdated.Instance.walkSpeed;
@@ -143,6 +144,9 @@ public class PlayerInputDetector : MonoBehaviour
                 myController.crouchHeld = false;
                 myController.sprintHeld = true;
                 myController.CheckSprint();
+                
+                // Move() - acceleration
+                // PlayerMovementUpdated.Instance.actualSpeed = PlayerMovementUpdated.Instance.actu;
             }
 
             if (value.canceled)
@@ -153,6 +157,9 @@ public class PlayerInputDetector : MonoBehaviour
                 {
                     myController.CheckSprint();
                 }
+
+                // Move() - acceleration
+                PlayerMovementUpdated.Instance.actualSpeed = PlayerMovementUpdated.Instance.walkSpeed;
             }
         }
     }
