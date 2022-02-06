@@ -6,11 +6,17 @@ public class PlayerMovementUpdated : MonoBehaviour
 {
     // script controls the player's movement
 
+    public static PlayerMovementUpdated Instance;       // Singleton
+
     public CharacterController controller;
     public PlayerController myController;
     public CameraControl myCamera;
     public PlayerInputDetector myInput;
     public Animator myAnimator;
+
+    [Header("Acceleration Settings")]
+    [SerializeField] float moveAccel = 4f;
+    [SerializeField] float moveDecel = 4f;
 
     [Header("Moving Settings")]
     [SerializeField] float walkSpeed = 4f;
@@ -71,31 +77,33 @@ public class PlayerMovementUpdated : MonoBehaviour
     public Vector3 movement = Vector3.zero; // the character's actual movement
     [SerializeField] float gravity;
     [SerializeField] bool airControlsOn = true;
-    
-    
-    [SerializeField] private float actualSpeed; // the actual speed of the character
+
+
+    public float actualSpeed; // the actual speed of the character
     public Vector3 velocity = Vector3.zero;
     RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeSpeed(walkSpeed);
+        actualSpeed = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Instance = this;        // Singleton
+
         if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
         {
-            if(velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
+            if (velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
             {
                 myController.CheckMove();
                 //Debug.Log("Here");
                 velocity.y = -2;
 
             }
-            
+
             SetVelocity();
         }
 
@@ -104,7 +112,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             SlideMove();
             slideTime -= Time.deltaTime;
 
-            if(Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
+            if (Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
             {
                 CancelSlide(); // stop sliding
             }
@@ -156,11 +164,30 @@ public class PlayerMovementUpdated : MonoBehaviour
         }
     }
 
-    void ChangeSpeed(float newSpeed)
-    {
-        if (myController.grounded)
-        {
-            actualSpeed = newSpeed;
+    void ChangeSpeed(float newSpeed) {
+        if (myController.grounded) {
+            if (actualSpeed < newSpeed) {
+                controller.Move(movement * actualSpeed * Time.deltaTime);
+                actualSpeed += moveAccel * Time.deltaTime;
+            }
+            else if (actualSpeed > newSpeed) {
+                controller.Move(movement * actualSpeed * Time.deltaTime);
+                actualSpeed -= moveDecel * Time.deltaTime;
+            }
+            else if (actualSpeed == newSpeed) {
+                controller.Move(movement * newSpeed * Time.deltaTime);
+
+                /*
+                switch (myController.currentState) {
+                    case State.Walking:
+                        controller.Move(movement * maxWalkSpeed * Time.deltaTime);
+                        break;
+                    case State.Running:
+                        controller.Move(movement * maxRunSpeed * Time.deltaTime);
+                        break;
+                }
+                */
+            }
         }
     }
 
