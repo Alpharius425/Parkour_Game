@@ -74,6 +74,14 @@ public class PlayerInputDetector : MonoBehaviour
             Vector2 newInput = Vector2.zero;
             newInput = value.ReadValue<Vector2>();
             movementInput = newInput;
+
+            if (value.started)
+            {
+                PlayerMovementUpdated.Instance.actualSpeed = PlayerMovementUpdated.Instance.walkSpeed;
+            }
+            else if (value.canceled) {
+                PlayerMovementUpdated.Instance.actualSpeed = PlayerMovementUpdated.Instance.walkSpeed;
+            }
         }
         else if(!canInput || value.ReadValue<Vector2>() == Vector2.zero)
         {

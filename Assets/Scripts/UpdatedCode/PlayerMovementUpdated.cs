@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovementUpdated : MonoBehaviour
 {
+    // Singleton
+    public static PlayerMovementUpdated Instance;
+
     // script controls the player's movement
 
     public CharacterController controller;
@@ -13,10 +16,16 @@ public class PlayerMovementUpdated : MonoBehaviour
     public Animator myAnimator;
 
     [Header("Moving Settings")]
-    [SerializeField] float walkSpeed = 4f;
+    public float walkSpeed = 4f;
+    [SerializeField] float maxWalkSpeed = 4f;
+    [SerializeField] float walkAccel = 1.5f;    // Speed acceleration multiplier from running to walking.
+    [SerializeField] float walkDecel = 1.5f;    // Speed deceleration multiplier from running to walking.
 
     [Header("Sprinting Settings")]
     [SerializeField] float runSpeed = 8f;
+    [SerializeField] float maxRunSpeed = 8f;
+    [SerializeField] float runAccel = 1.5f;     // Speed acceleration multiplier from walking to running.
+    [SerializeField] float runDecel = 1.5f;     // Speed deceleration multiplier from walking to running.
 
     [Header("Jumping Settings")]
     [SerializeField] float jumpForce;
@@ -73,13 +82,16 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] bool airControlsOn = true;
     
     
-    [SerializeField] private float actualSpeed; // the actual speed of the character
+    [SerializeField] public float actualSpeed; // the actual speed of the character
     public Vector3 velocity = Vector3.zero;
     RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Singleton
+        Instance = this;
+
         ChangeSpeed(walkSpeed);
     }
 
@@ -177,7 +189,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     {
                         return;
                     }
-                    ChangeSpeed(walkSpeed);
+                    //ChangeSpeed(walkSpeed);
                     //movement.y = gravity;
                     MoveInput();
                     myAnimator.SetBool("Idle", true);
@@ -189,7 +201,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     {
                         return;
                     }
-                    ChangeSpeed(runSpeed);
+                    //ChangeSpeed(runSpeed);
                     //movement.y = gravity;
                     MoveInput();
                     myAnimator.SetBool("Running", true);
@@ -280,13 +292,27 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveInput() // called if we are movng via player input
     {
-        if(airControlsOn && !myController.grounded)
+        if (airControlsOn && !myController.grounded)
         {
             controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
         }
         else
         {
-            controller.Move(movement * actualSpeed * Time.deltaTime);
+            //controller.Move(movement * actualSpeed * Time.deltaTime);
+
+            switch (myController.currentState)
+            {
+                // Linearly adds a multiplier value to the actual speed over time, giving a gradual increase in speed when walking.
+                case State.Walking:
+                    if (actualSpeed < maxWalkSpeed) {
+                        controller.Move(movement * actualSpeed * Time.deltaTime);
+                        actualSpeed += walkAccel * Time.deltaTime;
+                    }
+                    // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
+                    else controller.Move(movement * maxWalkSpeed * Time.deltaTime);
+                    break;
+            }
+            
         }
     }
 
