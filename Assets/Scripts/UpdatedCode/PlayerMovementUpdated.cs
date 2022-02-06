@@ -92,7 +92,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         // Singleton
         Instance = this;
 
-        ChangeSpeed(walkSpeed);
+        //ChangeSpeed(walkSpeed);
     }
 
     // Update is called once per frame
@@ -300,33 +300,82 @@ public class PlayerMovementUpdated : MonoBehaviour
         {
             //controller.Move(movement * actualSpeed * Time.deltaTime);
 
+            if (actualSpeed < maxWalkSpeed)
+            {
+                controller.Move(movement * actualSpeed * Time.deltaTime);
+                actualSpeed += walkAccel * Time.deltaTime;
+                runSpeed = actualSpeed;
+            }
+            else if (actualSpeed > maxWalkSpeed && actualSpeed < maxRunSpeed && myController.currentState == State.Running) {
+                controller.Move(movement * actualSpeed * Time.deltaTime);
+                actualSpeed += runAccel * Time.deltaTime;
+                if (actualSpeed >= maxRunSpeed) {
+                    controller.Move(movement * maxRunSpeed * Time.deltaTime);
+                }
+            }
+            else if (actualSpeed >= maxWalkSpeed && myController.currentState == State.Walking) {
+                controller.Move(movement * maxWalkSpeed * Time.deltaTime);
+                runSpeed = actualSpeed;
+            }
+            else if (actualSpeed >= maxRunSpeed && myController.currentState == State.Running) {
+                controller.Move(movement * maxRunSpeed * Time.deltaTime);
+            }
+
+            /*
+            if (myController.currentState == State.Walking && actualSpeed < maxWalkSpeed)
+            {
+                controller.Move(movement * actualSpeed * Time.deltaTime);
+                actualSpeed += walkAccel * Time.deltaTime;
+            }
+            else if (myController.currentState == State.Walking) {
+                // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
+                controller.Move(movement * maxWalkSpeed * Time.deltaTime);
+            }
+            else if (myController.currentState == State.Running && actualSpeed > maxWalkSpeed && actualSpeed < maxRunSpeed) {
+                controller.Move(movement * actualSpeed * Time.deltaTime);
+                actualSpeed += runAccel * Time.deltaTime;
+            }
+            
+            else if (actualSpeed < maxWalkSpeed) {
+                controller.Move(movement * maxRunSpeed * Time.deltaTime);
+            }
+            */
+
+
+
+
+            /*
             switch (myController.currentState)
             {
                 // Linearly adds a multiplier value to the actual speed over time, giving a gradual increase in speed when walking.
-                case State.Walking:
-                    if (actualSpeed < maxWalkSpeed) {
-                        controller.Move(movement * actualSpeed * Time.deltaTime);
-                        actualSpeed += walkAccel * Time.deltaTime;
-                    }
-                    // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
-                    else controller.Move(movement * maxWalkSpeed * Time.deltaTime);
-                    break;
-                case State.Running:
-                    if (actualSpeed < maxRunSpeed)
-                    {
-                        controller.Move(movement * actualSpeed * Time.deltaTime);
-                        if (actualSpeed < maxWalkSpeed) {
-                            actualSpeed += walkAccel * Time.deltaTime;
-                        } 
-                        else actualSpeed += runAccel * Time.deltaTime;
-                    }
-                    // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
-                    else controller.Move(movement * maxRunSpeed* Time.deltaTime);
-                    break;
-            }
             
+                case State.Walking:
+                if (actualSpeed < maxWalkSpeed) {
+                    controller.Move(movement * actualSpeed * Time.deltaTime);
+                    actualSpeed += walkAccel * Time.deltaTime;
+                }
+                // Once the actual speed meets the maxWalkSpeed value, the player will only move at the maxWalkSpeed value.
+                else controller.Move(movement * maxWalkSpeed * Time.deltaTime);
+                break;
+            case State.Running:
+                runSpeed = actualSpeed;
+
+                if (actualSpeed < maxRunSpeed)
+                {
+                    controller.Move(movement * actualSpeed * Time.deltaTime);
+                    if (actualSpeed < maxWalkSpeed) {
+                        actualSpeed += walkAccel * Time.deltaTime;
+                    } 
+                    else actualSpeed += runAccel * Time.deltaTime;
+                }
+                // Once the actual speed meets the maxRunSpeed value, the player will only move at the maxWalkSpeed value.
+                else controller.Move(movement * maxRunSpeed* Time.deltaTime);
+                break;
+            }
+            */
         }
     }
+
 
     public void MoveVelocity(Vector3 movement) // called if we are moving via velocity like when we slide, jump or fall
     {
