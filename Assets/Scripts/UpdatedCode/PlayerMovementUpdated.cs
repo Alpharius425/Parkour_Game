@@ -95,19 +95,6 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         Instance = this;        // Singleton
 
-        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
-        {
-            if (velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
-            {
-                myController.CheckMove();
-                //Debug.Log("Here");
-                velocity.y = -2;
-
-            }
-
-            SetVelocity();
-        }
-
         if (sliding) // controls how long the player slides
         {
             SlideMove();
@@ -133,6 +120,18 @@ public class PlayerMovementUpdated : MonoBehaviour
             CancelZandXRotation();
         }
 
+        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
+        {
+            if (velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
+            {
+                myController.CheckMove();
+                //Debug.Log("Here");
+                velocity.y = -2;
+
+            }
+
+            SetVelocity();
+        }
 
         if (myController.currentState == State.Vaulting)
         {
