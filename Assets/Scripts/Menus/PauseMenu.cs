@@ -8,8 +8,14 @@ public class PauseMenu : MonoBehaviour
     public GameObject PauseMenuUI;  //A panel parented to a canvas with buttons parented to it
     [SerializeField] GameObject restartButton;
     public bool Paused = false;
-    [SerializeField] int currentLevel;
+    public int currentLevel;
     [SerializeField] PlayerInputDetector myInputs;
+    public static PauseMenu instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -47,6 +53,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        LoadScene.instance.LoadByIndex(currentLevel);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(currentLevel);
     }
 }

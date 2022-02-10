@@ -12,8 +12,8 @@ public class LoadScene : MonoBehaviour
         instance = this;
     }
 
-    public void LoadByIndex(int Level)
+    public void LoadByIndex()
     {
-        SceneManager.LoadScene(Level);
+        PauseMenu.instance.Restart();
     }
 }
