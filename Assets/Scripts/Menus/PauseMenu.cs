@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject PauseMenuUI;  //A panel parented to a canvas with buttons parented to it
     [SerializeField] GameObject restartButton;
     public bool Paused = false;
-    public int currentLevel;
     [SerializeField] PlayerInputDetector myInputs;
     public static PauseMenu instance;
 
@@ -20,7 +19,6 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         PauseMenuUI.SetActive(false);   //turns off the pause menu at the start of the level
-        currentLevel = SceneManager.GetActiveScene().buildIndex;
     }
 
     public void PauseToggle()
@@ -51,9 +49,9 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void LoadLevel(int level)
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(currentLevel);
+        SceneManager.LoadScene(level);
     }
 }

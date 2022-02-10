@@ -6,6 +6,7 @@ using UnityEngine;
 public class LoadScene : MonoBehaviour
 {
     public static LoadScene instance;
+    [SerializeField] int level;
 
     private void Awake()
     {
@@ -14,6 +15,6 @@ public class LoadScene : MonoBehaviour
 
     public void LoadByIndex()
     {
-        PauseMenu.instance.Restart();
+        PauseMenu.instance.LoadLevel(level);
     }
 }

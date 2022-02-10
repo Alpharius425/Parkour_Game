@@ -753,7 +753,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2129535999825202451}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: LoadByIndex
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -774,6 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffc70629d0753c4187e2b8dd6618688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!1 &2129535999991355540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,6 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffc70629d0753c4187e2b8dd6618688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!114 &2129536000994974835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1348,7 +1350,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2129536000994974832}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: LoadByIndex
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1874,7 +1876,7 @@ MonoBehaviour:
   PauseMenuUI: {fileID: 2129536001221834022}
   restartButton: {fileID: 2129535999825202450}
   Paused: 0
-  currentLevel: 1
+  myInputs: {fileID: 0}
 --- !u!1 &2129536001862526291
 GameObject:
   m_ObjectHideFlags: 0
