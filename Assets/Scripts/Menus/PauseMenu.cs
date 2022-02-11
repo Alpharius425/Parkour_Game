@@ -48,10 +48,4 @@ public class PauseMenu : MonoBehaviour
             myInputs.canInput = true;
         }
     }
-
-    public void LoadLevel(int level)
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(level);
-    }
 }

@@ -15,6 +15,7 @@ public class LoadScene : MonoBehaviour
 
     public void LoadByIndex()
     {
-        PauseMenu.instance.LoadLevel(level);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(level);
     }
 }
