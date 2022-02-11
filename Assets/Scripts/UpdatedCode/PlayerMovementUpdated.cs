@@ -6,11 +6,18 @@ public class PlayerMovementUpdated : MonoBehaviour
 {
     // script controls the player's movement
 
+    public static PlayerMovementUpdated Instance;       // Singleton
+
     public CharacterController controller;
     public PlayerController myController;
     public CameraControl myCamera;
     public PlayerInputDetector myInput;
     public Animator myAnimator;
+
+    [Header("Acceleration Settings")]
+    [SerializeField] float moveAccel = 4f;
+    [SerializeField] float sprintAccel = 4f;
+    [SerializeField] float moveDecel = 4f;
 
     [Header("Moving Settings")]
     [SerializeField] float walkSpeed = 4f;
@@ -71,40 +78,29 @@ public class PlayerMovementUpdated : MonoBehaviour
     public Vector3 movement = Vector3.zero; // the character's actual movement
     [SerializeField] float gravity;
     [SerializeField] bool airControlsOn = true;
-    
-    
-    [SerializeField] private float actualSpeed; // the actual speed of the character
+
+
+    public float actualSpeed; // the actual speed of the character
     public Vector3 velocity = Vector3.zero;
     RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeSpeed(walkSpeed);
+        actualSpeed = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
-        {
-            if(velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
-            {
-                myController.CheckMove();
-                //Debug.Log("Here");
-                velocity.y = -2;
-
-            }
-            
-            SetVelocity();
-        }
+        Instance = this;        // Singleton
 
         if (sliding) // controls how long the player slides
         {
             SlideMove();
             slideTime -= Time.deltaTime;
 
-            if(Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
+            if (Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
             {
                 CancelSlide(); // stop sliding
             }
@@ -124,6 +120,18 @@ public class PlayerMovementUpdated : MonoBehaviour
             CancelZandXRotation();
         }
 
+        if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
+        {
+            if (velocity.y < 0 && myController.grounded && myController.currentState != State.Sliding) // if we're on the ground and our velocity is high
+            {
+                myController.CheckMove();
+                //Debug.Log("Here");
+                velocity.y = -2;
+
+            }
+
+            SetVelocity();
+        }
 
         if (myController.currentState == State.Vaulting)
         {
@@ -156,11 +164,29 @@ public class PlayerMovementUpdated : MonoBehaviour
         }
     }
 
-    void ChangeSpeed(float newSpeed)
-    {
-        if (myController.grounded)
-        {
-            actualSpeed = newSpeed;
+    void ChangeSpeed(float newSpeed) {
+        if (myController.grounded) {
+            // If the current speed is less than the newSpeed, then the current speed will increase at the acceleration rate.
+            if (actualSpeed < newSpeed) {
+                controller.Move(movement * actualSpeed * Time.fixedDeltaTime / 2f);
+                
+                // Checks whether the current speed will accelerate at the sprinting accel value, or at the regular accel value.
+                if (myController.currentState == State.Running && actualSpeed >= walkSpeed) {
+                    actualSpeed += sprintAccel * Time.fixedDeltaTime / 2f;
+                }
+                else actualSpeed += moveAccel * Time.fixedDeltaTime / 2f;
+            }
+
+            // If the current speed is more than the newSpeed, then the current speed will decrease at the deceleration rate.
+            else if (actualSpeed > newSpeed) {
+                controller.Move(movement * actualSpeed * Time.fixedDeltaTime / 2f);
+                actualSpeed -= moveDecel * Time.fixedDeltaTime / 2f;
+            }
+
+            // Once the current speed reaches the newSpeed value, then it the current speed will be set to the newSpeed value instead.
+            else if (actualSpeed == newSpeed) {
+                controller.Move(movement * newSpeed * Time.fixedDeltaTime / 2f);
+            }
         }
     }
 
@@ -280,14 +306,14 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveInput() // called if we are movng via player input
     {
-        if(airControlsOn && !myController.grounded)
+        if (airControlsOn && !myController.grounded)
         {
             controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
         }
-        else
-        {
-            controller.Move(movement * actualSpeed * Time.deltaTime);
-        }
+        //else
+        //{
+        //    controller.Move(movement * actualSpeed * Time.deltaTime);
+        //}
     }
 
     public void MoveVelocity(Vector3 movement) // called if we are moving via velocity like when we slide, jump or fall
@@ -380,7 +406,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             }
         }
         
-        controller.Move(movement * Time.deltaTime);
+        controller.Move(movement * Time.fixedDeltaTime);
         myController.UpdateState(State.Jumping);
     }
 

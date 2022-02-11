@@ -24,6 +24,14 @@ public class PlayerInputDetector : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        if (myController.currentState != State.Sliding)
+        {
+            myMovement.Move(movementInput);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -36,10 +44,7 @@ public class PlayerInputDetector : MonoBehaviour
                 myPackages.ThrowPackage();
             }
 
-            if (myController.currentState != State.Sliding)
-            {
-                myMovement.Move(movementInput);
-            }
+            
 
             if (movementInput == Vector2.zero && myController.grounded != false) // Checks if we are grounded and not moving
             {
@@ -74,6 +79,10 @@ public class PlayerInputDetector : MonoBehaviour
             Vector2 newInput = Vector2.zero;
             newInput = value.ReadValue<Vector2>();
             movementInput = newInput;
+
+            if (value.canceled) {
+                PlayerMovementUpdated.Instance.actualSpeed = 0f;
+            }
         }
         else if(!canInput || value.ReadValue<Vector2>() == Vector2.zero)
         {
