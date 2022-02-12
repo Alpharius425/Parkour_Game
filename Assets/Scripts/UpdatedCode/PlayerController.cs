@@ -112,9 +112,11 @@ public class PlayerController : MonoBehaviour
         {
             curClimbTime -= Time.deltaTime;
         }
+    }
 
-        
-        if(currentState == State.Running || currentState == State.Climbing || currentState == State.Jumping)
+    private void FixedUpdate()
+    {
+        if(currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning) // while we are running or climbing we're going to check if we can vault
         {
             for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
             {
@@ -133,6 +135,10 @@ public class PlayerController : MonoBehaviour
                             {
 
                                 hit.collider.gameObject.GetComponent<LerpTo>().Attach();
+                            }
+                            else
+                            {
+                                CheckMove();
                             }
                         }
                         //else commented out until we can get a working wall run system
@@ -186,14 +192,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-        }
-        
-    }
 
-    private void FixedUpdate()
-    {
-        if(currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping) // while we are running or climbing we're going to check if we can vault
-        {
             Debug.Log("Check vaulting");
             VaultCheck();
         }
@@ -275,7 +274,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckMove()
     {
-            if (myInput.movementInput != Vector2.zero || (currentState == State.Wallrunning && !attachedObject)) // checks if we are still moving
+            if (myInput.movementInput != Vector2.zero) // checks if we are still moving
             {
                 if (sprintHeld)
                 {
@@ -297,9 +296,17 @@ public class PlayerController : MonoBehaviour
                     UpdateState(State.Walking);
                 }
             }
-            else if (myInput.movementInput == Vector2.zero && crouchHeld == false) // if we aren't moving
+            else // if we aren't moving
             {
-                UpdateState(State.Idle);
+                if(crouchHeld == false)
+                {
+                    UpdateState(State.Idle);
+                }
+                else
+                {
+                    UpdateState(State.Crouching);
+                }
+                
             }
         
     }

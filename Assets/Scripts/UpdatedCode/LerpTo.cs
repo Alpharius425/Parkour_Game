@@ -35,11 +35,11 @@ public class LerpTo : MonoBehaviour
 
             if(wallrunning)
             {
-                player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
+                //player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
             }
             else
             {
-                player.GetComponent<PlayerController>().UpdateState(State.noMove);
+                //player.GetComponent<PlayerController>().UpdateState(State.noMove);
             }
         }
     }
@@ -54,7 +54,7 @@ public class LerpTo : MonoBehaviour
         attached = false; // stops the object from moving us
         controller.myCamera.RotatePlayer();
         controller.ResetWallJumpTimer();
-
+        controller.attachedObject = null;
         if (wallrunning)
         {
             controller.CheckMove();
@@ -63,8 +63,7 @@ public class LerpTo : MonoBehaviour
         {
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
-
-        controller.attachedObject = null;
+        
         Debug.Log("player is no longer attached");
     }
 
@@ -73,18 +72,17 @@ public class LerpTo : MonoBehaviour
         if(wallrunning)
         {
             //player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
+            player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
         }
         else
         {
             player.GetComponent<PlayerInputDetector>().canInput = false;
+            player.GetComponent<PlayerController>().UpdateState(State.noMove);
         }
         player.GetComponent<PlayerController>().attachedObject = this;
         startTime = Time.time;
         player.transform.LookAt(endPoint.transform.position); // makes our player look at the endpoint
         controller = player.GetComponent<PlayerController>();
-        //Quaternion rotation = player.transform.rotation;
-        //rotation.z = 0f;
-        //player.transform.rotation = rotation;
         startPoint = player.transform.position; // sets the starting point of the movement
         journeyDistance = Vector3.Distance(startPoint, endPoint.transform.position);
         //player.transform.SetParent(gameObject.transform); // parents the player to the object. useful if we have a moving object we want to attach to
