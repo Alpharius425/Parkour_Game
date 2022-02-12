@@ -133,6 +133,11 @@ public class PlayerMovementUpdated : MonoBehaviour
             SetVelocity();
         }
 
+        if(myController.currentState == State.Wallrunning && myController.attachedObject == false) // might stop us from getting hung up when we finish wall running
+        {
+            SetVelocity();
+        }
+
         if (myController.currentState == State.Vaulting)
         {
             myInput.canInput = false;
@@ -245,12 +250,6 @@ public class PlayerMovementUpdated : MonoBehaviour
                     movement = Vector3.zero + climbMovement;
                     MoveInput();
                     break;
-
-                case State.Wallrunning: // locks all movement except forward and back movement
-                    //movement.x = 0;
-                    //movement.y = 0;
-                    //MoveInput();
-                    return;
 
                 case State.Sliding: // locks our movement to the direction we were running in
                     if (!airControlsOn && myController.grounded == false)
@@ -376,8 +375,8 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Wallrunning:
                 myController.attachedObject.stop();
                 jumpPower = wallRunJumpMultiplier;
-                myCamera.ResetZRotation();
-                myCamera.RotatePlayer();
+                //myCamera.ResetZRotation();
+                //myCamera.RotatePlayer();
                 Debug.Log("here");
                 break;
 

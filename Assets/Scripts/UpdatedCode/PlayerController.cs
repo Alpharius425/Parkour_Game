@@ -275,7 +275,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckMove()
     {
-            if (myInput.movementInput != Vector2.zero && currentState != State.Wallrunning) // checks if we are still moving
+            if (myInput.movementInput != Vector2.zero || (currentState == State.Wallrunning && !attachedObject)) // checks if we are still moving
             {
                 if (sprintHeld)
                 {
