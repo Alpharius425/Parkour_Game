@@ -10,7 +10,10 @@ public class DebugOnly : MonoBehaviour
 
     private void Update() {
         if (Input.GetKeyUp(KeyCode.R)) {
+            gameObject.GetComponent<CharacterController>().enabled = false;
             gameObject.transform.position = resetPlayerPosition.position;
+            gameObject.transform.rotation = resetPlayerPosition.rotation;
+            gameObject.GetComponent<CharacterController>().enabled = true;
         }
     }
 }
