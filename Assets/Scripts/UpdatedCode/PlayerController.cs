@@ -32,9 +32,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxClimbTime;
     public float curClimbTime;
     [SerializeField] LayerMask climbLayers;
+    [SerializeField] LayerMask wallRunLayers;
 
-    public float detectionRange; // determines how far away we look when we try to detect obstacles
+    public float climbDetectionRange; // determines how far away we look when we try to detect obstacles
     public float vaultDetectionRange;
+    public float wallRunDetectionRange;
     Vector3 vaultCheck;
     [SerializeField] LayerMask vaultLayers;
 
@@ -56,8 +58,7 @@ public class PlayerController : MonoBehaviour
         detectionDirections = new Vector3[] // sets up our parkour detection rays
         {
             Vector3.right,
-            Vector3.left,
-            Vector3.forward
+            Vector3.left
         };
         vaultCheck = Vector3.forward;
     }
@@ -112,88 +113,144 @@ public class PlayerController : MonoBehaviour
         {
             curClimbTime -= Time.deltaTime;
         }
+    }
 
-        
-        if(currentState == State.Running || currentState == State.Climbing || currentState == State.Jumping)
+    private void FixedUpdate()
+    {
+        //if(currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning) // while we are running or climbing we're going to check if we can vault
+        //{
+        //    for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
+        //    {
+        //        Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
+        //        if (Physics.Raycast(transform.position, direction, out hit, climbDetectionRange, climbLayers)) // shoots the ray we have selected now
+        //        {
+        //            if (hit.collider.gameObject != gameObject)
+        //            {
+        //                if (detectionDirections[i] == Vector3.forward && curClimbTime > 0 && currentState != State.Vaulting) // if its the front facing ray we start climbing
+        //                {
+        //                    UpdateState(State.Climbing);
+        //                }
+        //                else
+        //                {
+        //                    if (hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove && timeUntilWallRun <= 0) // checks if the player hits something with the lerp to script and isn't already parented to another
+        //                    {
+
+        //                        hit.collider.gameObject.GetComponent<LerpTo>().Attach();
+        //                    }
+        //                    else
+        //                    {
+        //                        CheckMove();
+        //                    }
+        //                }
+        //                //else commented out until we can get a working wall run system
+        //                //{
+        //                //    UpdateState(State.Wallrunning);
+
+        //                //    if (detectionDirections[i] == Vector3.right && onLeftWall != true) // checks which wall we should be on and prevents us from being attached to both
+        //                //    {
+        //                //        onRightWall = true;
+
+        //                //        if (!angleChanged) // changes the camera angle
+        //                //        {
+        //                //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
+        //                //            myCamera.ChangeAngle(-angleChange);
+        //                //            angleChanged = true;
+        //                //        }
+
+        //                //    }
+        //                //    else if (onRightWall != true)
+        //                //    {
+        //                //        onLeftWall = true;
+
+        //                //        if (!angleChanged) // changes the camera angle
+        //                //        {
+        //                //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
+        //                //            myCamera.ChangeAngle(angleChange);
+        //                //            angleChanged = true;
+        //                //        }
+        //                //    }
+        //                //}
+        //                Debug.DrawRay(transform.position, direction, Color.green);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // tells us we aren't attached to any walls
+        //            onLeftWall = false;
+        //            onRightWall = false;
+        //            Debug.DrawRay(transform.position, direction, Color.red);
+
+        //            //if (angleChanged) // changes the camera angle back to normal
+        //            //{
+        //            //    myCamera.ResetAngle();
+        //            //    angleChanged = false;
+        //            //}
+
+        //            if (currentState == State.Climbing || currentState == State.Wallrunning)
+        //            {
+        //                //Debug.Log("here");
+        //                CheckMove();
+        //            }
+        //        }
+        //    }
+
+        //    Debug.Log("Check vaulting");
+        //    VaultCheck();
+        //}
+
+        if (currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning)
         {
-            for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
+
+            // Climbing
+            if(Physics.Raycast(transform.position, transform.forward, out hit, climbDetectionRange, climbLayers))
             {
-                Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
-                if (Physics.Raycast(transform.position, direction, out hit, detectionRange, climbLayers)) // shoots the ray we have selected now
+                if (hit.collider.gameObject != gameObject)
                 {
-                    if (hit.collider.gameObject != gameObject)
+                    if(curClimbTime > 0 && currentState != State.Vaulting)
                     {
-                        if (detectionDirections[i] == Vector3.forward && curClimbTime > 0 && currentState != State.Vaulting) // if its the front facing ray we start climbing
-                        {
-                            UpdateState(State.Climbing);
-                        }
-                        else
+                        UpdateState(State.Climbing);
+                    }
+                    else
+                    {
+                        CheckMove();
+                    }
+                }
+            }
+
+            // Wallrunning
+            if (currentState != State.Climbing)
+            {
+                for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
+                {
+                    Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
+
+                    if(Physics.Raycast(transform.position + Vector3.up, direction, out hit, wallRunDetectionRange, wallRunLayers))
+                    {
+                        if (hit.collider.gameObject != gameObject)
                         {
                             if (hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove && timeUntilWallRun <= 0) // checks if the player hits something with the lerp to script and isn't already parented to another
                             {
 
                                 hit.collider.gameObject.GetComponent<LerpTo>().Attach();
                             }
+                            else
+                            {
+                                // tells us we aren't attached to any walls
+                                onLeftWall = false;
+                                onRightWall = false;
+
+                                if (currentState == State.Climbing || currentState == State.Wallrunning)
+                                {
+                                    //Debug.Log("here");
+                                    CheckMove();
+                                }
+                            }
                         }
-                        //else commented out until we can get a working wall run system
-                        //{
-                        //    UpdateState(State.Wallrunning);
-
-                        //    if (detectionDirections[i] == Vector3.right && onLeftWall != true) // checks which wall we should be on and prevents us from being attached to both
-                        //    {
-                        //        onRightWall = true;
-
-                        //        if (!angleChanged) // changes the camera angle
-                        //        {
-                        //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
-                        //            myCamera.ChangeAngle(-angleChange);
-                        //            angleChanged = true;
-                        //        }
-
-                        //    }
-                        //    else if (onRightWall != true)
-                        //    {
-                        //        onLeftWall = true;
-
-                        //        if (!angleChanged) // changes the camera angle
-                        //        {
-                        //            gameObject.transform.rotation = hit.collider.gameObject.transform.rotation;
-                        //            myCamera.ChangeAngle(angleChange);
-                        //            angleChanged = true;
-                        //        }
-                        //    }
-                        //}
-                        Debug.DrawRay(transform.position, direction, Color.green);
-                    }
-                }
-                else
-                {
-                    // tells us we aren't attached to any walls
-                    onLeftWall = false;
-                    onRightWall = false;
-                    Debug.DrawRay(transform.position, direction, Color.red);
-
-                    //if (angleChanged) // changes the camera angle back to normal
-                    //{
-                    //    myCamera.ResetAngle();
-                    //    angleChanged = false;
-                    //}
-
-                    if (currentState == State.Climbing || currentState == State.Wallrunning)
-                    {
-                        //Debug.Log("here");
-                        CheckMove();
                     }
                 }
             }
-        }
-        
-    }
 
-    private void FixedUpdate()
-    {
-        if(currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping) // while we are running or climbing we're going to check if we can vault
-        {
+            // vaulting
             Debug.Log("Check vaulting");
             VaultCheck();
         }
@@ -275,7 +332,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckMove()
     {
-            if (myInput.movementInput != Vector2.zero && currentState != State.Wallrunning) // checks if we are still moving
+            if (myInput.movementInput != Vector2.zero) // checks if we are still moving
             {
                 if (sprintHeld)
                 {
@@ -297,9 +354,17 @@ public class PlayerController : MonoBehaviour
                     UpdateState(State.Walking);
                 }
             }
-            else if (myInput.movementInput == Vector2.zero && crouchHeld == false) // if we aren't moving
+            else // if we aren't moving
             {
-                UpdateState(State.Idle);
+                if(crouchHeld == false)
+                {
+                    UpdateState(State.Idle);
+                }
+                else
+                {
+                    UpdateState(State.Crouching);
+                }
+                
             }
         
     }
