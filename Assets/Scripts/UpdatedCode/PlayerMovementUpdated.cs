@@ -373,7 +373,10 @@ public class PlayerMovementUpdated : MonoBehaviour
                 break;
 
             case State.Wallrunning:
-                myController.attachedObject.stop();
+                if(myController.attachedObject)
+                {
+                    myController.attachedObject.stop();
+                }
                 jumpPower = wallRunJumpMultiplier;
                 //myCamera.ResetZRotation();
                 //myCamera.RotatePlayer();
