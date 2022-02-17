@@ -210,6 +210,10 @@ public class PlayerController : MonoBehaviour
                     {
                         UpdateState(State.Climbing);
                     }
+                    else
+                    {
+                        CheckMove();
+                    }
                 }
             }
 
