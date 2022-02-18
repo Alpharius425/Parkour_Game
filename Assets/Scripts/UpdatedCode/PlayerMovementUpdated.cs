@@ -28,6 +28,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     [Header("Jumping Settings")]
     [SerializeField] float jumpForce;
     [SerializeField] float airSpeed;
+    private float savedAirSpeed;
     Vector3 jumpDir;
     [SerializeField] float jumpGravityDelay; // how long until gravity takes hold of us again
 
@@ -88,6 +89,8 @@ public class PlayerMovementUpdated : MonoBehaviour
     void Start()
     {
         actualSpeed = 0;
+
+        savedAirSpeed = airSpeed;
     }
 
     // Update is called once per frame
@@ -401,14 +404,18 @@ public class PlayerMovementUpdated : MonoBehaviour
             if(hit.collider.gameObject.GetComponent<JumpBooster>() != null)
             {
                 velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier);
+                controller.Move((movement * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier) * Time.fixedDeltaTime);
+                airSpeed = hit.collider.gameObject.GetComponent<JumpBooster>().airSpeed;
             }
             else
             {
+                airSpeed = savedAirSpeed;
                 velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
+                controller.Move(movement * Time.fixedDeltaTime);
             }
         }
         
-        controller.Move(movement * Time.fixedDeltaTime);
+        //controller.Move(movement * Time.fixedDeltaTime);
         myController.UpdateState(State.Jumping);
     }
 

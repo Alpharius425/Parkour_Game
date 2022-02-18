@@ -1430,6 +1430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5881899092385311094}
+  - component: {fileID: 7233414907438307639}
   - component: {fileID: 5881899092385311090}
   - component: {fileID: 5881899092385311089}
   - component: {fileID: 5881899092385311091}
@@ -1467,6 +1468,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -4.513, y: 13.277, z: 0}
+--- !u!114 &7233414907438307639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881899092385311088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10dbe8ad4d62b6a4d9d888fa99fb5a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Notes: R - Resets player position
+  enableResetPlayerPos: 0
+  resetPlayerPosition: {fileID: 0}
 --- !u!114 &5881899092385311090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,6 +1688,9 @@ MonoBehaviour:
   myCamera: {fileID: 1257659115}
   myInput: {fileID: 1826140720}
   myAnimator: {fileID: 8836748305666955059}
+  moveAccel: 4
+  sprintAccel: 4
+  moveDecel: 4
   walkSpeed: 5
   runSpeed: 10
   jumpForce: 5
