@@ -18,7 +18,7 @@ public class RespawnManager : MonoBehaviour
     private void Start()
     {
         respawnManager = this;
-        Debug.Log(respawnManager.gameObject + " is the respawn manager");
+        //Debug.Log(respawnManager.gameObject + " is the respawn manager");
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class RespawnManager : MonoBehaviour
 
     public void SetSpawnPosition(GameObject newPosition) // sets the respawn point to somewhere new
     {
-        Debug.Log("Spawn point changed");
+        //Debug.Log("Spawn point changed");
         spawnPosition = newPosition;
     }
 

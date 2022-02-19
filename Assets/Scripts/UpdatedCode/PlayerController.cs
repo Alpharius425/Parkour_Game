@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // vaulting
-            Debug.Log("Check vaulting");
+            //Debug.Log("Check vaulting");
             VaultCheck();
         }
     }

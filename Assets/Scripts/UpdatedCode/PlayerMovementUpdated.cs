@@ -492,6 +492,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         UnCrouch();
         myController.CheckMove();
         myAnimator.SetBool("Sliding", false);
+        myController.crouchHeld = false;
         //velocity = Vector3.zero;
         //SetVelocity();
     }

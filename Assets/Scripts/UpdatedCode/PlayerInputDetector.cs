@@ -113,12 +113,12 @@ public class PlayerInputDetector : MonoBehaviour
             }
             else // toggled
             {
-                if (value.started && myController.crouchHeld && myController.currentState == State.Crouching)
+                if (value.started && myController.crouchHeld && (myController.currentState == State.Crouching || myController.currentState == State.Sliding))
                 {
                     myController.crouchHeld = false;
                     myController.CheckCrouch();
                 }
-                else if (value.started && myController.crouchHeld == false && myController.currentState != State.Crouching)
+                else if (value.started && myController.crouchHeld == false && (myController.currentState != State.Crouching || myController.currentState != State.Sliding))
                 {
                     myController.crouchHeld = true;
                     myController.CheckCrouch();
