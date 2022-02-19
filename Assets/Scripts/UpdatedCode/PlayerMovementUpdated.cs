@@ -91,19 +91,31 @@ public class PlayerMovementUpdated : MonoBehaviour
         actualSpeed = 0;
 
         savedAirSpeed = airSpeed;
+        Instance = this;        // Singleton
     }
 
     // Update is called once per frame
     void Update()
     {
-        Instance = this;        // Singleton
+        
+    }
+
+    private void FixedUpdate()
+    {
+        // Zeroes Z and X rotation.
+        // Specifically fixing the rotation issues when vaulting.
+        if (transform.rotation.z != 0 || transform.rotation.x != 0)
+        {
+            CancelZandXRotation();
+        }
 
         if (sliding) // controls how long the player slides
         {
             SlideMove();
             slideTime -= Time.deltaTime;
 
-            if (Physics.Raycast(transform.position, Vector3.forward, out hit, slideDetectionRange)) // if we slide into something
+            Debug.DrawRay(controller.transform.position, gameObject.transform.forward * slideDetectionRange, Color.red);
+            if (Physics.Raycast(controller.transform.position, gameObject.transform.forward, out hit, slideDetectionRange)) // if we slide into something
             {
                 CancelSlide(); // stop sliding
             }
@@ -112,15 +124,6 @@ public class PlayerMovementUpdated : MonoBehaviour
             {
                 CancelSlide();
             }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        // Zeroes Z and X rotation.
-        // Specifically fixing the rotation issues when vaulting.
-        if (transform.rotation.z != 0 || transform.rotation.x != 0) {
-            CancelZandXRotation();
         }
 
         if (myController.currentState != State.Climbing && myController.currentState != State.Wallrunning && myController.currentState != State.noMove && myController.currentState != State.Vaulting) // simulate gravity
