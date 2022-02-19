@@ -89,7 +89,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actualSpeed = 0;
+        actualSpeed = startWalkSpeed;
 
         savedAirSpeed = airSpeed;
     }
