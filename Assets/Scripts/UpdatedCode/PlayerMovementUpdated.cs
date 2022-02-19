@@ -21,6 +21,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     [Header("Moving Settings")]
     [SerializeField] float walkSpeed = 4f;
+    public float startWalkSpeed = 6f;
 
     [Header("Sprinting Settings")]
     [SerializeField] float runSpeed = 8f;
