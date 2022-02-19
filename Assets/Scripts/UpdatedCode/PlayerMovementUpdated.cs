@@ -21,6 +21,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     [Header("Moving Settings")]
     [SerializeField] float walkSpeed = 4f;
+    public float startWalkSpeed = 6f;
 
     [Header("Sprinting Settings")]
     [SerializeField] float runSpeed = 8f;
@@ -88,7 +89,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actualSpeed = 0;
+        actualSpeed = startWalkSpeed;
 
         savedAirSpeed = airSpeed;
         Instance = this;        // Singleton
