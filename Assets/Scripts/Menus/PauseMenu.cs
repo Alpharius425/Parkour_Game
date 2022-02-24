@@ -23,7 +23,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseToggle()
     {
-        Debug.Log("pause toggled");
+        //Debug.Log("pause toggled");
         if(Paused == true)
         {
             Paused = false;

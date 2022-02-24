@@ -149,7 +149,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         {
             myInput.canInput = false;
             GetComponent<CharacterController>().enabled = false;
-            Debug.Log("Vaulting");
+            //Debug.Log("Vaulting");
 
             distanceCovered = (Time.time - startTime) / journeyDistance * vaultSpeed;
             float fractionOfJourney = distanceCovered; // saves how much of the distance we've already passed
@@ -163,7 +163,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             {
                 myInput.canInput = true;
 
-                Debug.Log("Vaulting finished");
+                //Debug.Log("Vaulting finished");
 
                 myController.CheckMove();
                 //myCamera.RotatePlayer();
@@ -385,8 +385,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     myController.attachedObject.stop();
                 }
                 jumpPower = wallRunJumpMultiplier;
-                //myCamera.ResetZRotation();
-                //myCamera.RotatePlayer();
+                myCamera.RotatePlayer();
                 Debug.Log("here");
                 break;
 
@@ -394,7 +393,6 @@ public class PlayerMovementUpdated : MonoBehaviour
                 jumpPower = slideJumpMultiplier;
                 CancelSlide();
                 myCamera.RotatePlayer();
-                //myCamera.RotatePlayer();
                 break;
 
             default:
@@ -419,7 +417,6 @@ public class PlayerMovementUpdated : MonoBehaviour
             }
         }
         
-        //controller.Move(movement * Time.fixedDeltaTime);
         myController.UpdateState(State.Jumping);
     }
 
@@ -515,7 +512,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //pos.y += 2f;
         //transform.position = pos;
         
-        Debug.Log("Should vault");
+        //Debug.Log("Should vault");
         startTime = Time.time;
         oldLocation = gameObject.transform.position;
         gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
@@ -523,14 +520,14 @@ public class PlayerMovementUpdated : MonoBehaviour
 
         center = (oldLocation + newLocation) * 0.5F;
 
-        Debug.Log("oldLocation" + oldLocation + "newLocation" + newLocation);
+        //Debug.Log("oldLocation" + oldLocation + "newLocation" + newLocation);
         center -= new Vector3(0, 1, 0);
 
         riseCurve = oldLocation - center;
         fallCurve = newLocation - center;
 
         fallCurve += Vector3.up;
-        Debug.Log("Fall curve" + fallCurve);
+        //Debug.Log("Fall curve" + fallCurve);
         myController.UpdateState(State.Vaulting);
         myAnimator.SetBool("Vaulting", true);
     }
