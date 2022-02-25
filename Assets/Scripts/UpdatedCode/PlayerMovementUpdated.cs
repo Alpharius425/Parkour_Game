@@ -385,7 +385,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     myController.attachedObject.stop();
                 }
                 jumpPower = wallRunJumpMultiplier;
-                myCamera.RotatePlayer();
+                //myCamera.RotatePlayer();
                 Debug.Log("here");
                 break;
 

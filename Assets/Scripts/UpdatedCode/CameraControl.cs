@@ -90,7 +90,7 @@ public class CameraControl : MonoBehaviour
         transform.rotation = newAngle; // changes the angle of the camera
     }
 
-    public void RotatePlayer() // sets the player's rotation to the camera
+    public void RotatePlayer() // sets the player's rotation to the camera. messes with wall jump camera rotation IDK
     {
         Quaternion newAngle = transform.rotation; // gets the initial rotation
 
