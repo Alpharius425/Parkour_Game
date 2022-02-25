@@ -52,22 +52,22 @@ public class LerpTo : MonoBehaviour
     public void stop()
     {
         attached = false; // stops the object from moving us
-        controller.myCamera.RotatePlayer();
+        //controller.myCamera.RotatePlayer();
         controller.ResetWallJumpTimer();
         controller.attachedObject = null;
-        player.GetComponent<CharacterController>().enabled = true;
+        
         if (wallrunning)
         {
             controller.CheckMove();
             controller.onLeftWall = false;
             controller.onRightWall = false;
-            controller.myCamera.ResetAngle();
+            //controller.myCamera.ResetAngle();
         }
         else
         {
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
-        
+        player.GetComponent<CharacterController>().enabled = true;
         Debug.Log("player is no longer attached");
     }
 
