@@ -35,7 +35,7 @@ public class LerpTo : MonoBehaviour
 
             if(wallrunning)
             {
-                //player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
+                player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
             }
             else
             {
@@ -55,9 +55,13 @@ public class LerpTo : MonoBehaviour
         controller.myCamera.RotatePlayer();
         controller.ResetWallJumpTimer();
         controller.attachedObject = null;
+        player.GetComponent<CharacterController>().enabled = true;
         if (wallrunning)
         {
             controller.CheckMove();
+            controller.onLeftWall = false;
+            controller.onRightWall = false;
+            controller.myCamera.ResetAngle();
         }
         else
         {
@@ -71,8 +75,7 @@ public class LerpTo : MonoBehaviour
     {
         if(wallrunning)
         {
-            //player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
-            player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
+            controller.CheckAttach();
         }
         else
         {
@@ -88,5 +91,14 @@ public class LerpTo : MonoBehaviour
         //player.transform.SetParent(gameObject.transform); // parents the player to the object. useful if we have a moving object we want to attach to
         attached = true; // tells us we are attached to the object
         Debug.Log("player has attached");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == player && other.gameObject.GetComponent<PlayerController>().attachedObject == null) // if we detect the player and they aren't already attached to something
+        {
+            Attach();
+            player.GetComponent<CharacterController>().enabled = false;
+        }
     }
 }
