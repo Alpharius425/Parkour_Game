@@ -34,7 +34,7 @@ public class LoadScene : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             slider.value = progress;
-            progressText.text = progress * 100f + "%";
+            progressText.text = (progress * 100f).ToString("F0") + "%";
             Debug.Log(progress);
 
             //if (operation.isDone)
