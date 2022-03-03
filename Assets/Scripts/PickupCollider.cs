@@ -108,4 +108,20 @@ public class PickupCollider : MonoBehaviour
         }
         else return;
     }
+
+    public void LosePackage()
+    {
+        bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(false); // turns off the delivery point
+
+        // turns off the arrow and UI
+        ArrowObject.Instance.bonusPackageObject = null;
+        ArrowObject.Instance.lookingAtBonus = false;
+        ArrowObject.Instance.lookAtDeliveryBool = true;
+        bonusPackageUI.SetActive(false);
+
+        // disables the actual package
+        bonusPackageInHand = false;
+        bonusPackageScript = null;
+        bonusPackageObject = null;
+    }
 }
