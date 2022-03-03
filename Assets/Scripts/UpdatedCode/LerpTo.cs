@@ -76,6 +76,7 @@ public class LerpTo : MonoBehaviour
         if(wallrunning)
         {
             controller.CheckAttach();
+            speed = player.GetComponent<PlayerMovementUpdated>().actualSpeed;
         }
         else
         {
