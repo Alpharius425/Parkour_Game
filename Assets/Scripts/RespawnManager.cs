@@ -44,5 +44,10 @@ public class RespawnManager : MonoBehaviour
 
         // adds time to the counter
         TimerManager.instance.ChangeTime(timePenalty);
+
+        if(player.GetComponentInChildren<PickupCollider>().bonusPackageInHand)
+        {
+            player.GetComponentInChildren<PickupCollider>().LosePackage();
+        }
     }
 }
