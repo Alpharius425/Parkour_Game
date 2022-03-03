@@ -116,67 +116,49 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
-        {
-            Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
-
-            Debug.DrawRay(transform.position, direction * wallRunDetectionRange, Color.red);
-        }
-
         if (currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning)
         {
 
             // Climbing
             if(Physics.Raycast(transform.position, transform.forward, out hit, climbDetectionRange, climbLayers))
             {
-                if (hit.collider.gameObject != gameObject)
+                if(curClimbTime > 0)
                 {
-                    if(curClimbTime > 0 && currentState != State.Vaulting)
+                    if (hit.collider.gameObject != gameObject)
                     {
-                        UpdateState(State.Climbing);
-                    }
-                    else
-                    {
-                        CheckMove();
+                        if (currentState != State.Vaulting)
+                        {
+                            UpdateState(State.Climbing);
+                        }
+                        else
+                        {
+                            CheckMove();
+                        }
                     }
                 }
+                else
+                {
+                    CheckMove();
+                }
             }
-            //if (currentState != State.Climbing)
-            //{
-            //    for (int i = 0; i < detectionDirections.Length; i++) // a for loop for shooting raycast
-            //    {
-            //        Vector3 direction = transform.TransformDirection(detectionDirections[i]); // sets the current vector we'll shoot the ray from
+            else
+            {
+                CheckMove();
+            }
 
-            //        if(Physics.Raycast(transform.position + Vector3.up, direction, out hit, wallRunDetectionRange, wallRunLayers))
-            //        {
-            //            if (hit.collider.gameObject != gameObject)
-            //            {
-            //                if (hit.collider.gameObject.GetComponent<LerpTo>() && attachedObject == null && currentState != State.Wallrunning && currentState != State.noMove && timeUntilWallRun <= 0) // checks if the player hits something with the lerp to script and isn't already parented to another
-            //                {
-
-            //                    hit.collider.gameObject.GetComponent<LerpTo>().Attach();
-            //                }
-            //                else
-            //                {
-            //                    // tells us we aren't attached to any walls
-            //                    onLeftWall = false;
-            //                    onRightWall = false;
-
-            //                    if (currentState == State.Climbing || currentState == State.Wallrunning)
-            //                    {
-            //                        //Debug.Log("here");
-            //                        CheckMove();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
 
             // vaulting
             //Debug.Log("Check vaulting");
             VaultCheck();
+        }
+
+        if (currentState == State.Climbing)
+        {
+            Debug.DrawRay(transform.position, transform.forward * climbDetectionRange, Color.green);
+        }
+        else if(currentState == State.Walking || currentState == State.Running)
+        {
+            Debug.DrawRay(transform.position, transform.forward * climbDetectionRange, Color.red);
         }
     }
 
@@ -317,7 +299,7 @@ public class PlayerController : MonoBehaviour
         //topCheck.y += 0.5f;
 
         //Debug.Log(direction);
-        Debug.DrawRay(transform.position, direction, Color.blue);
+        //Debug.DrawRay(transform.position, direction, Color.blue);
 
         if (Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange, vaultLayers)) // checks if theres anything infront of the player
         {
