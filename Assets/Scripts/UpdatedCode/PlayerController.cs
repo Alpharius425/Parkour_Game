@@ -211,28 +211,35 @@ public class PlayerController : MonoBehaviour
     {
         if(grounded)
         {
-            switch (currentState)
+            if(crouchHeld)
             {
-                case State.Walking:
-                    myMovement.Crouch();
-                    break;
+                switch (currentState)
+                {
+                    case State.Walking:
+                        myMovement.Crouch();
+                        break;
 
-                case State.Idle:
-                    myMovement.Crouch();
-                    break;
+                    case State.Idle:
+                        myMovement.Crouch();
+                        break;
 
-                case State.Running:
-                    myMovement.Slide();
-                    break;
+                    case State.Running:
+                        myMovement.Slide();
+                        break;
 
-                case State.Sliding:
-                    
-                    myMovement.CancelSlide();
-                    break;
+                    case State.Sliding:
 
-                case State.Crouching:
-                    myMovement.UnCrouch();
-                    break;
+                        myMovement.CancelSlide();
+                        break;
+
+                    case State.Crouching:
+                        myMovement.UnCrouch();
+                        break;
+                }
+            }
+            else
+            {
+                myMovement.UnCrouch();
             }
         }
     }
@@ -247,6 +254,11 @@ public class PlayerController : MonoBehaviour
         {
             if (myInput.canInput && (currentState == State.Walking || currentState == State.Crouching && currentState != State.Sliding))
             {
+                if(currentState == State.Crouching || crouchHeld)
+                {
+                    myMovement.UnCrouch();
+                }
+
                 CheckMove();
             }
         }
