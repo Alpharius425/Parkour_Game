@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2160.7812, g: 2264.877, b: 3303.5742, a: 1}
+  m_IndirectSpecularColor: {r: 2157.5715, g: 2260.8748, b: 3296.9607, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3923,7 +3923,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c91799c60e93e6d4689015521cd8144a, type: 2}
+  - {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8705,6 +8705,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: dbf1c12a4f90d1f4b984aaf6e7e73b36, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
     - target: {fileID: 919132149155446097, guid: dbf1c12a4f90d1f4b984aaf6e7e73b36, type: 3}
       propertyPath: m_Name
       value: RoofTrim_3_OuterCorner (1)
@@ -23024,6 +23028,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 34f54715a5ecc6f438c798367b8005ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
     - target: {fileID: 919132149155446097, guid: 34f54715a5ecc6f438c798367b8005ba, type: 3}
       propertyPath: m_Name
       value: RoofTrim_3
@@ -24100,6 +24108,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 89dff7f36d0a1fe42bd5a48d0b7fe165, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
     - target: {fileID: 919132149155446097, guid: 89dff7f36d0a1fe42bd5a48d0b7fe165, type: 3}
       propertyPath: m_Name
       value: RoofTrim_3_InnerCorner
@@ -24166,6 +24178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: dbf1c12a4f90d1f4b984aaf6e7e73b36, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
     - target: {fileID: 919132149155446097, guid: dbf1c12a4f90d1f4b984aaf6e7e73b36, type: 3}
       propertyPath: m_Name
       value: RoofTrim_3_OuterCorner
@@ -25781,6 +25797,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 89dff7f36d0a1fe42bd5a48d0b7fe165, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
     - target: {fileID: 919132149155446097, guid: 89dff7f36d0a1fe42bd5a48d0b7fe165, type: 3}
       propertyPath: m_Name
       value: RoofTrim_3_InnerCorner (1)
@@ -27171,7 +27191,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c91799c60e93e6d4689015521cd8144a, type: 2}
+  - {fileID: 2100000, guid: 92fd689e58aa246438724dde247cae38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
