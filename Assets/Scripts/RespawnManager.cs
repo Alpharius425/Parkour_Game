@@ -9,7 +9,7 @@ public class RespawnManager : MonoBehaviour
 
     public static RespawnManager respawnManager; // allows other scripts to use this script and object
 
-    [SerializeField] GameObject spawnPosition; // where we want to spawn
+    public GameObject spawnPosition; // where we want to spawn
     [SerializeField] float timePenalty; // how much we want to add to the player's time if we want
 
     [SerializeField] float minYDistance; // how far the player is allowed to go down

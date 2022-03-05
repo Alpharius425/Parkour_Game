@@ -8,7 +8,7 @@ public class deliverySpot : MonoBehaviour
 
     [Header("Settings")]
     public GameObject[] deliverySpots;
-    int deliverySpotCount = 0;
+    int deliverySpotCount = 1;
     [SerializeField] private MoneyManager moneyManager;
     [SerializeField] private int moneyReward;
 
@@ -47,5 +47,14 @@ public class deliverySpot : MonoBehaviour
 
     private void SpawnVFX() {
         Instantiate(vfxObject, gameObject.transform.position, transform.rotation);
+    }
+
+    public void ResetPoint(int newPoint)
+    {
+        if(deliverySpots[deliverySpotCount].gameObject != CheckPointManager.instance.deliveryPoints[newPoint + 1].gameObject)
+        {
+            gameObject.transform.position = CheckPointManager.instance.deliveryPoints[newPoint].gameObject.transform.position;
+            deliverySpotCount = newPoint;
+        }
     }
 }
