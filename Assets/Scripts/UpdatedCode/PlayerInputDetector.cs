@@ -16,6 +16,7 @@ public class PlayerInputDetector : MonoBehaviour
     public packageThrow myPackages;
 
     public bool crouchToggled; // if true then the crouch is then on toggle detection instead of tap
+    public bool sprintToggled;
 
 
     // Start is called before the first frame update
@@ -139,20 +140,41 @@ public class PlayerInputDetector : MonoBehaviour
     {
         if(canInput)
         {
-            if (value.started)
+            if(!sprintToggled)
             {
-                myController.crouchHeld = false;
-                myController.sprintHeld = true;
-                myController.CheckSprint();
-            }
-
-            if (value.canceled)
-            {
-                myController.sprintHeld = false;
-
-                if (!myMovement.sliding)
+                if (value.started)
                 {
+                    myController.crouchHeld = false;
+                    myController.sprintHeld = true;
                     myController.CheckSprint();
+                }
+
+                if (value.canceled)
+                {
+                    myController.sprintHeld = false;
+
+                    if (!myMovement.sliding)
+                    {
+                        myController.CheckSprint();
+                    }
+                }
+            }
+            else
+            {
+                if(value.started && !myController.sprintHeld)
+                {
+                    myController.crouchHeld = false;
+                    myController.sprintHeld = true;
+                    myController.CheckSprint();
+                }
+                else if(value.started && myController.sprintHeld)
+                {
+                    myController.sprintHeld = false;
+
+                    if (!myMovement.sliding)
+                    {
+                        myController.CheckSprint();
+                    }
                 }
             }
         }
