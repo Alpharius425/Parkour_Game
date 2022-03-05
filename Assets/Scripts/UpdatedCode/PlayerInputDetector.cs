@@ -103,13 +103,11 @@ public class PlayerInputDetector : MonoBehaviour
                     myController.crouchHeld = true;
                     myController.CheckCrouch();
                 }
-                else if((value.canceled || !myController.crouchHeld)) // when we let go of the button  && myController.crouchHeld == true  (value.canceled || !myController.crouchHeld)
+
+                if(value.canceled) // when we let go of the button  && myController.crouchHeld == true
                 {
                     myController.crouchHeld = false;
-                    if (!myMovement.sliding)
-                    {
-                        myController.CheckCrouch();
-                    }
+                    myMovement.UnCrouch();
                 }
             }
             else // toggled
