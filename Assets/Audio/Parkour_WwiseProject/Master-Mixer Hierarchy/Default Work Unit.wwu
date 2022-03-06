@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{F09A16E3-6AB5-44F7-8321-3D75960F2CFB}" SchemaVersion="103">
+	<Busses>
+		<WorkUnit Name="Default Work Unit" ID="{F09A16E3-6AB5-44F7-8321-3D75960F2CFB}" PersistMode="Standalone">
+			<ChildrenList>
+				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
+					<ReferenceList>
+						<Reference Name="AudioDevice">
+							<ObjectRef Name="System" ID="{EC7450FC-3FCB-4D01-8D2C-10424A8BED62}" WorkUnitID="{1A8F818C-EB54-4ECF-A523-E8DE28AEEDBD}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Bus Name="Music" ID="{41F24CC7-D771-4661-916A-B76B8227EBFF}">
+							<ObjectLists/>
+						</Bus>
+						<Bus Name="SFX" ID="{112CA1BE-4318-43AD-BFB1-FF8F2658FEC2}">
+							<ChildrenList>
+								<Bus Name="ReverbSFX" ID="{61520296-E4D6-4DAF-B95C-4E9B8C82A19E}">
+									<PropertyList>
+										<Property Name="BypassEffect0" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Effect0" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
+											<ObjectRef Name="Bathroom1" ID="{1969D30F-C165-45C0-B290-DE3ED07A7AA3}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+										</Reference>
+										<Reference Name="Effect1" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+											<ObjectRef Name="General_Reverb" ID="{80E53F26-FE0A-4C8F-8577-20FB261519BC}" WorkUnitID="{2742CE9D-0899-4D9B-8C32-35849DC9FD48}"/>
+										</Reference>
+									</ReferenceList>
+									<ObjectLists/>
+								</Bus>
+							</ChildrenList>
+							<ObjectLists/>
+						</Bus>
+						<Bus Name="Ambience" ID="{32685CF1-D492-4C1D-8F37-FE8FDB0829BC}">
+							<ObjectLists/>
+						</Bus>
+					</ChildrenList>
+					<ObjectLists/>
+				</Bus>
+				<Bus Name="Motion Factory Bus" ID="{2AF9B9C6-6EF1-46E9-B5F2-E30C9E602C74}">
+					<ReferenceList>
+						<Reference Name="AudioDevice">
+							<ObjectRef Name="Default_Motion_Device" ID="{470CA329-A019-4523-BBC3-A3C7CD8878B2}" WorkUnitID="{1A8F818C-EB54-4ECF-A523-E8DE28AEEDBD}"/>
+						</Reference>
+					</ReferenceList>
+					<ObjectLists/>
+				</Bus>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>

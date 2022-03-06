@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
+	<RootPaths>
+		<ProjectRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="85412153" Language="SFX" Hash="2564553725">
+			<ObjectPath>\SoundBanks\Default Work Unit\Ambience</ObjectPath>
+			<ShortName>Ambience</ShortName>
+			<Path>Ambience.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX" Hash="1791615738">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="2810670744" Language="SFX" Hash="967652388">
+			<ObjectPath>\SoundBanks\Default Work Unit\SoundFX</ObjectPath>
+			<ShortName>SoundFX</ShortName>
+			<Path>SoundFX.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1589366019" Name="Pickup_Box" ObjectPath="\Events\Default Work Unit\SFX\Pickup_Box">
+					<IncludedMemoryFiles>
+						<File Id="503370173" Language="SFX">
+							<ShortName>Pickup_Box03.wav</ShortName>
+							<Path>SFX\Pickup_Box03_10C4C929.wem</Path>
+						</File>
+						<File Id="871671991" Language="SFX">
+							<ShortName>Pickup_Box04.wav</ShortName>
+							<Path>SFX\Pickup_Box04_10C4C929.wem</Path>
+						</File>
+						<File Id="958899292" Language="SFX">
+							<ShortName>Pickup_Box05.wav</ShortName>
+							<Path>SFX\Pickup_Box05_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="541470702" Name="Player_Movement" ObjectPath="\Events\Default Work Unit\SFX\Player_Movement">
+					<IncludedMemoryFiles>
+						<File Id="87269973" Language="SFX">
+							<ShortName>Footstep_Concrete04.wav</ShortName>
+							<Path>SFX\Footstep_Concrete04_10C4C929.wem</Path>
+						</File>
+						<File Id="184014942" Language="SFX">
+							<ShortName>Footstep_Concrete05.wav</ShortName>
+							<Path>SFX\Footstep_Concrete05_10C4C929.wem</Path>
+						</File>
+						<File Id="1015324483" Language="SFX">
+							<ShortName>Footstep_Concrete06.wav</ShortName>
+							<Path>SFX\Footstep_Concrete06_10C4C929.wem</Path>
+						</File>
+						<File Id="1064630689" Language="SFX">
+							<ShortName>Footstep_Concrete02.wav</ShortName>
+							<Path>SFX\Footstep_Concrete02_10C4C929.wem</Path>
+						</File>
+						<File Id="1066601586" Language="SFX">
+							<ShortName>Footstep_Concrete03.wav</ShortName>
+							<Path>SFX\Footstep_Concrete03_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{68259408-67C3-4127-BCA7-2C06CEC135DB}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{68259408-67C3-4127-BCA7-2C06CEC135DB}">
+							<DefaultSwitchValue>{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}</DefaultSwitchValue>
+							<Children>
+								<SwitchContainer SwitchValue="{070E4E57-290A-4303-8408-E8F7A35627B6}">
+									<Media>
+										<File Id="87269973"/>
+										<File Id="184014942"/>
+										<File Id="1015324483"/>
+										<File Id="1064630689"/>
+										<File Id="1066601586"/>
+									</Media>
+								</SwitchContainer>
+								<SwitchContainer SwitchValue="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}">
+									<Media>
+										<File Id="87269973"/>
+										<File Id="184014942"/>
+										<File Id="1015324483"/>
+										<File Id="1064630689"/>
+										<File Id="1066601586"/>
+									</Media>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="2578410269" Name="Throw_Box" ObjectPath="\Events\Default Work Unit\SFX\Throw_Box">
+					<IncludedMemoryFiles>
+						<File Id="92506672" Language="SFX">
+							<ShortName>Throw_BoxWhiff05.wav</ShortName>
+							<Path>SFX\Throw_BoxWhiff05_10C4C929.wem</Path>
+						</File>
+						<File Id="579612847" Language="SFX">
+							<ShortName>Throw_BoxWoosh01.wav</ShortName>
+							<Path>SFX\Throw_BoxWoosh01_10C4C929.wem</Path>
+						</File>
+						<File Id="698605241" Language="SFX">
+							<ShortName>Throw_BoxWhiff03.wav</ShortName>
+							<Path>SFX\Throw_BoxWhiff03_10C4C929.wem</Path>
+						</File>
+						<File Id="796562281" Language="SFX">
+							<ShortName>Throw_BoxWoosh03.wav</ShortName>
+							<Path>SFX\Throw_BoxWoosh03_10C4C929.wem</Path>
+						</File>
+						<File Id="836232197" Language="SFX">
+							<ShortName>Throw_BoxWoosh02.wav</ShortName>
+							<Path>SFX\Throw_BoxWoosh02_10C4C929.wem</Path>
+						</File>
+						<File Id="886762219" Language="SFX">
+							<ShortName>Throw_BoxWhiff02.wav</ShortName>
+							<Path>SFX\Throw_BoxWhiff02_10C4C929.wem</Path>
+						</File>
+						<File Id="958600501" Language="SFX">
+							<ShortName>Throw_BoxWhiff01.wav</ShortName>
+							<Path>SFX\Throw_BoxWhiff01_10C4C929.wem</Path>
+						</File>
+						<File Id="1041257545" Language="SFX">
+							<ShortName>Throw_BoxWhiff04.wav</ShortName>
+							<Path>SFX\Throw_BoxWhiff04_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+			<SwitchGroups>
+				<SwitchGroup Id="1062779386" Name="Player_Speed" ObjectPath="\Switches\Default Work Unit\Player_Speed" GUID="{53E0133D-A1C1-4038-9E78-5070F8EBB7E3}">
+					<Switches>
+						<Switch Id="2108779966" Name="Walk" ObjectPath="\Switches\Default Work Unit\Player_Speed\Walk" GUID="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}"/>
+						<Switch Id="712161704" Name="Run" ObjectPath="\Switches\Default Work Unit\Player_Speed\Run" GUID="{070E4E57-290A-4303-8408-E8F7A35627B6}"/>
+						<Switch Id="788884573" Name="Stop" ObjectPath="\Switches\Default Work Unit\Player_Speed\Stop" GUID="{C6105062-D1EA-494F-8A1C-D845837DA0EE}"/>
+					</Switches>
+				</SwitchGroup>
+				<SwitchGroup Id="2835351336" Name="GroundType" ObjectPath="\Switches\Default Work Unit\GroundType" GUID="{9D153140-893D-4B94-AF90-2258BC73E687}">
+					<Switches>
+						<Switch Id="841620460" Name="Concrete" ObjectPath="\Switches\Default Work Unit\GroundType\Concrete" GUID="{68259408-67C3-4127-BCA7-2C06CEC135DB}"/>
+						<Switch Id="2449969375" Name="Glass" ObjectPath="\Switches\Default Work Unit\GroundType\Glass" GUID="{ED1FBC83-FC1C-4A8B-84EB-B7E480DF1E2E}"/>
+						<Switch Id="2195636714" Name="Dirt" ObjectPath="\Switches\Default Work Unit\GroundType\Dirt" GUID="{44A2E8DC-85E2-44C5-8C85-96BEDDFDC06D}"/>
+						<Switch Id="1050421051" Name="Air" ObjectPath="\Switches\Default Work Unit\GroundType\Air" GUID="{34587BB0-8B93-4D55-873D-5775E900B65F}"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="3991942870" Language="SFX" Hash="3012300438">
+			<ObjectPath>\SoundBanks\Default Work Unit\Music</ObjectPath>
+			<ShortName>Music</ShortName>
+			<Path>Music.bnk</Path>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Music" ID="{8077FEFC-0023-4D81-995E-F4A57DA15D5A}" ShortID="695999601"/>
+				<Folder Name="SFX" ID="{8D0ABFE4-40F3-4BDC-ABE9-3284C08B7435}" ShortID="785227467">
+					<ChildrenList>
+						<Event Name="Pickup_Box" ID="{1CC3BCBC-B2BB-4A0C-837B-66992F242DD9}">
+							<ChildrenList>
+								<Action Name="" ID="{C563C696-5F82-47E7-B003-9773DE705477}" ShortID="606345821">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Pickup_Box" ID="{9E41EF21-55DD-4E96-96D3-2E5ED19CF0D4}" WorkUnitID="{285AB6BD-74F9-42F2-8102-852E84CBB70C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Throw_Box" ID="{5B719FEB-F462-418B-91CC-DDB6C59A6F39}">
+							<ChildrenList>
+								<Action Name="" ID="{3AC448F4-F812-4CFB-9A1E-F488F49A939D}" ShortID="415858728">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Throw_Box" ID="{5EA674E5-F4D1-40F5-B9CE-E41BFB2D9620}" WorkUnitID="{285AB6BD-74F9-42F2-8102-852E84CBB70C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Player_Movement" ID="{BCBC4A91-7A67-4FB7-973A-2D213210635A}">
+							<ChildrenList>
+								<Action Name="" ID="{9B82AA50-1921-4650-8E8F-3A76A9520CCC}" ShortID="490396844">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Player_Movement" ID="{2873CBEB-5A76-4331-A0EF-6BC6EB7CC104}" WorkUnitID="{285AB6BD-74F9-42F2-8102-852E84CBB70C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

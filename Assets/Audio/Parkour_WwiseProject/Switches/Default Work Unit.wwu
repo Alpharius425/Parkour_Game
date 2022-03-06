@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{00911E46-6103-4F50-9A76-D3301D57DE63}" SchemaVersion="103">
+	<Switches>
+		<WorkUnit Name="Default Work Unit" ID="{00911E46-6103-4F50-9A76-D3301D57DE63}" PersistMode="Standalone">
+			<ChildrenList>
+				<SwitchGroup Name="BoxContent" ID="{7D34C689-CE1D-4E23-BBF8-D13326F46DAB}"/>
+				<SwitchGroup Name="GroundType" ID="{9D153140-893D-4B94-AF90-2258BC73E687}">
+					<ChildrenList>
+						<Switch Name="Concrete" ID="{68259408-67C3-4127-BCA7-2C06CEC135DB}"/>
+						<Switch Name="Glass" ID="{ED1FBC83-FC1C-4A8B-84EB-B7E480DF1E2E}"/>
+						<Switch Name="Dirt" ID="{44A2E8DC-85E2-44C5-8C85-96BEDDFDC06D}"/>
+						<Switch Name="Air" ID="{34587BB0-8B93-4D55-873D-5775E900B65F}"/>
+					</ChildrenList>
+				</SwitchGroup>
+				<SwitchGroup Name="Player_Speed" ID="{53E0133D-A1C1-4038-9E78-5070F8EBB7E3}">
+					<ChildrenList>
+						<Switch Name="Walk" ID="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}"/>
+						<Switch Name="Run" ID="{070E4E57-290A-4303-8408-E8F7A35627B6}"/>
+						<Switch Name="Stop" ID="{C6105062-D1EA-494F-8A1C-D845837DA0EE}"/>
+					</ChildrenList>
+				</SwitchGroup>
+			</ChildrenList>
+		</WorkUnit>
+	</Switches>
+</WwiseDocument>
