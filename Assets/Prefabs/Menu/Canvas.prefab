@@ -1776,7 +1776,7 @@ GameObject:
   - component: {fileID: 2129536001831327930}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1884,6 +1884,7 @@ MonoBehaviour:
   restartButton: {fileID: 2129535999825202450}
   Paused: 0
   myInputs: {fileID: 0}
+  settingsMenu: {fileID: 0}
 --- !u!1 &2129536001862526291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,7 +2005,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2129536001862526302}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2129536001831327930}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: ToggleSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3969647556559639640
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject restartButton;
     public bool Paused = false;
     [SerializeField] PlayerInputDetector myInputs;
+    public GameObject settingsMenu;
     public static PauseMenu instance;
 
     private void Awake()
@@ -19,6 +20,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         PauseMenuUI.SetActive(false);   //turns off the pause menu at the start of the level
+        settingsMenu = GameObject.Find("SettingsMenu");
     }
 
     public void PauseToggle()
@@ -47,5 +49,10 @@ public class PauseMenu : MonoBehaviour
         {
             myInputs.canInput = true;
         }
+    }
+
+    public void ToggleSettings()
+    {
+        settingsMenu.SetActive(true);
     }
 }
