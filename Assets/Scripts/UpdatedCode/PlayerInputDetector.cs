@@ -203,7 +203,7 @@ public class PlayerInputDetector : MonoBehaviour
 
     public void ThrowInput(InputAction.CallbackContext value)
     {
-        if(canInput)
+        if(canInput && value.started)
         {
             myMovement.myArmAnimator.SetTrigger("Throwing");
             myPackages.ThrowPackage();

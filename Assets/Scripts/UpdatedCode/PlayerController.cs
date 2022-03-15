@@ -356,7 +356,7 @@ public class PlayerController : MonoBehaviour
         {
             if(vaultHit.collider.gameObject != gameObject)
             {
-                direction.y += 0.2f;
+                direction.y += .2f;
                 //Debug.Log("initial hit" + vaultHit.point);
                 if (!Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
                 {

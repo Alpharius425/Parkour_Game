@@ -150,7 +150,8 @@ public class PlayerMovementUpdated : MonoBehaviour
         {
             myInput.canInput = false;
             GetComponent<CharacterController>().enabled = false;
-            //Debug.Log("Vaulting");
+            Debug.Log("Vaulting");
+            Debug.Log(actualSpeed);
 
             distanceCovered = (Time.time - startTime) / journeyDistance * vaultSpeed;
             float fractionOfJourney = distanceCovered; // saves how much of the distance we've already passed
@@ -160,7 +161,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             //myLegAnimator.SetBool("Vaulting", false);
             //myArmAnimator.SetBool("Vaulting", false);
 
-            timeSpentVaulting += Time.deltaTime;
+            timeSpentVaulting += 2f * Time.deltaTime;
             if (timeSpentVaulting >= journeyDistance / vaultSpeed)
             {
                 myInput.canInput = true;
@@ -379,7 +380,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //myLegAnimator.SetBool("Jumping", true);
         myArmAnimator.SetBool("Jumping", true);
         //myLegAnimator.SetBool("Running", false);
-        myArmAnimator.SetBool("Running", false);
+        //myArmAnimator.SetBool("Running", false);
         //myLegAnimator.SetBool("Idle", false);
         myArmAnimator.SetBool("Idle", false);
         //Debug.Log("about to jump");
