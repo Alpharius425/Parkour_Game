@@ -39,8 +39,9 @@ public class PlayerInputDetector : MonoBehaviour
         if(canInput)
         {
             // Left mouse click for ThrowPackage. Uses Input Manager, since the Input System can't listen for any mouse inputs at the moment.
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
+                myMovement.myArmAnimator.SetTrigger("Throwing");
                 //Debug.Log("Left Click");
                 myPackages.ThrowPackage();
             }
@@ -204,6 +205,7 @@ public class PlayerInputDetector : MonoBehaviour
     {
         if(canInput)
         {
+            myMovement.myArmAnimator.SetTrigger("Throwing");
             myPackages.ThrowPackage();
         }
     }

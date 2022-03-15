@@ -328,6 +328,7 @@ public class PlayerController : MonoBehaviour
             }
             else // if we aren't moving
             {
+                myMovement.myArmAnimator.SetBool("Walking", false);
                 if (crouchHeld == false)
                 {
                     UpdateState(State.Idle);
@@ -363,7 +364,7 @@ public class PlayerController : MonoBehaviour
                     if (Physics.Raycast(topCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                     {
                         //Debug.Log("Second hit" + vaultHit.point);
-                        
+                        myMovement.myArmAnimator.SetTrigger("Vaulting");
                         myMovement.Vault(vaultHit.point);
                     }
                 }
