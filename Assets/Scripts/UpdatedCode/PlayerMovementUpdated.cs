@@ -12,7 +12,8 @@ public class PlayerMovementUpdated : MonoBehaviour
     public PlayerController myController;
     public CameraControl myCamera;
     public PlayerInputDetector myInput;
-    public Animator myAnimator;
+    public Animator myLegAnimator;
+    public Animator myArmAnimator;
 
     [Header("Acceleration Settings")]
     [SerializeField] float moveAccel = 4f;
@@ -156,7 +157,8 @@ public class PlayerMovementUpdated : MonoBehaviour
             gameObject.transform.position = Vector3.Slerp(riseCurve, fallCurve, fractionOfJourney * vaultSpeed);
             transform.position += center;
 
-            myAnimator.SetBool("Vaulting", false);
+            //myLegAnimator.SetBool("Vaulting", false);
+            myArmAnimator.SetBool("Vaulting", false);
 
             timeSpentVaulting += Time.deltaTime;
             if (timeSpentVaulting >= journeyDistance / vaultSpeed)
@@ -168,8 +170,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                 myController.CheckMove();
                 //myCamera.RotatePlayer();
 
-                myAnimator.SetBool("Vaulting", false);
-
+                //myLegAnimator.SetBool("Vaulting", false);
+                myArmAnimator.SetBool("Vaulting", false);
                 GetComponent<CharacterController>().enabled = true;
                 timeSpentVaulting = 0;
             }
@@ -218,7 +220,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(walkSpeed);
                     //movement.y = gravity;
                     MoveInput();
-                    myAnimator.SetBool("Idle", true);
+                    //myLegAnimator.SetBool("Idle", true);
+                    myArmAnimator.SetBool("Walking", true);
                     //myAnimator.SetBool("Running", true);
                     break;
 
@@ -230,7 +233,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(runSpeed);
                     //movement.y = gravity;
                     MoveInput();
-                    myAnimator.SetBool("Running", true);
+                    //myLegAnimator.SetBool("Running", true);
+                    myArmAnimator.SetBool("Running", true);
                     break;
 
                 case State.Crouching:
@@ -241,7 +245,8 @@ public class PlayerMovementUpdated : MonoBehaviour
                     ChangeSpeed(crouchSpeed);
                     //movement.y = gravity;
                     MoveInput();
-                    myAnimator.SetBool("Idle", true);
+                    //myLegAnimator.SetBool("Idle", true);
+                    myArmAnimator.SetBool("Crouched", true);
                     //myAnimator.SetBool("Running", true);
                     break;
 
@@ -282,8 +287,10 @@ public class PlayerMovementUpdated : MonoBehaviour
                 case State.Idle:
                     if(myController.grounded)
                     {
-                        myAnimator.SetBool("Idle", true);
-                        myAnimator.SetBool("Running", false);
+                        //myLegAnimator.SetBool("Idle", true);
+                        myArmAnimator.SetBool("Idle", true);
+                        //myLegAnimator.SetBool("Running", false);
+                        myArmAnimator.SetBool("Running", false);
                     }
                     break;
 
@@ -297,16 +304,20 @@ public class PlayerMovementUpdated : MonoBehaviour
             myController.UpdateState(State.Jumping);
         }
 
-        if(myController.currentState == State.Jumping)
+        if(myController.currentState == State.Jumping && !myController.grounded)
         {
-            myAnimator.SetBool("Jumping", true);
-            myAnimator.SetBool("Idle", false);
-            myAnimator.SetBool("Running", false);
+            //myLegAnimator.SetBool("Jumping", true);
+            myArmAnimator.SetBool("Jumping", true);
+            //myLegAnimator.SetBool("Idle", false);
+            myArmAnimator.SetBool("Idle", false);
+            //myLegAnimator.SetBool("Running", false);
+            myArmAnimator.SetBool("Running", false);
         }
 
         if(myController.currentState != State.Idle)
         {
-            myAnimator.SetBool("Idle", false);
+            //myLegAnimator.SetBool("Idle", false);
+            myArmAnimator.SetBool("Idle", false);
         }
     }
 
@@ -350,10 +361,13 @@ public class PlayerMovementUpdated : MonoBehaviour
     public void Jump() // allows us to jump with a multiplier if we want
     {
         float jumpPower = 0;
-        myAnimator.SetBool("Jumping", true);
-        myAnimator.SetBool("Running", false);
-        myAnimator.SetBool("Idle", false);
-        Debug.Log("about to jump");
+        //myLegAnimator.SetBool("Jumping", true);
+        myArmAnimator.SetBool("Jumping", true);
+        //myLegAnimator.SetBool("Running", false);
+        myArmAnimator.SetBool("Running", false);
+        //myLegAnimator.SetBool("Idle", false);
+        myArmAnimator.SetBool("Idle", false);
+        //Debug.Log("about to jump");
         switch(myController.currentState) // checks what state we are in and changes our jump accordingly
         {
             case State.Idle:
@@ -386,7 +400,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 }
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.RotatePlayer();
-                Debug.Log("here");
+                //Debug.Log("here");
                 break;
 
             case State.Sliding:
@@ -397,7 +411,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
             default:
                 jumpPower = 1;
-                Debug.Log("Defaulted");
+                //Debug.Log("Defaulted");
                 break;
         }
 
@@ -474,13 +488,14 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void Slide()
     {
-        Debug.Log("Sliding");
+        //Debug.Log("Sliding");
         myController.UpdateState(State.Sliding);
         slideMove = movement;
         ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
         //Move(myInput.movementInput);
         sliding = true;
-        myAnimator.SetBool("Sliding", true);
+        //myLegAnimator.SetBool("Sliding", true);
+        myArmAnimator.SetBool("Sliding", true);
     }
 
     public void CancelSlide()
@@ -489,7 +504,8 @@ public class PlayerMovementUpdated : MonoBehaviour
         slideTime = slideTimeMax;
         UnCrouch();
         myController.CheckMove();
-        myAnimator.SetBool("Sliding", false);
+        //myLegAnimator.SetBool("Sliding", false);
+        myArmAnimator.SetBool("Sliding", false);
         myController.crouchHeld = false;
         //velocity = Vector3.zero;
         //SetVelocity();
@@ -529,7 +545,8 @@ public class PlayerMovementUpdated : MonoBehaviour
         fallCurve += Vector3.up;
         //Debug.Log("Fall curve" + fallCurve);
         myController.UpdateState(State.Vaulting);
-        myAnimator.SetBool("Vaulting", true);
+        //myLegAnimator.SetBool("Vaulting", true);
+        myArmAnimator.SetBool("Vaulting", true);
     }
 
     private void CancelZandXRotation() {

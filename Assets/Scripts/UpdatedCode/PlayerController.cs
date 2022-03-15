@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public bool grounded; // are we on the ground or not
     [SerializeField] float timeUntilGroundCheck = 0f;
-    [SerializeField] float jumpLandTime = 0.3f;
+    [SerializeField] float jumpLandTime = 1f;
     RaycastHit hit; // saves raycast hits
 
     // wall run detection delays so we can't chain wall runs or get stuck when jumping
@@ -66,32 +66,63 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!sprintHeld)
+        {
+            myMovement.myArmAnimator.SetBool("Running", false);
+        }
+
+        if(!crouchHeld && currentState != State.Crouching)
+        {
+            myMovement.myArmAnimator.SetBool("Crouched", false);
+        }
+
+        if(currentState == State.Idle)
+        {
+            myMovement.myArmAnimator.SetBool("Idle", true);
+            myMovement.myArmAnimator.SetBool("Walking", false);
+
+            if(crouchHeld)
+            {
+                myMovement.myArmAnimator.SetBool("Crouched", true);
+            }
+            else
+            {
+                myMovement.myArmAnimator.SetBool("Crouched", false);
+            }
+        }
+
         if (currentState != State.Vaulting && currentState != State.Wallrunning)
         {
             grounded = myController.isGrounded;
+            
         }
 
         if(grounded && currentState != State.Climbing && currentState != State.Wallrunning) // updates states when we hit the ground
         {
 
-            if(currentState == State.Jumping && timeUntilGroundCheck >= 1)
+            if(currentState == State.Jumping)
             {
                 ResetWallJumpTimer();
-                myMovement.myAnimator.SetBool("Jumping", false);
-                myMovement.myAnimator.SetBool("JumpLand", true);
+                myMovement.myArmAnimator.SetTrigger("JumpLand");
+                
+                
                 CheckMove();
                 timeUntilGroundCheck = 0;
             }
-
-            if(myMovement.myAnimator.GetBool("JumpLand") == true)
+            else
             {
-                jumpLandTime -= Time.deltaTime;
-                if(jumpLandTime <= 0)
-                {
-                    myMovement.myAnimator.SetBool("JumpLand", false);
-                    jumpLandTime = 0.3f;
-                }
+                myMovement.myArmAnimator.SetBool("Jumping", false);
             }
+
+            //if(myMovement.myArmAnimator.GetBool("JumpLand") == true)
+            //{
+            //    jumpLandTime -= Time.deltaTime;
+            //    if(jumpLandTime <= 0)
+            //    {
+            //        myMovement.myArmAnimator.SetBool("JumpLand", false);
+            //        jumpLandTime = 1f;
+            //    }
+            //}
 
             if(curClimbTime < maxClimbTime && currentState != State.Climbing)
             {
@@ -100,10 +131,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            timeUntilGroundCheck += Time.deltaTime;
+            
         }
-
-        if(currentState != State.Wallrunning && timeUntilWallRun > 0)
+        timeUntilGroundCheck += Time.deltaTime;
+        if (currentState != State.Wallrunning && timeUntilWallRun > 0)
         {
             timeUntilWallRun -= Time.deltaTime;
         }
@@ -266,6 +297,13 @@ public class PlayerController : MonoBehaviour
 
     public void CheckMove()
     {
+        if(!grounded)
+        {
+            UpdateState(State.Jumping);
+            return;
+        }
+        else
+        {
             if (myInput.movementInput != Vector2.zero) // checks if we are still moving
             {
                 if (sprintHeld)
@@ -290,7 +328,7 @@ public class PlayerController : MonoBehaviour
             }
             else // if we aren't moving
             {
-                if(crouchHeld == false)
+                if (crouchHeld == false)
                 {
                     UpdateState(State.Idle);
                 }
@@ -298,9 +336,9 @@ public class PlayerController : MonoBehaviour
                 {
                     UpdateState(State.Crouching);
                 }
-                
+
             }
-        
+        }
     }
 
     public void VaultCheck()
