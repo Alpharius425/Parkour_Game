@@ -158,7 +158,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             transform.position += center;
 
             //myLegAnimator.SetBool("Vaulting", false);
-            myArmAnimator.SetBool("Vaulting", false);
+            //myArmAnimator.SetBool("Vaulting", false);
 
             timeSpentVaulting += Time.deltaTime;
             if (timeSpentVaulting >= journeyDistance / vaultSpeed)

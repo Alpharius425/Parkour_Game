@@ -364,7 +364,7 @@ public class PlayerController : MonoBehaviour
                     if (Physics.Raycast(topCheck, Vector3.down, out vaultHit, vaultDetectionRange)) // if we scan forward and down from our player's head
                     {
                         //Debug.Log("Second hit" + vaultHit.point);
-                        myMovement.myArmAnimator.SetTrigger("Vaulting");
+                        myMovement.myArmAnimator.SetBool("Vaulting", true);
                         myMovement.Vault(vaultHit.point);
                     }
                 }
