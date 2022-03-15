@@ -51,7 +51,7 @@ public class deliverySpot : MonoBehaviour
 
     public void ResetPoint(int newPoint)
     {
-        if(deliverySpots[deliverySpotCount].gameObject != CheckPointManager.instance.deliveryPoints[newPoint + 1].gameObject)
+        if(deliverySpots[deliverySpotCount].gameObject != CheckPointManager.instance.deliveryPoints[newPoint + 1].gameObject && deliverySpotCount != CheckPointManager.instance.deliveryPoints.Length)
         {
             gameObject.transform.position = CheckPointManager.instance.deliveryPoints[newPoint].gameObject.transform.position;
             deliverySpotCount = newPoint;

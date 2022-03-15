@@ -150,8 +150,8 @@ public class PlayerMovementUpdated : MonoBehaviour
         {
             myInput.canInput = false;
             GetComponent<CharacterController>().enabled = false;
-            Debug.Log("Vaulting");
-            Debug.Log(actualSpeed);
+            //Debug.Log("Vaulting");
+            //Debug.Log(actualSpeed);
 
             distanceCovered = (Time.time - startTime) / journeyDistance * vaultSpeed;
             float fractionOfJourney = distanceCovered; // saves how much of the distance we've already passed

@@ -91,11 +91,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (currentState != State.Vaulting && currentState != State.Wallrunning)
-        {
-            grounded = myController.isGrounded;
-            
-        }
+        
 
         if(grounded && currentState != State.Climbing && currentState != State.Wallrunning) // updates states when we hit the ground
         {
@@ -147,7 +143,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning)
+        if (currentState != State.Vaulting && currentState != State.Wallrunning)
+        {
+            grounded = myController.isGrounded;
+        }
+
+        if (currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning && currentState != State.Vaulting)
         {
 
             // Climbing
