@@ -19,26 +19,18 @@ public class PlayerController : MonoBehaviour
     public bool sprintHeld = false;
     public bool crouchHeld = false;
 
+    [Header("Grounded Settings")]
     public bool grounded; // are we on the ground or not
     [SerializeField] float timeUntilGroundCheck = 0f;
     [SerializeField] float jumpLandTime = 1f;
     RaycastHit hit; // saves raycast hits
 
+    [Header("Wallrun Settings")]
+    [SerializeField] LayerMask wallRunLayers;
+    public float wallRunDetectionRange;
     // wall run detection delays so we can't chain wall runs or get stuck when jumping
     [SerializeField] float maxTimeToWallRun;
     [SerializeField] float timeUntilWallRun;
-
-    // climb limits so we don't infinitely climb and have to play that one song from metal gear
-    [SerializeField] float maxClimbTime;
-    public float curClimbTime;
-    [SerializeField] LayerMask climbLayers;
-    [SerializeField] LayerMask wallRunLayers;
-
-    public float climbDetectionRange; // determines how far away we look when we try to detect obstacles
-    public float vaultDetectionRange;
-    public float wallRunDetectionRange;
-    Vector3 vaultCheck;
-    [SerializeField] LayerMask vaultLayers;
 
     Vector3[] detectionDirections;
     public float angleChange; // affects how much our angle shifts while wall running
@@ -48,7 +40,17 @@ public class PlayerController : MonoBehaviour
     public bool onLeftWall = false;
     public LerpTo attachedObject = null;
 
+    [Header("Climbing Settings")]
+    // climb limits so we don't infinitely climb and have to play that one song from metal gear
+    [SerializeField] float maxClimbTime;
+    public float curClimbTime;
+    [SerializeField] LayerMask climbLayers;
+    public float climbDetectionRange; // determines how far away we look when we try to detect obstacles
 
+    [Header("Vaulting Settings")]
+    public float vaultDetectionRange;
+    Vector3 vaultCheck;
+    [SerializeField] LayerMask vaultLayers;
     Vector3 topCheck;
     // Start is called before the first frame update
     void Start()

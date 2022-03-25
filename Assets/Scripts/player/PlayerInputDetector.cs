@@ -15,6 +15,7 @@ public class PlayerInputDetector : MonoBehaviour
     public PauseMenu myPauseMenu;
     public packageThrow myPackages;
 
+    [Header("Toggle Settings")]
     public bool crouchToggled; // if true then the crouch is then on toggle detection instead of tap
     public bool sprintToggled;
 
