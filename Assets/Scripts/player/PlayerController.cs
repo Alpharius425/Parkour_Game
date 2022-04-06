@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public bool crouchHeld = false;
 
     [Header("Grounded Settings")]
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundCheckRadius;
+    [SerializeField] LayerMask groundCheckLayers;
     public bool grounded; // are we on the ground or not
     [SerializeField] float timeUntilGroundCheck = 0f;
     [SerializeField] float jumpLandTime = 1f;
@@ -145,10 +148,25 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentState != State.Vaulting && currentState != State.Wallrunning)
+        if (currentState != State.Vaulting && currentState != State.Wallrunning && currentState != State.Climbing)
         {
-            grounded = myController.isGrounded;
+            Debug.Log("checking grounded");
+
+            Collider[] hit = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundCheckLayers); // makes a sphere around the ground check
+
+            if(hit.Length != 0) // if we hit something
+            {
+                grounded = true;
+            }
+            else // if we don't hit something
+            {
+                grounded = false;
+            }
+
+            //grounded = myController.isGrounded;
         }
+
+        myMovement.myArmAnimator.SetBool("IsGrounded", grounded);
 
         if (currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning && currentState != State.Vaulting)
         {
