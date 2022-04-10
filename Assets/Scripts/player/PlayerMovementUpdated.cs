@@ -71,7 +71,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
 
-    [Header("Wallrunning Settings")]
+    //[Header("Wallrunning Settings")]
     //[SerializeField] float wallRunSpeed = 4f;
 
     [Header("Climbing Settings")]
@@ -446,7 +446,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 controller.Move(movement * Time.fixedDeltaTime);
             }
         }
-        
+        //myController.grounded = false;
         myController.UpdateState(State.Jumping);
     }
 

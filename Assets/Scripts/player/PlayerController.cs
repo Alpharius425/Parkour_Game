@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool grounded; // are we on the ground or not
     [SerializeField] float timeUntilGroundCheck = 0f;
     [SerializeField] float jumpLandTime = 1f;
-    RaycastHit hit; // saves raycast hits
+    RaycastHit groundedHit; // saves raycast hits
 
     [Header("Wallrun Settings")]
     [SerializeField] LayerMask wallRunLayers;
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public float curClimbTime;
     [SerializeField] LayerMask climbLayers;
     public float climbDetectionRange; // determines how far away we look when we try to detect obstacles
+    RaycastHit hit; // saves raycast hits
 
     [Header("Vaulting Settings")]
     public float vaultDetectionRange;
@@ -71,7 +72,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!sprintHeld)
+
+        if (!sprintHeld)
         {
             myMovement.myArmAnimator.SetBool("Running", false);
         }
@@ -148,22 +150,33 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentState != State.Vaulting && currentState != State.Wallrunning && currentState != State.Climbing)
+        //if (currentState == State.Climbing || currentState == State.Running || currentState == State.Jumping && currentState != State.Wallrunning)
+        //{
+        //    Debug.Log("checking grounded");
+
+            
+        //    //grounded = myController.isGrounded;
+
+        //}
+
+        Collider[] groundedHit = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundCheckLayers); // makes a sphere around the ground check
+
+        if (groundedHit.Length != 0) // if we hit something
         {
-            Debug.Log("checking grounded");
-
-            Collider[] hit = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundCheckLayers); // makes a sphere around the ground check
-
-            if(hit.Length != 0) // if we hit something
+            grounded = true;
+            foreach (Collider item in groundedHit)
             {
-                grounded = true;
+                Debug.Log(item.name);
             }
-            else // if we don't hit something
-            {
-                grounded = false;
-            }
+        }
+        else // if we don't hit something
+        {
+            grounded = false;
+        }
 
-            //grounded = myController.isGrounded;
+        if (grounded && currentState == State.Jumping)
+        {
+            CheckMove();
         }
 
         myMovement.myArmAnimator.SetBool("IsGrounded", grounded);
@@ -329,7 +342,14 @@ public class PlayerController : MonoBehaviour
             {
                 if (sprintHeld)
                 {
-                    UpdateState(State.Running);
+                    if(currentState != State.Climbing)
+                    {
+                        UpdateState(State.Running);
+                    }
+                    else
+                    {
+                        UpdateState(State.Climbing);
+                    }
                 }
                 else if (crouchHeld)
                 {

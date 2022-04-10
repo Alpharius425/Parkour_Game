@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 178317414}
   - component: {fileID: 178317413}
   - component: {fileID: 178317411}
+  - component: {fileID: 632098741}
   m_Layer: 13
   m_Name: ArrowCam
   m_TagString: Untagged
@@ -190,6 +191,25 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!114 &632098741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178317410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae910c312a6a6c419b4ff762c33fd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearColorTexture: {fileID: 0}
+  clearDepthTexture: {fileID: 0}
+  clearAlpha: 1
+  imageFitMode: 0
+  layerFilters: []
+  alphaMax: 1
+  alphaMin: 0
 --- !u!1 &327439770
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +914,7 @@ GameObject:
   - component: {fileID: 1801572039}
   - component: {fileID: 1801572038}
   - component: {fileID: 1801572037}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PickupCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -909,7 +929,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801572035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.17, y: 0, z: 0.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5881899092385311094}
@@ -993,6 +1013,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 2.375, z: 1.375}
   m_Center: {x: 0, y: 0.1875, z: 0.5625}
+--- !u!1 &2239053579556313424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8227256008447107630}
+  m_Layer: 9
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8227256008447107630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239053579556313424}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.917, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5881899092385311094}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8836748305666955059
 Animator:
   serializedVersion: 3
@@ -1357,7 +1407,6 @@ GameObject:
   - component: {fileID: 5881899092385311090}
   - component: {fileID: 5881899092385311089}
   - component: {fileID: 5881899092385311091}
-  - component: {fileID: 5881899092385311092}
   - component: {fileID: 1826140719}
   - component: {fileID: 1826140720}
   - component: {fileID: 1826140721}
@@ -1385,6 +1434,7 @@ Transform:
   - {fileID: 1801572036}
   - {fileID: 327439771}
   - {fileID: 377439552}
+  - {fileID: 8227256008447107630}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -4.513, y: 13.277, z: 0}
@@ -1577,20 +1627,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!136 &5881899092385311092
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881899092385311088}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 1.8288
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1826140719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1688,6 +1724,11 @@ MonoBehaviour:
   myController: {fileID: 5881899092385311089}
   sprintHeld: 0
   crouchHeld: 0
+  groundCheck: {fileID: 8227256008447107630}
+  groundCheckRadius: 0.1
+  groundCheckLayers:
+    serializedVersion: 2
+    m_Bits: 5121
   grounded: 1
   timeUntilGroundCheck: 0
   jumpLandTime: 0.3
