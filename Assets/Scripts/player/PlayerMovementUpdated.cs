@@ -71,7 +71,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
 
-    [Header("Wallrunning Settings")]
+    //[Header("Wallrunning Settings")]
     //[SerializeField] float wallRunSpeed = 4f;
 
     [Header("Climbing Settings")]
@@ -267,12 +267,13 @@ public class PlayerMovementUpdated : MonoBehaviour
                     {
                         return;
                     }
-                    ChangeSpeed(climbSpeed);
+                    //ChangeSpeed(climbSpeed);
                     Vector3 climbMovement = Vector3.zero;
                     //climbMovement.y = movement.z;
                     climbMovement.y = 1; // todo has problem with moving up and down depending on the movement direction this is only a temperary work around
                     movement = Vector3.zero + climbMovement;
-                    MoveInput();
+                    //MoveInput();
+                    controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
                     break;
 
                 case State.Sliding: // locks our movement to the direction we were running in
@@ -339,7 +340,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveInput() // called if we are movng via player input
     {
-        if (airControlsOn && !myController.grounded)
+        if (airControlsOn && !myController.grounded) // && !myController.grounded
         {
             controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
         }
@@ -446,7 +447,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 controller.Move(movement * Time.fixedDeltaTime);
             }
         }
-        
+        //myController.grounded = false;
         myController.UpdateState(State.Jumping);
     }
 

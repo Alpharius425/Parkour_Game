@@ -132,6 +132,7 @@ public class PlayerInputDetector : MonoBehaviour
     {
         if(canInput && value.started)
         {
+            Debug.Log("JumpInput");
             myController.CheckJump();
         }
     }
