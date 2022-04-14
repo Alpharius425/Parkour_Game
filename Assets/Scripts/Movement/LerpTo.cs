@@ -67,7 +67,7 @@ public class LerpTo : MonoBehaviour
         {
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
-        
+        controller.CheckMove();
         Debug.Log("player is no longer attached");
     }
 
