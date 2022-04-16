@@ -30,6 +30,7 @@ public class LerpTo : MonoBehaviour
             player.transform.position = Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
             if (player.transform.position == endPoint.transform.position) // once the player reaches the end point
             {
+                
                 stop();
             }
 
@@ -51,23 +52,25 @@ public class LerpTo : MonoBehaviour
 
     public void stop()
     {
-        attached = false; // stops the object from moving us
         controller.myCamera.RotatePlayer();
         controller.ResetWallJumpTimer();
-        controller.attachedObject = null;
         player.GetComponent<CharacterController>().enabled = true;
+        attached = false; // stops the object from moving us
+        controller.attachedObject = null;
         if (wallrunning)
         {
-            controller.CheckMove();
             controller.onLeftWall = false;
             controller.onRightWall = false;
             controller.myCamera.ResetAngle();
+            player.GetComponent<PlayerMovementUpdated>().JumpMove(speed);
+            //controller.CheckMove();
         }
         else
         {
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
-        controller.CheckMove();
+        
+        //player.GetComponent<PlayerMovementUpdated>().ChangeSpeed(speed);
         Debug.Log("player is no longer attached");
     }
 

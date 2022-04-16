@@ -179,7 +179,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         }
     }
 
-    void ChangeSpeed(float newSpeed) {
+    public void ChangeSpeed(float newSpeed) {
         if (myController.grounded) {
             // If the current speed is less than the newSpeed, then the current speed will increase at the acceleration rate.
             if (actualSpeed < newSpeed) {
@@ -293,6 +293,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     break;
 
                 case State.Jumping:
+                    //movement = transform.right * movementInput.x + transform.forward * movementInput.y;
                     MoveInput();
                     //movement.y = gravity;
                     break;
@@ -417,8 +418,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 }
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.RotatePlayer();
-                //Debug.Log("here");
-                break;
+                return;
 
             case State.Sliding:
                 jumpPower = slideJumpMultiplier;
@@ -432,23 +432,29 @@ public class PlayerMovementUpdated : MonoBehaviour
                 break;
         }
 
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
+        JumpMove(jumpPower);
+    }
+
+    public void JumpMove(float JumpBoost)
+    {
+        myController.UpdateState(State.Jumping);
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
         {
-            if(hit.collider.gameObject.GetComponent<JumpBooster>() != null)
+            if (hit.collider.gameObject.GetComponent<JumpBooster>() != null)
             {
-                velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier);
+                velocity.y = Mathf.Sqrt(JumpBoost * jumpForce * -2f * gravity * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier);
                 controller.Move((movement * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier) * Time.fixedDeltaTime);
                 airSpeed = hit.collider.gameObject.GetComponent<JumpBooster>().airSpeed;
             }
             else
             {
                 airSpeed = savedAirSpeed;
-                velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
+                velocity.y = Mathf.Sqrt(JumpBoost * jumpForce * -2f * gravity);
                 controller.Move(movement * Time.fixedDeltaTime);
             }
         }
         //myController.grounded = false;
-        myController.UpdateState(State.Jumping);
+        
     }
 
     public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
