@@ -62,14 +62,14 @@ public class LerpTo : MonoBehaviour
             controller.onLeftWall = false;
             controller.onRightWall = false;
             controller.myCamera.ResetAngle();
-            player.GetComponent<PlayerMovementUpdated>().JumpMove(speed);
+            
             //controller.CheckMove();
         }
         else
         {
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
-        
+        player.GetComponent<PlayerMovementUpdated>().JumpMove(speed);
         //player.GetComponent<PlayerMovementUpdated>().ChangeSpeed(speed);
         Debug.Log("player is no longer attached");
     }
