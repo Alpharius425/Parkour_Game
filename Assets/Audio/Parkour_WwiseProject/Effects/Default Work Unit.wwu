@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{2742CE9D-0899-4D9B-8C32-35849DC9FD48}" SchemaVersion="103">
+	<Effects>
+		<WorkUnit Name="Default Work Unit" ID="{2742CE9D-0899-4D9B-8C32-35849DC9FD48}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="CustomReverb" ID="{1481FCE2-E823-46A5-959D-123296835A7E}" ShortID="315716809">
+					<ChildrenList>
+						<Effect Name="General_Reverb" ID="{80E53F26-FE0A-4C8F-8577-20FB261519BC}" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+							<PropertyList>
+								<Property Name="DecayTime" Type="Real32" Value="0.8"/>
+								<Property Name="Density" Type="Real32" Value="100"/>
+								<Property Name="Diffusion" Type="Real32" Value="38"/>
+								<Property Name="DryLevel" Type="Real32" Value="0"/>
+								<Property Name="ERPattern" Type="int32" Value="30"/>
+								<Property Name="EnableEarlyReflections" Type="bool" Value="False"/>
+								<Property Name="PreDelay" Type="Real32" Value="0"/>
+								<Property Name="Quality" Type="int32" Value="2"/>
+								<Property Name="ReverbLevel" Type="Real32" Value="-35"/>
+								<Property Name="RoomSize" Type="Real32" Value="-53"/>
+								<Property Name="StereoWidth" Type="Real32" Value="18"/>
+							</PropertyList>
+						</Effect>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Effects>
+</WwiseDocument>
