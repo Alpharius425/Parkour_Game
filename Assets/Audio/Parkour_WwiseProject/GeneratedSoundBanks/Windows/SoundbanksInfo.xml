@@ -21,12 +21,12 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="2810670744" Language="SFX" Hash="967652388">
+		<SoundBank Id="2810670744" Language="SFX" Hash="949865656">
 			<ObjectPath>\SoundBanks\Default Work Unit\SoundFX</ObjectPath>
 			<ShortName>SoundFX</ShortName>
 			<Path>SoundFX.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1589366019" Name="Pickup_Box" ObjectPath="\Events\Default Work Unit\SFX\Pickup_Box">
+				<Event Id="1589366019" Name="Pickup_Box" ObjectPath="\Events\Default Work Unit\SFX\Pickup_Box" DurationType="OneShot" DurationMin="1.042799" DurationMax="1.631121">
 					<IncludedMemoryFiles>
 						<File Id="503370173" Language="SFX">
 							<ShortName>Pickup_Box03.wav</ShortName>
@@ -42,7 +42,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="541470702" Name="Player_Movement" ObjectPath="\Events\Default Work Unit\SFX\Player_Movement">
+				<Event Id="541470702" Name="Player_Movement" ObjectPath="\Events\Default Work Unit\SFX\Player_Movement" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="87269973" Language="SFX">
 							<ShortName>Footstep_Concrete04.wav</ShortName>
@@ -92,7 +92,7 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
-				<Event Id="2578410269" Name="Throw_Box" ObjectPath="\Events\Default Work Unit\SFX\Throw_Box">
+				<Event Id="2578410269" Name="Throw_Box" ObjectPath="\Events\Default Work Unit\SFX\Throw_Box" DurationType="OneShot" DurationMin="1.159357" DurationMax="1.700987">
 					<IncludedMemoryFiles>
 						<File Id="92506672" Language="SFX">
 							<ShortName>Throw_BoxWhiff05.wav</ShortName>
