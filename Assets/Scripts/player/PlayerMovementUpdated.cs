@@ -307,6 +307,14 @@ public class PlayerMovementUpdated : MonoBehaviour
                     }
                     break;
 
+                //case State.Wallrunning:
+                //    if (myController.attachedObject != null)
+                //    {
+                //        movement.z = 0;
+                //        MoveInput();
+                //    }
+                //    break;
+
                 default:
                     return;
             }
@@ -413,7 +421,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Wallrunning:
                 if(myController.attachedObject)
                 {
-                    myController.attachedObject.stop();
+                    myController.attachedObject.Stop();
                 }
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.RotatePlayer();
@@ -431,20 +439,24 @@ public class PlayerMovementUpdated : MonoBehaviour
                 //Debug.Log("Defaulted");
                 break;
         }
+        JumpMove(jumpPower, movement);
+    }
 
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
+    public void JumpMove(float jumpPower, Vector2 moveDirection)
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
         {
-            if(hit.collider.gameObject.GetComponent<JumpBooster>() != null)
+            if (hit.collider.gameObject.GetComponent<JumpBooster>() != null)
             {
                 velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier);
-                controller.Move((movement * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier) * Time.fixedDeltaTime);
+                controller.Move((moveDirection * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier) * Time.fixedDeltaTime);
                 airSpeed = hit.collider.gameObject.GetComponent<JumpBooster>().airSpeed;
             }
             else
             {
                 airSpeed = savedAirSpeed;
                 velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
-                controller.Move(movement * Time.fixedDeltaTime);
+                controller.Move(moveDirection * Time.fixedDeltaTime);
             }
         }
         //myController.grounded = false;
