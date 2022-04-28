@@ -13,8 +13,7 @@ public class LerpTo : MonoBehaviour
     Vector3 nextPosition;
 
     [SerializeField] float startTime; // saves reference for when we start moving
-    public float speed; // how fast we are going to let the player move
-    [SerializeField] float minSpeed; // how fast we are going to let the player move
+    [SerializeField] float speed; // how fast we are going to let the player move
 
     [SerializeField] bool attached = false; // tells us whether the player is attached to the object
     [SerializeField] GameObject player = null;
@@ -30,18 +29,18 @@ public class LerpTo : MonoBehaviour
         {
             //distanceCovered = (Time.time - startTime) * speed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-            nextPosition = Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
-            //playerMovement.MoveVelocity(player.transform.position - nextPosition);
+                                                                         //nextPosition = player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
+                                                                         //playerMovement.MoveVelocity(nextPosition);
 
-            playerMovement.movement = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney) * speed);
+            playerMovement.movement = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney));
 
             //if (player.transform.position == endPoint.transform.position) // once the player reaches the end point
             //{
-
+                
             //    Stop();
             //}
 
-            if (wallrunning)
+            if(wallrunning)
             {
                 player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
             }
@@ -70,14 +69,14 @@ public class LerpTo : MonoBehaviour
             controller.CheckMove();
             controller.onLeftWall = false;
             controller.onRightWall = false;
-            //controller.myCamera.ResetAngle();
+            controller.myCamera.ResetAngle();
         }
         else
         {
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
 
-        //player.GetComponent<PlayerMovementUpdated>().Jump();
+        player.GetComponent<PlayerMovementUpdated>().Jump();
         Debug.Log("player is no longer attached");
     }
 
@@ -87,11 +86,6 @@ public class LerpTo : MonoBehaviour
         {
             controller.CheckAttach();
             speed = player.GetComponent<PlayerMovementUpdated>().actualSpeed;
-
-            if(speed < minSpeed)
-            {
-                speed = minSpeed;
-            }
         }
         else
         {
@@ -120,9 +114,6 @@ public class LerpTo : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == player && other.gameObject.GetComponent<PlayerController>().attachedObject == this) // if we detect the player and they aren't already attached to something
-        {
-            Stop();
-        }
+        Stop();
     }
 }
