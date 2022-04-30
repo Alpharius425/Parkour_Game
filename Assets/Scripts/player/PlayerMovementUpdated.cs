@@ -71,8 +71,8 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
 
-    //[Header("Wallrunning Settings")]
-    //[SerializeField] float wallRunSpeed = 4f;
+    [Header("Wallrunning Settings")]
+    [SerializeField] float wallRunMinSpeed = 1f;
 
     [Header("Climbing Settings")]
     [SerializeField] float climbSpeed = 4f;
@@ -310,7 +310,16 @@ public class PlayerMovementUpdated : MonoBehaviour
                 case State.Wallrunning:
                     if (myController.attachedObject != null)
                     {
-                        //movement.z = 0;
+                        movement.x = 0;
+                        if(movement.z < 0)
+                        {
+                            movement.z *= -1;
+                        }
+
+                        if(movement.z < wallRunMinSpeed)
+                        {
+                            myController.attachedObject.Stop();
+                        }
                         MoveInput();
                     }
                     break;
