@@ -30,17 +30,17 @@ public class LerpTo : MonoBehaviour
             //distanceCovered = (Time.time - startTime) * speed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
             nextPosition = Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
-            playerMovement.MoveVelocity(player.transform.position - nextPosition);
+            //playerMovement.MoveVelocity(player.transform.position - nextPosition);
 
-            playerMovement.movement = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney));
+            playerMovement.movement = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney) * speed);
 
             //if (player.transform.position == endPoint.transform.position) // once the player reaches the end point
             //{
-                
+
             //    Stop();
             //}
 
-            if(wallrunning)
+            if (wallrunning)
             {
                 player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
             }
@@ -76,7 +76,7 @@ public class LerpTo : MonoBehaviour
             player.GetComponent<PlayerInputDetector>().canInput = true;
         }
 
-        player.GetComponent<PlayerMovementUpdated>().Jump();
+        //player.GetComponent<PlayerMovementUpdated>().Jump();
         Debug.Log("player is no longer attached");
     }
 

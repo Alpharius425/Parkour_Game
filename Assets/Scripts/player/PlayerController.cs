@@ -255,7 +255,16 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateState(State newState) // updates our state
     {
-        currentState = newState;
+        if(!attachedObject)
+        {
+            currentState = newState;
+        }
+        else
+        {
+            currentState = State.Wallrunning;
+        }
+
+
 
         //Debug.Log(currentState);
     }
