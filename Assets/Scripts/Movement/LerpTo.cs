@@ -14,6 +14,7 @@ public class LerpTo : MonoBehaviour
 
     [SerializeField] float startTime; // saves reference for when we start moving
     [SerializeField] float speed; // how fast we are going to let the player move
+    [SerializeField] float minSpeed; // how fast we are going to let the player move
 
     [SerializeField] bool attached = false; // tells us whether the player is attached to the object
     [SerializeField] GameObject player = null;
@@ -69,7 +70,7 @@ public class LerpTo : MonoBehaviour
             controller.CheckMove();
             controller.onLeftWall = false;
             controller.onRightWall = false;
-            controller.myCamera.ResetAngle();
+            //controller.myCamera.ResetAngle();
         }
         else
         {
@@ -86,6 +87,11 @@ public class LerpTo : MonoBehaviour
         {
             controller.CheckAttach();
             speed = player.GetComponent<PlayerMovementUpdated>().actualSpeed;
+
+            if(speed < minSpeed)
+            {
+                speed = minSpeed;
+            }
         }
         else
         {
