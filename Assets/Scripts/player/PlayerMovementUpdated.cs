@@ -307,13 +307,13 @@ public class PlayerMovementUpdated : MonoBehaviour
                     }
                     break;
 
-                //case State.Wallrunning:
-                //    if (myController.attachedObject != null)
-                //    {
-                //        movement.z = 0;
-                //        MoveInput();
-                //    }
-                //    break;
+                case State.Wallrunning:
+                    if (myController.attachedObject != null)
+                    {
+                        //movement.z = 0;
+                        MoveInput();
+                    }
+                    break;
 
                 default:
                     return;

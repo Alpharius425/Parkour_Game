@@ -29,8 +29,8 @@ public class LerpTo : MonoBehaviour
         {
             //distanceCovered = (Time.time - startTime) * speed;
             float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-                                                                         //nextPosition = player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
-                                                                         //playerMovement.MoveVelocity(nextPosition);
+            nextPosition = Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
+            playerMovement.MoveVelocity(player.transform.position - nextPosition);
 
             playerMovement.movement = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney));
 
