@@ -120,6 +120,9 @@ public class LerpTo : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Stop();
+        if (other.gameObject == player && other.gameObject.GetComponent<PlayerController>().attachedObject == this) // if we detect the player and they aren't already attached to something
+        {
+            Stop();
+        }
     }
 }
