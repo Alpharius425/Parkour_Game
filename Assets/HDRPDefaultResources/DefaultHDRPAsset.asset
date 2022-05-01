@@ -446,11 +446,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b7005ba3a4d8474b8cdc34141ad766e, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforeTAACustomPostProcesses: []
-  beforePostProcessCustomPostProcesses:
-  - UnityEngine.Rendering.HighDefinition.Compositor.ChromaKeying, Unity.RenderPipelines.HighDefinition.Runtime,
-    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Rendering.HighDefinition.Compositor.AlphaInjection, Unity.RenderPipelines.HighDefinition.Runtime,
-    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses: []
   virtualTexturingSettings:
     streamingCpuCacheSizeInMegaBytes: 256
