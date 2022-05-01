@@ -71,8 +71,8 @@ public class PlayerMovementUpdated : MonoBehaviour
     Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
 
-    //[Header("Wallrunning Settings")]
-    //[SerializeField] float wallRunSpeed = 4f;
+    [Header("Wallrunning Settings")]
+    [SerializeField] float wallRunMinSpeed = 1f;
 
     [Header("Climbing Settings")]
     [SerializeField] float climbSpeed = 4f;
@@ -307,6 +307,23 @@ public class PlayerMovementUpdated : MonoBehaviour
                     }
                     break;
 
+                case State.Wallrunning:
+                    if (myController.attachedObject != null)
+                    {
+                        movement.x = 0;
+                        if(movement.z < 0)
+                        {
+                            movement.z *= -1;
+                        }
+
+                        if(movement.z < wallRunMinSpeed)
+                        {
+                            myController.attachedObject.Stop();
+                        }
+                        MoveInput();
+                    }
+                    break;
+
                 default:
                     return;
             }
@@ -413,7 +430,8 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Wallrunning:
                 if(myController.attachedObject)
                 {
-                    myController.attachedObject.stop();
+                    movement = myCamera.gameObject.transform.forward * myController.attachedObject.speed;
+                    myController.attachedObject.Stop();
                 }
                 jumpPower = wallRunJumpMultiplier;
                 myCamera.RotatePlayer();
@@ -431,20 +449,24 @@ public class PlayerMovementUpdated : MonoBehaviour
                 //Debug.Log("Defaulted");
                 break;
         }
+        JumpMove(jumpPower, movement);
+    }
 
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
+    public void JumpMove(float jumpPower, Vector2 moveDirection)
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
         {
-            if(hit.collider.gameObject.GetComponent<JumpBooster>() != null)
+            if (hit.collider.gameObject.GetComponent<JumpBooster>() != null)
             {
                 velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier);
-                controller.Move((movement * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier) * Time.fixedDeltaTime);
+                controller.Move((moveDirection * hit.collider.gameObject.GetComponent<JumpBooster>().jumpMultiplier) * Time.fixedDeltaTime);
                 airSpeed = hit.collider.gameObject.GetComponent<JumpBooster>().airSpeed;
             }
             else
             {
                 airSpeed = savedAirSpeed;
                 velocity.y = Mathf.Sqrt(jumpPower * jumpForce * -2f * gravity);
-                controller.Move(movement * Time.fixedDeltaTime);
+                controller.Move(moveDirection * Time.fixedDeltaTime);
             }
         }
         //myController.grounded = false;
