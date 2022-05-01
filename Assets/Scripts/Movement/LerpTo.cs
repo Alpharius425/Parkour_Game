@@ -13,7 +13,7 @@ public class LerpTo : MonoBehaviour
     Vector3 nextPosition;
 
     [SerializeField] float startTime; // saves reference for when we start moving
-    [SerializeField] float speed; // how fast we are going to let the player move
+    public float speed; // how fast we are going to let the player move
     [SerializeField] float minSpeed; // how fast we are going to let the player move
 
     [SerializeField] bool attached = false; // tells us whether the player is attached to the object
