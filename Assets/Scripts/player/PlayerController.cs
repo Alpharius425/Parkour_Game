@@ -233,13 +233,13 @@ public class PlayerController : MonoBehaviour
         {
             onRightWall = true;
             onLeftWall = false;
-            myCamera.ChangeAngle(-angleChange);
+            //myCamera.ChangeAngle(-angleChange);
         }
         else if (Physics.Raycast(transform.position, Vector3.left * wallRunDetectionRange, out hit, wallRunLayers))
         {
             onRightWall = false;
             onLeftWall = true;
-            myCamera.ChangeAngle(angleChange);
+            //myCamera.ChangeAngle(angleChange);
         }
     }
 
