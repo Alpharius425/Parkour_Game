@@ -430,6 +430,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Wallrunning:
                 if(myController.attachedObject)
                 {
+                    movement = myCamera.gameObject.transform.forward * myController.attachedObject.speed;
                     myController.attachedObject.Stop();
                 }
                 jumpPower = wallRunJumpMultiplier;
