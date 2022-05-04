@@ -8,10 +8,10 @@ public class SettingsMenu : MonoBehaviour
     public bool settingsMenuActive;
     public static SettingsMenu instance;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+    //private void Awake()
+    //{
+        //instance = this;
+    //}
 
     // Start is called before the first frame update
     void Start()
