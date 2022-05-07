@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
             grounded = true;
             foreach (Collider item in groundedHit)
             {
-                Debug.Log(item.name);
+                //Debug.Log(item.name);
             }
         }
         else // if we don't hit something
