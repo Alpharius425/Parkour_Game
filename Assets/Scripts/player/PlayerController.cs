@@ -176,6 +176,7 @@ public class PlayerController : MonoBehaviour
 
         if (grounded && currentState == State.Jumping)
         {
+            myMovement.myArmAnimator.SetBool("IsGrounded", false);
             CheckMove();
         }
 
