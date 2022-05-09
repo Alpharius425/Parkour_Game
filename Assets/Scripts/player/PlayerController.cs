@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     public bool crouchHeld = false;
 
     [Header("Grounded Settings")]
-    [SerializeField] Transform groundCheck;
-    [SerializeField] float groundCheckRadius;
+    public Transform groundCheck;
+    [SerializeField] Vector3 GroundCheckArea;
     [SerializeField] LayerMask groundCheckLayers;
     public bool grounded; // are we on the ground or not
     [SerializeField] float timeUntilGroundCheck = 0f;
@@ -159,14 +159,14 @@ public class PlayerController : MonoBehaviour
 
         //}
 
-        Collider[] groundedHit = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundCheckLayers); // makes a sphere around the ground check
+        Collider[] groundedHit = Physics.OverlapBox(groundCheck.position, GroundCheckArea, gameObject.transform.rotation, groundCheckLayers); // makes a sphere around the ground check
 
         if (groundedHit.Length != 0) // if we hit something
         {
             grounded = true;
             foreach (Collider item in groundedHit)
             {
-                Debug.Log(item.name);
+                //Debug.Log(item.name);
             }
         }
         else // if we don't hit something
@@ -176,6 +176,7 @@ public class PlayerController : MonoBehaviour
 
         if (grounded && currentState == State.Jumping)
         {
+            myMovement.myArmAnimator.SetBool("IsGrounded", false);
             CheckMove();
         }
 

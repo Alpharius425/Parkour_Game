@@ -48,9 +48,11 @@ public class PlayerMovementUpdated : MonoBehaviour
     [SerializeField] float crouchHeight;
     [SerializeField] float crouchCamHeight;
     [SerializeField] float crouchCenterHeight;
+    [SerializeField] float crouchGroundCheckHeight;
     [SerializeField] float defaultHeight;
     [SerializeField] float defaultCamHeight;
     [SerializeField] float defaultCenterHeight;
+    [SerializeField] float defaultGroundCheckHeight;
 
     [Header("Vaulting Settings")]
     [SerializeField] float vaultSpeed;
@@ -473,17 +475,18 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Jumping);
     }
 
-    public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter) // takes a new height for our player and changes our collider and camera height
+    public void ChangeHeight(float newHeight, float newCamHeight, float newColliderCenter, float groundCheckHeight) // takes a new height for our player and changes our collider and camera height
     {
         controller.height = newHeight;
         controller.center = new Vector3(0, newColliderCenter, 0);
         myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
+        myController.groundCheck.localPosition = new Vector3 (0, groundCheckHeight, 0);
     }
 
     public void Crouch()
     {
         ChangeSpeed(crouchSpeed);
-        ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
+        ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight, crouchGroundCheckHeight);
         myController.UpdateState(State.Crouching);
     }
 
@@ -504,7 +507,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
         //Debug.Log("Uncrouching");
 
-        ChangeHeight(defaultHeight, defaultCamHeight, defaultCenterHeight);
+        ChangeHeight(defaultHeight, defaultCamHeight, defaultCenterHeight, defaultGroundCheckHeight);
         if (myController.sprintHeld)
         {
             ChangeSpeed(runSpeed);
@@ -530,7 +533,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //Debug.Log("Sliding");
         myController.UpdateState(State.Sliding);
         slideMove = movement;
-        ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight);
+        ChangeHeight(crouchHeight, crouchCamHeight, crouchCenterHeight, crouchGroundCheckHeight);
         //Move(myInput.movementInput);
         sliding = true;
         //myLegAnimator.SetBool("Sliding", true);
