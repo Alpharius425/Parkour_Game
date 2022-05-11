@@ -44,7 +44,7 @@ public class DeliverySpotManager : MonoBehaviour
     {
         MoneyManager.Instance.AddMoney(moneyReward);
 
-        if (currentPoint == deliveryPoints.Length)
+        if (currentPoint + 1 == deliveryPoints.Length)
         {
             Debug.Log("Last delivery spot hit.");
             TimerManager.instance.StopTimer();
