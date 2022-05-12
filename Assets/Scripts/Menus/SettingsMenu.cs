@@ -36,7 +36,6 @@ public class SettingsMenu : MonoBehaviour
                 keybindsMenuActive = false;
                 KeybindsMenuUI.SetActive(false);
             }
-
         } 
         else
         {
