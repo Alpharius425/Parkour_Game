@@ -175,7 +175,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 //myCamera.RotatePlayer();
 
                 //myLegAnimator.SetBool("Vaulting", false);
-                myArmAnimator.SetBool("Vaulting", false);
+                
                 GetComponent<CharacterController>().enabled = true;
                 timeSpentVaulting = 0;
             }
@@ -591,6 +591,12 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Vaulting);
         //myLegAnimator.SetBool("Vaulting", true);
         //myArmAnimator.SetTrigger("Vaulting");
+        myArmAnimator.SetTrigger("Vaulting");
+    }
+
+    void VaultMovement(Vector3 endPoint)
+    {
+
     }
 
     private void CancelZandXRotation() {
