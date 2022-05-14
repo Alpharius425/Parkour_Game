@@ -29,8 +29,8 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     [Header("Jumping Settings")]
     [SerializeField] float jumpForce;
-    [SerializeField] float airSpeed;
-    private float savedAirSpeed;
+    public float airSpeed;
+    public float savedAirSpeed;
     Vector3 jumpDir;
     [SerializeField] float jumpGravityDelay; // how long until gravity takes hold of us again
 
