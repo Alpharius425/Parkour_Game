@@ -426,7 +426,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             case State.Climbing:
                 jumpPower = ClimbJumpMultiplier;
                 myCamera.ResetZRotation();
-                myCamera.RotatePlayer();
+                //myCamera.RotatePlayer();
                 break;
 
             case State.Wallrunning:
@@ -436,14 +436,14 @@ public class PlayerMovementUpdated : MonoBehaviour
                     myController.attachedObject.Stop();
                 }
                 jumpPower = wallRunJumpMultiplier;
-                myCamera.RotatePlayer();
+                //myCamera.RotatePlayer();
                 //Debug.Log("here");
                 break;
 
             case State.Sliding:
                 jumpPower = slideJumpMultiplier;
                 CancelSlide();
-                myCamera.RotatePlayer();
+                //myCamera.RotatePlayer();
                 break;
 
             default:
