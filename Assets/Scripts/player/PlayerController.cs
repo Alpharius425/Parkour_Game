@@ -163,6 +163,7 @@ public class PlayerController : MonoBehaviour
 
         if (groundedHit.Length != 0) // if we hit something
         {
+            myMovement.airSpeed = myMovement.savedAirSpeed;
             grounded = true;
             foreach (Collider item in groundedHit)
             {
