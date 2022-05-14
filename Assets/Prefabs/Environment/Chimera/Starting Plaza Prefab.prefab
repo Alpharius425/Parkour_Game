@@ -1,5 +1,43 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &574243222461390418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6231378549708470134}
+  m_Layer: 0
+  m_Name: Starting Plaza Building Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6231378549708470134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574243222461390418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8799361383195567982}
+  - {fileID: 8799361384124483031}
+  - {fileID: 8799361383518544107}
+  - {fileID: 8799361384235610717}
+  - {fileID: 8799361384195632731}
+  - {fileID: 8799361384598762221}
+  - {fileID: 8799361383842959270}
+  - {fileID: 8799361383084535336}
+  m_Father: {fileID: 3839606522989887636}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2473719171463653789
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,19 +65,43 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8799361383195567982}
-  - {fileID: 8799361384124483031}
-  - {fileID: 8799361383518544107}
-  - {fileID: 8799361384235610717}
-  - {fileID: 8799361384195632731}
-  - {fileID: 8799361384598762221}
-  - {fileID: 8799361383842959270}
-  - {fileID: 8799361383084535336}
+  - {fileID: 6231378549708470134}
+  - {fileID: 6918036966410062797}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3105002679312441809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6918036966410062797}
+  m_Layer: 0
+  m_Name: Gameplay Objects Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6918036966410062797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105002679312441809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
   - {fileID: 505810229467392131}
   - {fileID: 9049743704946941461}
   - {fileID: 8799361383011351951}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 3839606522989887636}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8799361383011351950
 GameObject:
@@ -68,8 +130,8 @@ Transform:
   m_LocalPosition: {x: -1.78, y: -0.39000034, z: 9.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
-  m_RootOrder: 10
+  m_Father: {fileID: 6918036966410062797}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8799361383084535339
 GameObject:
@@ -86,7 +148,7 @@ GameObject:
   - component: {fileID: 8799361383084535334}
   - component: {fileID: 8799361383084535337}
   m_Layer: 0
-  m_Name: Ramp01
+  m_Name: StartingPlazaRamp01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +165,7 @@ Transform:
   m_LocalPosition: {x: -3.2201867, y: -1.4613876, z: 10.890624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &8799361383084535333
@@ -427,7 +489,7 @@ GameObject:
   - component: {fileID: 8799361383195567980}
   - component: {fileID: 8799361383195567983}
   m_Layer: 0
-  m_Name: Starting Plaza
+  m_Name: StartingPlazaBuilding01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,7 +506,7 @@ Transform:
   m_LocalPosition: {x: 1, y: -13.01, z: -3.5479813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8799361383195567979
@@ -1450,7 +1512,7 @@ GameObject:
   - component: {fileID: 8799361383518544105}
   - component: {fileID: 8799361383518544104}
   m_Layer: 0
-  m_Name: Starting Plaza (3)
+  m_Name: StartingPlazaBuilding03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,7 +1529,7 @@ Transform:
   m_LocalPosition: {x: -18.269909, y: -13.01, z: -38.149467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8799361383518544100
@@ -1791,7 +1853,7 @@ GameObject:
   - component: {fileID: 8799361383842959268}
   - component: {fileID: 8799361383842959271}
   m_Layer: 0
-  m_Name: Entryway02
+  m_Name: StartingPlazaEntryway02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1809,7 +1871,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8799361383410851671}
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &8799361383842959267
@@ -2133,7 +2195,7 @@ GameObject:
   - component: {fileID: 8799361384124483029}
   - component: {fileID: 8799361384124483028}
   m_Layer: 0
-  m_Name: Starting Plaza (1)
+  m_Name: StartingPlazaBuilding02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2150,7 +2212,7 @@ Transform:
   m_LocalPosition: {x: 20.269909, y: -13.01, z: -3.5479813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8799361384124483024
@@ -2474,7 +2536,7 @@ GameObject:
   - component: {fileID: 8799361384195632729}
   - component: {fileID: 8799361384195632728}
   m_Layer: 0
-  m_Name: Starting Plaza (4)
+  m_Name: StartingPlazaBuilding05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2491,7 +2553,7 @@ Transform:
   m_LocalPosition: {x: -13.875954, y: -13.01, z: -3.5479813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8799361384195632724
@@ -2815,7 +2877,7 @@ GameObject:
   - component: {fileID: 8799361384235610715}
   - component: {fileID: 8799361384235610714}
   m_Layer: 0
-  m_Name: Starting Plaza (2)
+  m_Name: StartingPlazaBuilding04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2832,7 +2894,7 @@ Transform:
   m_LocalPosition: {x: -0.669899, y: -13.01, z: -3.5479813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8799361384235610710
@@ -3156,7 +3218,7 @@ GameObject:
   - component: {fileID: 8799361384598762219}
   - component: {fileID: 8799361384598762218}
   m_Layer: 0
-  m_Name: Entryway
+  m_Name: StartingPlazaEntryway01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3174,7 +3236,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8799361383346158258}
-  m_Father: {fileID: 3839606522989887636}
+  m_Father: {fileID: 6231378549708470134}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &8799361384598762214
@@ -3488,11 +3550,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 3839606522989887636}
+    m_TransformParent: {fileID: 6918036966410062797}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bd634db44d299af42ac5d2bbca6ebb4b, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd634db44d299af42ac5d2bbca6ebb4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3550,7 +3612,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 3839606522989887636}
+    m_TransformParent: {fileID: 6918036966410062797}
     m_Modifications:
     - target: {fileID: 7052391483764008761, guid: 35cab108a2028f749afcf4b78239baf4, type: 3}
       propertyPath: moneyManager
@@ -3590,7 +3652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9014345219642340413, guid: 35cab108a2028f749afcf4b78239baf4, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9014345219642340413, guid: 35cab108a2028f749afcf4b78239baf4, type: 3}
       propertyPath: m_LocalPosition.x
