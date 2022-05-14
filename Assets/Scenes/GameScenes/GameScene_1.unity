@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4789.663, g: 7357.8623, b: 13184.181, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -249,6 +249,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 327439772, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 03732da32699aad42b8be9c26bc7c752, type: 2}
+    - target: {fileID: 377439553, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: dcc038c032ba7fb41a5ff8e2a67aed42, type: 2}
+    - target: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: crouchButtonText
+      value: 
+      objectReference: {fileID: 1628103753}
+    - target: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: sprintButtonText
+      value: 
+      objectReference: {fileID: 1628103747}
     - target: {fileID: 5881899092385311088, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_Name
       value: PlayerControllerFPS
@@ -805,6 +821,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 970431513, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 694341286}
+    - target: {fileID: 970431513, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleCrouchSetting
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018073586, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 694341286}
+    - target: {fileID: 1018073586, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleSprintSetting
+      objectReference: {fileID: 0}
     - target: {fileID: 2129536001831327921, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -899,6 +931,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+--- !u!114 &1628103747 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1615201082, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+  m_PrefabInstance: {fileID: 1628103746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1628103748 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5077413885007777990, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
@@ -948,6 +991,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5727072379884701659, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
   m_PrefabInstance: {fileID: 1628103746}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1628103753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 358745510, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+  m_PrefabInstance: {fileID: 1628103746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1747698839
 PrefabInstance:
   m_ObjectHideFlags: 0

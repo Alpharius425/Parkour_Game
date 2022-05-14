@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 13346.461, g: 13058.07, b: 15029.828, a: 1}
+  m_IndirectSpecularColor: {r: 12941.035, g: 12625.195, b: 14601.109, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5407,6 +5407,14 @@ PrefabInstance:
       propertyPath: myPauseMenu
       value: 
       objectReference: {fileID: 694828588}
+    - target: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: crouchButtonText
+      value: 
+      objectReference: {fileID: 2129536001149101720}
+    - target: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+      propertyPath: sprintButtonText
+      value: 
+      objectReference: {fileID: 2129536001149101719}
     - target: {fileID: 5881899092385311088, guid: 77f678b125fbe6e49947285d17337625, type: 3}
       propertyPath: m_Name
       value: PlayerControllerFPS
@@ -5457,6 +5465,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+--- !u!114 &632586634 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1826140720, guid: 77f678b125fbe6e49947285d17337625, type: 3}
+  m_PrefabInstance: {fileID: 632586633}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46087814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3078f1c91643e345bdfd1339078e8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642199843
 GameObject:
   m_ObjectHideFlags: 0
@@ -15534,6 +15553,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 970431513, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 632586634}
+    - target: {fileID: 970431513, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleCrouchSetting
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018073586, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 632586634}
+    - target: {fileID: 1018073586, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleSprintSetting
+      objectReference: {fileID: 0}
     - target: {fileID: 2129535999825202448, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
@@ -15632,3 +15667,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+--- !u!114 &2129536001149101719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1615201082, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+  m_PrefabInstance: {fileID: 2129536001149101718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2129536001149101720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 358745510, guid: 6cb107f2d0a08ca489b6d9431f1e9997, type: 3}
+  m_PrefabInstance: {fileID: 2129536001149101718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
