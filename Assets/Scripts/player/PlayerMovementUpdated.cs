@@ -72,6 +72,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     public bool sliding = false;
     Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
+    [SerializeField] LayerMask slideDetectionLayers;
 
     [Header("Wallrunning Settings")]
     [SerializeField] float wallRunMinSpeed = 1f;
@@ -119,7 +120,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             slideTime -= Time.deltaTime;
             myArmAnimator.SetBool("Sliding", true);
             Debug.DrawRay(controller.transform.position, gameObject.transform.forward * slideDetectionRange, Color.red);
-            if (Physics.Raycast(controller.transform.position, gameObject.transform.forward, out hit, slideDetectionRange)) // if we slide into something
+            if (Physics.Raycast(controller.transform.position, gameObject.transform.forward, out hit, slideDetectionRange, slideDetectionLayers)) // if we slide into something
             {
                 CancelSlide(); // stop sliding
             }
