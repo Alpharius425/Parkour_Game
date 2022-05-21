@@ -591,7 +591,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Vaulting);
         //myLegAnimator.SetBool("Vaulting", true);
         //myArmAnimator.SetTrigger("Vaulting");
-        myArmAnimator.SetTrigger("Vaulting");
+        myArmAnimator.SetTrigger("Vault");
     }
 
     private void CancelZandXRotation() {
