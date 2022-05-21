@@ -175,7 +175,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 //myCamera.RotatePlayer();
 
                 //myLegAnimator.SetBool("Vaulting", false);
-                myArmAnimator.SetBool("Vaulting", false);
+                
                 GetComponent<CharacterController>().enabled = true;
                 timeSpentVaulting = 0;
             }
@@ -575,7 +575,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //Debug.Log("Should vault");
         startTime = Time.time;
         oldLocation = gameObject.transform.position;
-        gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
+        //gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
         journeyDistance = Vector3.Distance(oldLocation, newLocation);
 
         center = (oldLocation + newLocation) * 0.5F;
@@ -591,6 +591,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Vaulting);
         //myLegAnimator.SetBool("Vaulting", true);
         //myArmAnimator.SetTrigger("Vaulting");
+        myArmAnimator.SetTrigger("Vaulting");
     }
 
     private void CancelZandXRotation() {
