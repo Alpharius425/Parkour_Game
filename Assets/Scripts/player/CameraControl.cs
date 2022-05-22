@@ -16,6 +16,8 @@ public class CameraControl : MonoBehaviour
     public float mouseSensitivity = 100f;
     float xRotation = 0f;
 
+    [SerializeField] float cameraMovementSmoothing;
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +65,15 @@ public class CameraControl : MonoBehaviour
             affectRotation = false;
         }
 
-        if(affectRotation) // prevents us from changing the player's rotation when we don't want to
+        if (!affectRotation && transform.localRotation != Quaternion.Euler(xRotation, 0f, 0f))
+        {
+            Quaternion lookPosition = player.transform.rotation;
+            Quaternion smoothPosition = Quaternion.Lerp(transform.localRotation, lookPosition, cameraMovementSmoothing * Time.deltaTime);
+            transform.localRotation = smoothPosition;
+            player.transform.Rotate(Vector3.up * mouseX);
+        }
+
+        if (affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // keeps the camera from rotating in weird ways and rotates it normally along X
             player.transform.Rotate(Vector3.up * mouseX);
