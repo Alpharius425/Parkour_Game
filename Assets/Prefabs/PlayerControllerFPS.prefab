@@ -1574,7 +1574,7 @@ CharacterController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881899092385311088}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ea174a407a57414479134dc54adc0c2e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1749,6 +1749,7 @@ MonoBehaviour:
   runSpeed: 15
   jumpForce: 2
   airSpeed: 0.45
+  savedAirSpeed: 0
   jumpGravityDelay: 0
   idleJumpMultiplier: 1
   walkJumpMultiplier: 1
@@ -1776,6 +1777,9 @@ MonoBehaviour:
   slideTimeMax: 1
   sliding: 0
   slideDetectionRange: 2
+  slideDetectionLayers:
+    serializedVersion: 2
+    m_Bits: 0
   wallRunMinSpeed: 1
   climbSpeed: 7
   movement: {x: 0, y: 0, z: 0}
@@ -1826,7 +1830,7 @@ MonoBehaviour:
   sprintHeld: 0
   crouchHeld: 0
   groundCheck: {fileID: 8227256008447107630}
-  GroundCheckArea: {x: 0.4, y: 0.1, z: 0.4}
+  GroundCheckArea: {x: 0.22, y: 0.1, z: 0.22}
   groundCheckLayers:
     serializedVersion: 2
     m_Bits: 5121

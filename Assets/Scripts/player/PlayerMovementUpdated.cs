@@ -72,6 +72,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     public bool sliding = false;
     Vector3 slideMove = Vector3.zero;
     [SerializeField] float slideDetectionRange;
+    [SerializeField] LayerMask slideDetectionLayers;
 
     [Header("Wallrunning Settings")]
     [SerializeField] float wallRunMinSpeed = 1f;
@@ -119,7 +120,7 @@ public class PlayerMovementUpdated : MonoBehaviour
             slideTime -= Time.deltaTime;
             myArmAnimator.SetBool("Sliding", true);
             Debug.DrawRay(controller.transform.position, gameObject.transform.forward * slideDetectionRange, Color.red);
-            if (Physics.Raycast(controller.transform.position, gameObject.transform.forward, out hit, slideDetectionRange)) // if we slide into something
+            if (Physics.Raycast(controller.transform.position, gameObject.transform.forward, out hit, slideDetectionRange, slideDetectionLayers)) // if we slide into something
             {
                 CancelSlide(); // stop sliding
             }
@@ -174,7 +175,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                 //myCamera.RotatePlayer();
 
                 //myLegAnimator.SetBool("Vaulting", false);
-                myArmAnimator.SetBool("Vaulting", false);
+                
                 GetComponent<CharacterController>().enabled = true;
                 timeSpentVaulting = 0;
             }
@@ -574,7 +575,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         //Debug.Log("Should vault");
         startTime = Time.time;
         oldLocation = gameObject.transform.position;
-        gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
+        //gameObject.transform.LookAt(newLocation); // makes our player look at the endpoint
         journeyDistance = Vector3.Distance(oldLocation, newLocation);
 
         center = (oldLocation + newLocation) * 0.5F;
@@ -590,6 +591,7 @@ public class PlayerMovementUpdated : MonoBehaviour
         myController.UpdateState(State.Vaulting);
         //myLegAnimator.SetBool("Vaulting", true);
         //myArmAnimator.SetTrigger("Vaulting");
+        myArmAnimator.SetTrigger("Vault");
     }
 
     private void CancelZandXRotation() {
