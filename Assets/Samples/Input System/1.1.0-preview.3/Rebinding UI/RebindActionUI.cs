@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.Events;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
+//using TMPro; // not sure how to import this into this namespace 
 
 // SOURCE: 
 // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.Samples.RebindUI.html 
@@ -397,9 +398,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 {
                     Debug.Log("Duplicate binding found for reset to default: " + newBinding.effectivePath);
                     // Swap the two actions.
-                    //////// TODO: Fix this method or at least this "swapping" part of it 
-                    //////// It's doing the job of keeping one key bound to more than one action in the case of one key being reset to a key that has already been bound to something else 
-                    //////// (ex. Ex. Change crouch to Ctrl, change jump to C, reset crouch to C), but it's not swapping the keybind in this sceneario 
+                    //////// NOTE: This method doesn't totally work, it's preventing duplicate keys but not actually swapping them 
+                    //////// (ex. Ex. Change crouch to Ctrl, change jump to C, reset crouch to C)  
                     action.actionMap.FindAction(binding.action).ApplyBindingOverride(i, newBinding.overridePath);
                     action.RemoveBindingOverride(bindingIndex);
                     return true;

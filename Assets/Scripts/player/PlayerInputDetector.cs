@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerInputDetector : MonoBehaviour
 {
@@ -23,8 +24,10 @@ public class PlayerInputDetector : MonoBehaviour
     private int crouchToggledInt;
     private int sprintToggledInt;
 
-    public Text crouchButtonText;
-    public Text sprintButtonText;
+    //public Text crouchButtonText;
+    //public Text sprintButtonText;
+    public TextMeshProUGUI crouchButtonText;
+    public TextMeshProUGUI sprintButtonText;
 
     // Start is called before the first frame update
     void Start()
