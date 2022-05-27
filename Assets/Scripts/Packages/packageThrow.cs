@@ -5,6 +5,7 @@ using UnityEngine;
 public class packageThrow : MonoBehaviour
 {
     public static packageThrow Instance;
+    [SerializeField] PlayerInputDetector myInput;
 
     [Header("Game Objects")]
     public GameObject playerProjectilePosition;
@@ -21,6 +22,7 @@ public class packageThrow : MonoBehaviour
     private void Awake() {
         Instance = this;
         targetPosition = playerProjectilePosition.transform.position;
+        myInput = gameObject.GetComponent<PlayerInputDetector>();
     }
 
     void FixedUpdate()
@@ -40,6 +42,7 @@ public class packageThrow : MonoBehaviour
     {
         if (shootTimer < 0)
         {
+            myInput.myMovement.myArmAnimator.SetTrigger("Throwing");
             if (pickupColliderScript.bonusPackageInHand)
             {
                 // Enables physics for bonusPackageInHand.
