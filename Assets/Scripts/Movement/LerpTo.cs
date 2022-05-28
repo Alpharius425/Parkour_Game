@@ -10,6 +10,7 @@ public class LerpTo : MonoBehaviour
     [SerializeField] Vector3 startPoint; // saves the position of the player when we start the lerp
     [SerializeField] float journeyDistance; // saves the distance between our start and end points
     [SerializeField] float distanceCovered; // how far we've gone in the journey
+    [SerializeField] float interpolationSpeed = 1;
     Vector3 nextPosition;
 
     [SerializeField] float startTime; // saves reference for when we start moving
@@ -22,28 +23,31 @@ public class LerpTo : MonoBehaviour
     PlayerMovementUpdated playerMovement;
 
     [SerializeField] bool wallrunning = false; // temporary solution to wall running. will let us be able to jump from walls if the player wants to
+    float fractionOfJourney = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if(attached && controller.attachedObject == this) // looks to see if we have the player attached to the object
+        if (attached && controller.attachedObject == this) // looks to see if we have the player attached to the object
         {
+
+           fractionOfJourney += Time.deltaTime / (interpolationSpeed * speed);
+
             //distanceCovered = (Time.time - startTime) * speed;
-            float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
-            nextPosition = Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
+            //float fractionOfJourney = distanceCovered / journeyDistance; // saves how much of the distance we've already passed
+            //nextPosition = Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney); // begins moving the player from the starting point to the endpoint
             //playerMovement.MoveVelocity(player.transform.position - nextPosition);
+            playerMovement.transform.position = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney));
 
-            playerMovement.movement = (player.transform.position - Vector3.Lerp(startPoint, endPoint.transform.position, fractionOfJourney) * speed);
-
-            //if (player.transform.position == endPoint.transform.position) // once the player reaches the end point
-            //{
-
-            //    Stop();
-            //}
+            if (Vector3.Distance(player.transform.position, endPoint.transform.position) <= 0.2f) // once the player reaches the end point
+            {
+                Stop();
+            }
 
             if (wallrunning)
             {
                 player.GetComponent<PlayerController>().UpdateState(State.Wallrunning);
+                fractionOfJourney = 0;
             }
             else
             {
@@ -61,7 +65,6 @@ public class LerpTo : MonoBehaviour
     public void Stop()
     {
         attached = false; // stops the object from moving us
-        controller.myCamera.RotatePlayer();
         controller.ResetWallJumpTimer();
         controller.attachedObject = null;
         //player.GetComponent<CharacterController>().enabled = true;
@@ -111,16 +114,17 @@ public class LerpTo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == player && other.gameObject.GetComponent<PlayerController>().attachedObject == null) // if we detect the player and they aren't already attached to something
+        if(other.gameObject == player
+            && other.gameObject.GetComponent<PlayerController>().attachedObject == null) //if we detect the player and they aren't already attached to something
         {
             Attach();
-            //player.GetComponent<CharacterController>().enabled = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == player && other.gameObject.GetComponent<PlayerController>().attachedObject == this) // if we detect the player and they aren't already attached to something
+        if (other.gameObject == player
+            && other.gameObject.GetComponent<PlayerController>().attachedObject == this) // if we detect the player and they aren't already attached to something
         {
             Stop();
         }
