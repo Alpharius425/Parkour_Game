@@ -25,7 +25,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SettingsMenuToggle()
     {
-        Debug.Log("settings menu toggled");
+        //Debug.Log("settings menu toggled");
         if (settingsMenuActive == false)
         {
             settingsMenuActive = true;
@@ -45,7 +45,7 @@ public class SettingsMenu : MonoBehaviour
     }
     public void KeybindsMenuToggle()
     {
-        Debug.Log("keybinds menu toggled");
+        //Debug.Log("keybinds menu toggled");
         if (keybindsMenuActive == false)
         {
             keybindsMenuActive = true;
