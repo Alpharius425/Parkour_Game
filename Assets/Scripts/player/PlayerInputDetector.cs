@@ -24,8 +24,6 @@ public class PlayerInputDetector : MonoBehaviour
     private int crouchToggledInt;
     private int sprintToggledInt;
 
-    //public Text crouchButtonText;
-    //public Text sprintButtonText;
     public TextMeshProUGUI crouchButtonText;
     public TextMeshProUGUI sprintButtonText;
 

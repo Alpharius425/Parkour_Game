@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class TooltipManager : MonoBehaviour
 {
@@ -12,10 +14,12 @@ public class TooltipManager : MonoBehaviour
     public Image icon;
 
     public static TooltipManager instance;
+    public PlayerInput input;
 
     private void Awake()
     {
         instance = this;
+        input = FindObjectOfType<PlayerInput>();
     }
 
     public void DisplayTooltip(Tooltip tooltip)
