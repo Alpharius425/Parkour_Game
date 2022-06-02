@@ -10,36 +10,39 @@ public class TooltipTrigger : MonoBehaviour
 {
     public Tooltip keyboardAndMouseTooltip;
     public Tooltip gamepadTooltip;
-    public bool triggered = false;
-    public bool keyboardAndMouseActive;
+    //public bool triggered = false;
 
     private PlayerInput input;
 
     private void Awake()
     {
-         input = TooltipManager.instance.input;
+         input = TooltipManager.instance.input; // get reference to PlayerInput from the TooltipManager 
     }
 
-    //private void Update()
-    //{
-        
-    //}
-
-    private void OnTriggerEnter(Collider other)
+    // called once per physics frame 
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !triggered)
+        if (other.gameObject.tag == "Player")
         {
             // determine whether to show keyboard/mouse or gamepad tooltip 
             if (input.currentControlScheme == "KeyboardAndMouse")
             {
-                TooltipManager.instance.DisplayTooltip(keyboardAndMouseTooltip);
+                TooltipManager.instance.PopulateTooltip(keyboardAndMouseTooltip);
             } 
             else if (input.currentControlScheme == "Gamepad")
             {
-                TooltipManager.instance.DisplayTooltip(gamepadTooltip);
+                TooltipManager.instance.PopulateTooltip(gamepadTooltip);
             }
             
-            triggered = true;
+            //triggered = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            TooltipManager.instance.HideTooltip();
         }
     }
 
