@@ -5,11 +5,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 
 public class TooltipManager : MonoBehaviour
 {
-    public GameObject toolTipPanel;
+    public GameObject TooltipUI;
     public TextMeshProUGUI description;
     public Image icon;
 
@@ -19,20 +18,31 @@ public class TooltipManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        input = FindObjectOfType<PlayerInput>();
+        input = FindObjectOfType<PlayerInput>(); // create reference to PlayerInput object once at the start of the scene 
     }
 
-    public void DisplayTooltip(Tooltip tooltip)
+    private void Update()
     {
-        toolTipPanel.SetActive(true);
+        if (PauseMenu.instance.Paused)
+        {
+            HideTooltip();
+        }
+    }
+
+    public void ShowTooltip()
+    {
+        TooltipUI.SetActive(true);
+    }
+
+    public void HideTooltip()
+    {
+        TooltipUI.SetActive(false);
+    }
+
+    public void PopulateTooltip(Tooltip tooltip)
+    {
         description.text = tooltip.description;
         icon.sprite = tooltip.icon;
-        //PopulateTooltip(tooltip);
+        ShowTooltip();
     }
-
-    //public void PopulateTooltip(Tooltip tooltip)
-    //{
-        //description.text = tooltip.description;
-        //icon.sprite = tooltip.icon;
-    //}
 }
