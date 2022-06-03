@@ -12,13 +12,17 @@
 					<ObjectInclusionList>
 						<ObjectRef Name="Throw_Box" ID="{5B719FEB-F462-418B-91CC-DDB6C59A6F39}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Pickup_Box" ID="{1CC3BCBC-B2BB-4A0C-837B-66992F242DD9}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Stop_Player_Movement" ID="{4A5F5F84-DBC2-4CEC-BE6E-3545563A5A3F}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Player_Movement" ID="{BCBC4A91-7A67-4FB7-973A-2D213210635A}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>
 				<SoundBank Name="Ambience" ID="{76EECF40-74B1-4420-A241-DBFC1DEB32DE}">
-					<ObjectInclusionList/>
+					<ObjectInclusionList>
+						<ObjectRef Name="Stop_Wind" ID="{647C9BA2-793A-4D2B-909D-F9C1F5FEDB69}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Wind" ID="{1D791C68-3261-4F60-ACE9-B06EC15ADE1E}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>

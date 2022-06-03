@@ -2,6 +2,13 @@
 <WwiseDocument Type="WorkUnit" ID="{1A8F818C-EB54-4ECF-A523-E8DE28AEEDBD}" SchemaVersion="103">
 	<AudioDevices>
 		<WorkUnit Name="Default Work Unit" ID="{1A8F818C-EB54-4ECF-A523-E8DE28AEEDBD}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Inclusion" Type="bool">
+					<ValueList>
+						<Value>False</Value>
+					</ValueList>
+				</Property>
+			</PropertyList>
 			<ChildrenList>
 				<AudioDevice Name="System" ID="{EC7450FC-3FCB-4D01-8D2C-10424A8BED62}" PluginName="System" CompanyID="0" PluginID="174" PluginType="7"/>
 				<AudioDevice Name="No_Output" ID="{AB76EE49-43E7-4793-93E9-50997669E3C9}" PluginName="No Output" CompanyID="0" PluginID="181" PluginType="7"/>

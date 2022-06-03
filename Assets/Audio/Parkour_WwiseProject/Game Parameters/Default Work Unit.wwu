@@ -9,6 +9,14 @@
 						<Property Name="Max" Type="Real64" Value="2"/>
 					</PropertyList>
 				</GameParameter>
+				<GameParameter Name="Player_FloorDist" ID="{4521F6B0-3E9A-4253-8385-CEB040D233E2}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="0"/>
+						<Property Name="RTPCRamping" Type="int16" Value="1"/>
+						<Property Name="SlewRateDown" Type="Real64" Value="82"/>
+						<Property Name="SlewRateUp" Type="Real64" Value="44"/>
+					</PropertyList>
+				</GameParameter>
 			</ChildrenList>
 		</WorkUnit>
 	</GameParameters>

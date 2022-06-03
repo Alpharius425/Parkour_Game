@@ -1,27 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\shira\OneDrive\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\shira\OneDrive\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\shira\OneDrive\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\shira\OneDrive\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\Camta\Desktop\Parkour_Game\Assets\Audio\Parkour_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
-	<StreamedFiles/>
+	<StreamedFiles>
+		<File Id="482501614" Language="SFX">
+			<ShortName>Wind_High.wav</ShortName>
+			<Path>SFX\Wind_High_D79FB2B7.wem</Path>
+		</File>
+		<File Id="754277686" Language="SFX">
+			<ShortName>Wind_Base_02.wav</ShortName>
+			<Path>SFX\Wind_Base_02_D79FB2B7.wem</Path>
+		</File>
+	</StreamedFiles>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="85412153" Language="SFX" Hash="2564553725">
+		<SoundBank Id="85412153" Language="SFX" Hash="2162848411">
 			<ObjectPath>\SoundBanks\Default Work Unit\Ambience</ObjectPath>
 			<ShortName>Ambience</ShortName>
 			<Path>Ambience.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1020223172" Name="Play_Wind" ObjectPath="\Events\Default Work Unit\Ambience\Play_Wind" DurationType="Infinite">
+					<ReferencedStreamedFiles>
+						<File Id="482501614" Language="SFX">
+							<ShortName>Wind_High.wav</ShortName>
+							<Path>SFX\Wind_High_D79FB2B7.wem</Path>
+						</File>
+						<File Id="754277686" Language="SFX">
+							<ShortName>Wind_Base_02.wav</ShortName>
+							<Path>SFX\Wind_Base_02_D79FB2B7.wem</Path>
+						</File>
+					</ReferencedStreamedFiles>
+				</Event>
+				<Event Id="3173136834" Name="Stop_Wind" ObjectPath="\Events\Default Work Unit\Ambience\Stop_Wind" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+			</IncludedEvents>
+			<GameParameters>
+				<GameParameter Id="2941405957" Name="Player_FloorDist" ObjectPath="\Game Parameters\Default Work Unit\Player_FloorDist"/>
+			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="1791615738">
+		<SoundBank Id="1355168291" Language="SFX" Hash="4241123631">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="2810670744" Language="SFX" Hash="2658499703">
+		<SoundBank Id="2810670744" Language="SFX" Hash="2017670520">
 			<ObjectPath>\SoundBanks\Default Work Unit\SoundFX</ObjectPath>
 			<ShortName>SoundFX</ShortName>
 			<Path>SoundFX.bnk</Path>
@@ -48,13 +75,61 @@
 							<ShortName>Footstep_Concrete04.wav</ShortName>
 							<Path>SFX\Footstep_Concrete04_10C4C929.wem</Path>
 						</File>
+						<File Id="135661934" Language="SFX">
+							<ShortName>Footstep_Dirt01.wav</ShortName>
+							<Path>SFX\Footstep_Dirt01_C3A887B3.wem</Path>
+						</File>
 						<File Id="184014942" Language="SFX">
 							<ShortName>Footstep_Concrete05.wav</ShortName>
 							<Path>SFX\Footstep_Concrete05_10C4C929.wem</Path>
 						</File>
+						<File Id="210722832" Language="SFX">
+							<ShortName>Footstep_Dirt03.wav</ShortName>
+							<Path>SFX\Footstep_Dirt03_10C4C929.wem</Path>
+						</File>
+						<File Id="287241709" Language="SFX">
+							<ShortName>Footstep_Dirt02.wav</ShortName>
+							<Path>SFX\Footstep_Dirt02_94E4EFD9.wem</Path>
+						</File>
+						<File Id="431844825" Language="SFX">
+							<ShortName>Footstep_Glass03.wav</ShortName>
+							<Path>SFX\Footstep_Glass03_10C4C929.wem</Path>
+						</File>
+						<File Id="469647511" Language="SFX">
+							<ShortName>Footstep_Dirt01.wav</ShortName>
+							<Path>SFX\Footstep_Dirt01_10C4C929.wem</Path>
+						</File>
+						<File Id="551328286" Language="SFX">
+							<ShortName>Footstep_Dirt05.wav</ShortName>
+							<Path>SFX\Footstep_Dirt05_10C4C929.wem</Path>
+						</File>
+						<File Id="640153056" Language="SFX">
+							<ShortName>Footstep_Glass02.wav</ShortName>
+							<Path>SFX\Footstep_Glass02_10C4C929.wem</Path>
+						</File>
+						<File Id="692570013" Language="SFX">
+							<ShortName>Footstep_Dirt04.wav</ShortName>
+							<Path>SFX\Footstep_Dirt04_9EFE6799.wem</Path>
+						</File>
+						<File Id="717873108" Language="SFX">
+							<ShortName>Footstep_Dirt02.wav</ShortName>
+							<Path>SFX\Footstep_Dirt02_10C4C929.wem</Path>
+						</File>
+						<File Id="781219141" Language="SFX">
+							<ShortName>Footstep_Dirt05.wav</ShortName>
+							<Path>SFX\Footstep_Dirt05_FDA53EDA.wem</Path>
+						</File>
+						<File Id="991842502" Language="SFX">
+							<ShortName>Footstep_Dirt04.wav</ShortName>
+							<Path>SFX\Footstep_Dirt04_10C4C929.wem</Path>
+						</File>
 						<File Id="1015324483" Language="SFX">
 							<ShortName>Footstep_Concrete06.wav</ShortName>
 							<Path>SFX\Footstep_Concrete06_10C4C929.wem</Path>
+						</File>
+						<File Id="1063070874" Language="SFX">
+							<ShortName>Footstep_Glass01.wav</ShortName>
+							<Path>SFX\Footstep_Glass01_10C4C929.wem</Path>
 						</File>
 						<File Id="1064630689" Language="SFX">
 							<ShortName>Footstep_Concrete02.wav</ShortName>
@@ -63,6 +138,14 @@
 						<File Id="1066601586" Language="SFX">
 							<ShortName>Footstep_Concrete03.wav</ShortName>
 							<Path>SFX\Footstep_Concrete03_10C4C929.wem</Path>
+						</File>
+						<File Id="1072502087" Language="SFX">
+							<ShortName>Footstep_Dirt06.wav</ShortName>
+							<Path>SFX\Footstep_Dirt06_10C4C929.wem</Path>
+						</File>
+						<File Id="1072663200" Language="SFX">
+							<ShortName>Footstep_Dirt03.wav</ShortName>
+							<Path>SFX\Footstep_Dirt03_D5541C45.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{68259408-67C3-4127-BCA7-2C06CEC135DB}</DefaultSwitchValue>
@@ -90,8 +173,52 @@
 								</SwitchContainer>
 							</Children>
 						</SwitchContainer>
+						<SwitchContainer SwitchValue="{ED1FBC83-FC1C-4A8B-84EB-B7E480DF1E2E}">
+							<DefaultSwitchValue>{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}</DefaultSwitchValue>
+							<Children>
+								<SwitchContainer SwitchValue="{070E4E57-290A-4303-8408-E8F7A35627B6}">
+									<Media>
+										<File Id="431844825"/>
+										<File Id="640153056"/>
+										<File Id="1063070874"/>
+									</Media>
+								</SwitchContainer>
+								<SwitchContainer SwitchValue="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}">
+									<Media>
+										<File Id="431844825"/>
+										<File Id="640153056"/>
+										<File Id="1063070874"/>
+									</Media>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer SwitchValue="{44A2E8DC-85E2-44C5-8C85-96BEDDFDC06D}">
+							<DefaultSwitchValue>{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}</DefaultSwitchValue>
+							<Children>
+								<SwitchContainer SwitchValue="{070E4E57-290A-4303-8408-E8F7A35627B6}">
+									<Media>
+										<File Id="135661934"/>
+										<File Id="287241709"/>
+										<File Id="692570013"/>
+										<File Id="781219141"/>
+										<File Id="1072663200"/>
+									</Media>
+								</SwitchContainer>
+								<SwitchContainer SwitchValue="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}">
+									<Media>
+										<File Id="210722832"/>
+										<File Id="469647511"/>
+										<File Id="551328286"/>
+										<File Id="717873108"/>
+										<File Id="991842502"/>
+										<File Id="1072502087"/>
+									</Media>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
+				<Event Id="1386092461" Name="Stop_Player_Movement" ObjectPath="\Events\Default Work Unit\SFX\Stop_Player_Movement" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 				<Event Id="2578410269" Name="Throw_Box" ObjectPath="\Events\Default Work Unit\SFX\Throw_Box" DurationType="OneShot" DurationMin="1.159357" DurationMax="1.700987">
 					<IncludedMemoryFiles>
 						<File Id="92506672" Language="SFX">

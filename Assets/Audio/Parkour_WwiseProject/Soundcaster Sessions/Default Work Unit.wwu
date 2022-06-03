@@ -6,6 +6,14 @@
 				<SoundcasterSession Name="SFX_Test" ID="{6A02CCE6-7B9B-425C-9162-EF5B2024E6C8}">
 					<ModuleList>
 						<Module>
+							<ObjectRef Name="Play_Wind" ID="{1D791C68-3261-4F60-ACE9-B06EC15ADE1E}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Stop_Wind" ID="{647C9BA2-793A-4D2B-909D-F9C1F5FEDB69}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}"/>
+							<Position X="0" Y="1"/>
+						</Module>
+						<Module>
 							<ObjectRef Name="Pickup_Box" ID="{1CC3BCBC-B2BB-4A0C-837B-66992F242DD9}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}"/>
 							<Position X="2" Y="0"/>
 						</Module>
@@ -22,6 +30,10 @@
 						<RTPCValue>
 							<GameParameterRef Name="SS_Air_Turbulence" ID="{EDA87B19-73AA-40A0-9F19-2073606DB710}"/>
 							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Player_FloorDist" ID="{4521F6B0-3E9A-4253-8385-CEB040D233E2}"/>
+							<Value>1.45251125045939E-311</Value>
 						</RTPCValue>
 						<RTPCValue>
 							<GameParameterRef Name="Playback_Rate" ID="{28387EE3-C13A-4316-B9C3-DB5C521624AF}"/>
@@ -74,8 +86,8 @@
 					</RTPCValueList>
 					<CurrentStateList ShowAll="true"/>
 					<CurrentSwitchList ShowAll="true">
-						<CurrentSwitchRef Name="Run" ID="{070E4E57-290A-4303-8408-E8F7A35627B6}"/>
-						<CurrentSwitchRef Name="Concrete" ID="{68259408-67C3-4127-BCA7-2C06CEC135DB}"/>
+						<CurrentSwitchRef Name="Walk" ID="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}"/>
+						<CurrentSwitchRef Name="Glass" ID="{ED1FBC83-FC1C-4A8B-84EB-B7E480DF1E2E}"/>
 					</CurrentSwitchList>
 				</SoundcasterSession>
 			</ChildrenList>
