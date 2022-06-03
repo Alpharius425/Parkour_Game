@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MusicAudioSource : MonoBehaviour
 {
-    public AudioClip[] musicClips;
     
     [Header("Settings")]
     [Space(5)]
@@ -28,17 +27,13 @@ public class MusicAudioSource : MonoBehaviour
             }
 
             // Plays another random music clip after the current clip playing is finished.
-            if (GetComponent<AudioSource>().isPlaying == false) {
-                PlayRandomMusicClip();
-            }
         } 
     }
-
     // Function to randomly play music clips from musicClips[].
     public void PlayRandomMusicClip() {
         if (musicIsOn) {
-            GetComponent<AudioSource>().clip = musicClips[Random.Range(0, musicClips.Length)];
-            GetComponent<AudioSource>().Play();
+            Debug.LogWarning("Need to implement Music @MusicAudioSource.cs");
+            // AkSoundEngine.PostEvent("Play_Music", this.gameObject);
         }
     }
 }

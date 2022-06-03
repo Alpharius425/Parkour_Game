@@ -25,7 +25,7 @@ public class SFXAudioSource : MonoBehaviour
             }
         }
     }
-
+    /*
     public void PlaySFXClip(AudioClip clip) {
         if (sfxIsOn) {
             GetComponent<AudioSource>().clip = clip;
@@ -39,4 +39,5 @@ public class SFXAudioSource : MonoBehaviour
             GetComponent<AudioSource>().Play();
         }
     }
+    */
 }

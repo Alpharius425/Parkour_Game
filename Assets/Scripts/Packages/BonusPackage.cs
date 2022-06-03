@@ -40,7 +40,7 @@ public class BonusPackage : MonoBehaviour
     {
         if ((collision.gameObject.GetComponent<Collider>() != null) && (collision.gameObject.GetComponent<Collider>().isTrigger == false) && collision.gameObject.tag != "Player")
         {
-            GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom2);
+            AkSoundEngine.PostEvent("Pickup_Box", this.gameObject);
         }
     }
 

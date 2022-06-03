@@ -17,13 +17,14 @@ public class smallPackage : MonoBehaviour
         Invoke("DestroyObject", projectileLifetime);
 
         // SFX - Throwing
-        GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom1);
+        AkSoundEngine.PostEvent("Throw_Box", this.gameObject);
     }
 
     // SFX
     private void OnCollisionEnter(Collision collision) {
         if ((collision.gameObject.GetComponent<Collider>() != null) && (collision.gameObject.GetComponent<Collider>().isTrigger == false) && collision.gameObject.tag != "Player") {
-            GetComponent<SFXAudioSource>().PlaySFXClipRandom(GetComponent<SFXAudioSource>().sfxClipsRandom2);
+            Debug.LogWarning("smallPackage Collision needs implemented");
+            //AkSoundEngine.PostEvent("Collision", this.gameObject);
         }
     }
 

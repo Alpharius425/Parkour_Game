@@ -64,7 +64,7 @@ public class PickupCollider : MonoBehaviour
         bonusPackageUI.SetActive(true);
 
         // SFX - Item Pickup
-        sfxAudioSourceObject.GetComponent<SFXAudioSource>().PlaySFXClipRandom(sfxAudioSourceObject.GetComponent<SFXAudioSource>().sfxClipsRandom1);
+        AkSoundEngine.PostEvent("Pickup_Box", this.gameObject);
 
         // Bonus Package Delivery Point
         bonusPackageObject.GetComponent<BonusPackage>().PackageDeliveryPoint.SetActive(true);
@@ -85,7 +85,7 @@ public class PickupCollider : MonoBehaviour
         bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
 
         // SFX - Item Throw
-        bonusPackageObject.GetComponent<SFXAudioSource>().PlaySFXClipRandom(bonusPackageObject.GetComponent<SFXAudioSource>().sfxClipsRandom1);
+        AkSoundEngine.PostEvent("Throw_Box", this.gameObject);
 
         // Arrow Object
         ArrowObject.Instance.bonusPackageObject = null;
