@@ -18,7 +18,10 @@
 					<GameSyncExclusionList/>
 				</SoundBank>
 				<SoundBank Name="Ambience" ID="{76EECF40-74B1-4420-A241-DBFC1DEB32DE}">
-					<ObjectInclusionList/>
+					<ObjectInclusionList>
+						<ObjectRef Name="Stop_Wind" ID="{647C9BA2-793A-4D2B-909D-F9C1F5FEDB69}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Wind" ID="{1D791C68-3261-4F60-ACE9-B06EC15ADE1E}" WorkUnitID="{7F9A6790-881D-445C-BD42-AAE0DC2DF45A}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>

@@ -39,6 +39,49 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Stop_Player_Movement" ID="{4A5F5F84-DBC2-4CEC-BE6E-3545563A5A3F}">
+							<ChildrenList>
+								<Action Name="" ID="{BDFE4DCB-F22F-470D-B90A-15194B5C8A2A}" ShortID="468980756">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Player_Movement" ID="{2873CBEB-5A76-4331-A0EF-6BC6EB7CC104}" WorkUnitID="{285AB6BD-74F9-42F2-8102-852E84CBB70C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Ambience" ID="{A7F5FDA4-39E0-4C83-A94D-AAE6B4604AB3}" ShortID="148958031">
+					<ChildrenList>
+						<Event Name="Stop_Wind" ID="{647C9BA2-793A-4D2B-909D-F9C1F5FEDB69}">
+							<ChildrenList>
+								<Action Name="" ID="{34822DAC-262E-4C97-B3B4-97987F590146}" ShortID="560764249">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="WindAmbience" ID="{598BE12F-2B7B-47A4-B496-73CA9DB2F75F}" WorkUnitID="{285AB6BD-74F9-42F2-8102-852E84CBB70C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Wind" ID="{1D791C68-3261-4F60-ACE9-B06EC15ADE1E}">
+							<ChildrenList>
+								<Action Name="" ID="{C7C670E6-F66E-424A-B598-DD4FB8E75E6D}" ShortID="1029473060">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="WindAmbience" ID="{598BE12F-2B7B-47A4-B496-73CA9DB2F75F}" WorkUnitID="{285AB6BD-74F9-42F2-8102-852E84CBB70C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
