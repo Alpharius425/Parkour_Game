@@ -16,6 +16,9 @@ public class CameraControl : MonoBehaviour
     public float mouseSensitivity = 100f;
     float xRotation = 0f;
 
+    [SerializeField] Vector3 lookPosition;
+    Quaternion rotGoal;
+    Vector3 lookDirection;
     [SerializeField] float cameraMovementSmoothing;
 
 
@@ -54,7 +57,7 @@ public class CameraControl : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        
+        gameObject.transform.position = player.transform.position;
 
         if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Jumping) // checks to see if we are in a state that lets the camera change our rotation
         {
@@ -65,22 +68,29 @@ public class CameraControl : MonoBehaviour
             affectRotation = false;
         }
 
-        if (!affectRotation && transform.localRotation != Quaternion.Euler(xRotation, 0f, 0f))
+        if (!affectRotation)
         {
-            Quaternion lookPosition = player.transform.rotation;
-            Quaternion smoothPosition = Quaternion.Lerp(transform.localRotation, lookPosition, cameraMovementSmoothing * Time.deltaTime);
-            transform.localRotation = smoothPosition;
-            player.transform.Rotate(Vector3.up * mouseX);
+            player.transform.Rotate(Vector3.up * mouseY);
         }
 
         if (affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // keeps the camera from rotating in weird ways and rotates it normally along X
-            player.transform.Rotate(Vector3.up * mouseX);
+            if(transform.localRotation != player.transform.rotation)
+            {
+                lookPosition = player.transform.forward;
+                lookDirection = (lookPosition - transform.position).normalized;
+                rotGoal = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotGoal, cameraMovementSmoothing);
+            }
+            else
+            {
+                transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // keeps the camera from rotating in weird ways and rotates it normally along X
+                player.transform.Rotate(Vector3.up * mouseY);
+            }
         }
         else
         {
-            transform.Rotate(Vector3.up * mouseX);
+            transform.Rotate(Vector3.up * mouseY);
             Quaternion newAngle = transform.localRotation; // gets the initial rotation
             newAngle.z = 0; // gets the change of angle
             //newAngle.y = 0; // gets the change of angle
