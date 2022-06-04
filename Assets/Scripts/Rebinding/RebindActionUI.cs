@@ -19,9 +19,15 @@ using TMPro;
     /// </summary>
     public class RebindActionUI : MonoBehaviour
     {
-        /// <summary>
-        /// Reference to the action that is to be rebound.
-        /// </summary>
+        //public PlayerInput playerInput;
+        //private void Awake()
+        //{
+        //    playerInput = FindObjectOfType<PlayerInput>();
+        //}
+
+    /// <summary>
+    /// Reference to the action that is to be rebound.
+    /// </summary>
         public InputActionReference actionReference
         {
             get => m_Action;
@@ -111,6 +117,13 @@ using TMPro;
             get => m_RebindOverlay;
             set => m_RebindOverlay = value;
         }
+
+        // Reference to PlayerInput that can be used to find the current control scheme.  
+        //public PlayerInput playerInput
+        //{
+            //get => m_PlayerInput;
+            //set => m_PlayerInput = value;
+        //}
 
         /// <summary>
         /// Event that is triggered every time the UI updates to reflect the current binding.
@@ -268,6 +281,7 @@ using TMPro;
 
         private void PerformInteractiveRebind(InputAction action, int bindingIndex, bool allCompositeParts = false)
         {
+
             m_RebindOperation?.Cancel(); // Will null out m_RebindOperation.
 
             void CleanUp()
@@ -319,7 +333,17 @@ using TMPro;
                                 PerformInteractiveRebind(action, nextBindingIndex, true);
                         }
                     });
-
+            
+            //// Exclude controls of the opposite type 
+            //if (playerInput.currentControlScheme == "KeyboardAndMouse")
+            //{
+            //    m_RebindOperation.WithControlsExcluding("<Gamepad>");
+            //}
+            //else if (playerInput.currentControlScheme == "Gamepad")
+            //{
+            //    m_RebindOperation.WithControlsExcluding("<KeyboardAndMouse>");
+            //}
+            
             // If it's a part binding, show the name of the part in the UI.
             var partName = default(string);
             if (action.bindings[bindingIndex].isPartOfComposite)
@@ -486,7 +510,10 @@ using TMPro;
         [SerializeField]
         private TextMeshProUGUI m_RebindText;
 
-        [Tooltip("Event that is triggered when the way the binding is display should be updated. This allows displaying "
+        //[SerializeField]
+        //private PlayerInput m_PlayerInput;
+
+    [Tooltip("Event that is triggered when the way the binding is display should be updated. This allows displaying "
             + "bindings in custom ways, e.g. using images instead of text.")]
         [SerializeField]
         private UpdateBindingUIEvent m_UpdateBindingUIEvent;
