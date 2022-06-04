@@ -82,7 +82,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
 
     public Vector3 movement = Vector3.zero; // the character's actual movement
-    [SerializeField] float gravity;
+    [SerializeField] public float gravity;
     [SerializeField] bool airControlsOn = true;
 
 
@@ -313,16 +313,16 @@ public class PlayerMovementUpdated : MonoBehaviour
                 case State.Wallrunning:
                     if (myController.attachedObject != null)
                     {
-                        movement.x = 0;
-                        if(movement.z < 0)
-                        {
-                            movement.z *= -1;
-                        }
+                        //movement.x = 0;
+                        //if(movement.z < 0)
+                        //{
+                        //    movement.z *= -1;
+                        //}
+                        //if (movement.z < wallRunMinSpeed)
+                        //{
+                        //    myController.attachedObject.Stop();
+                        //}
 
-                        if(movement.z < wallRunMinSpeed)
-                        {
-                            myController.attachedObject.Stop();
-                        }
                         MoveInput();
                     }
                     break;
