@@ -297,6 +297,7 @@ using TMPro;
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
                 .WithControlsExcluding("<Pointer>/position")
                 .WithCancelingThrough("<Keyboard>/escape")
+                //.WithCancelingThrough("<Gamepad>/start")
                 .OnCancel(
                     operation =>
                     {
