@@ -1561,6 +1561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56dc0d5afc393704ba8ffde64080c7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInput: {fileID: 0}
   playerProjectilePosition: {fileID: 6620440100022888965}
   projectileObject: {fileID: 2555174687006384262, guid: 6d1dde0b148fa114a970b6e712cabc61, type: 3}
   shootCountdown: 1
@@ -1699,10 +1700,6 @@ MonoBehaviour:
     m_ActionId: 4d33d206-1b5d-4d7e-a9ef-6fca956ef3eb
     m_ActionName: PlayerMovement/PauseToggle[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f2a93d29-755b-4d45-b074-ff3a4cad31e6
-    m_ActionName: PlayerMovement/ChangeSelection[/Keyboard/upArrow,/Keyboard/downArrow]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1826140720}
         m_TargetAssemblyTypeName: PlayerInputDetector, Assembly-CSharp
@@ -1719,7 +1716,7 @@ MonoBehaviour:
     m_ActionId: 75034d33-2ea1-4ad1-8874-1a8882a10a31
     m_ActionName: PlayerMovement/BoxThrow[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: KeyboardAndMouse
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

@@ -16,7 +16,7 @@ public class TooltipTrigger : MonoBehaviour
 
     private void Awake()
     {
-         playerInput = TooltipManager.instance.playerInput; // get reference to PlayerInput from the TooltipManager 
+        playerInput = FindObjectOfType<PlayerInput>();
     }
 
     // called once per physics frame 
