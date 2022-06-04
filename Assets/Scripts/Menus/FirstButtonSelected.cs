@@ -7,7 +7,7 @@ public class FirstButtonSelected : MonoBehaviour
 {
     public Button firstButtonSelected;
 
-    public void OnEnable()
+    public void Start()
     {
         firstButtonSelected.Select();
     }

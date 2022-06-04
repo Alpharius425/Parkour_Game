@@ -13,12 +13,11 @@ public class TooltipManager : MonoBehaviour
     public Image icon;
 
     public static TooltipManager instance;
-    public PlayerInput playerInput;
+    //public PlayerInput playerInput;
 
     private void Awake()
     {
         instance = this;
-        playerInput = FindObjectOfType<PlayerInput>(); // create reference to PlayerInput object once at the start of the scene 
     }
 
     private void Update()
