@@ -46,14 +46,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ChangeSelection",
-                    "type": "Value",
-                    "id": "f2a93d29-755b-4d45-b074-ff3a4cad31e6",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "BoxThrow",
                     "type": "Button",
                     "id": "75034d33-2ea1-4ad1-8874-1a8882a10a31",
@@ -214,61 +206,6 @@
                     "processors": "",
                     "groups": "KeyboardAndMouse",
                     "action": "PauseToggle",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ce82e19b-f776-41ab-9288-3365878e2d88",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardAndMouse",
-                    "action": "ChangeSelection",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e7633447-a6d9-4119-9d1c-4e80ea1f268e",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardAndMouse",
-                    "action": "ChangeSelection",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "123c69bc-7ad8-45e9-aad8-11d927cfad22",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ChangeSelection",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24f61d4b-693f-4fd6-9cce-f333cfea101d",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ChangeSelection",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1b5e5453-9df5-4492-96f3-467bdb61765f",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ChangeSelection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

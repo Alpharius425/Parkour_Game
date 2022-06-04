@@ -269,13 +269,13 @@ public class PlayerInputDetector : MonoBehaviour
         }
     }
 
-    public void ChangeSelection(InputAction.CallbackContext value)
-    {
-        if(myPauseMenu.PauseMenuUI.activeInHierarchy)
-        {
+    //public void ChangeSelection(InputAction.CallbackContext value)
+    //{
+    //    if(myPauseMenu.PauseMenuUI.activeInHierarchy)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
     public void ThrowInput(InputAction.CallbackContext value)
     {
