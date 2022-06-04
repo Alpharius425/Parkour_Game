@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SettingsMenu : MonoBehaviour
     public bool settingsMenuActive = false;
     public bool keybindsMenuActive = false;
     public static SettingsMenu instance;
+    public Button firstKeybindSelected; // for when the user navigates to the keybinds menu using a gamepad  
 
     private void Awake()
     {
@@ -53,6 +55,8 @@ public class SettingsMenu : MonoBehaviour
 
             settingsMenuActive = false;
             SettingsMenuUI.SetActive(false);
+
+            firstKeybindSelected.Select();
         }
         else
         {
