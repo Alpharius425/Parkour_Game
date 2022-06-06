@@ -20,7 +20,7 @@
 	</StreamedFiles>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="85412153" Language="SFX" Hash="2162848411">
+		<SoundBank Id="85412153" Language="SFX" Hash="2898622154">
 			<ObjectPath>\SoundBanks\Default Work Unit\Ambience</ObjectPath>
 			<ShortName>Ambience</ShortName>
 			<Path>Ambience.bnk</Path>
@@ -43,10 +43,16 @@
 				<GameParameter Id="2941405957" Name="Player_FloorDist" ObjectPath="\Game Parameters\Default Work Unit\Player_FloorDist"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="4241123631">
+		<SoundBank Id="1355168291" Language="SFX" Hash="1456109616">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
+			<GameParameters>
+				<GameParameter Id="1006694123" Name="Music_Volume" ObjectPath="\Game Parameters\Default Work Unit\Music_Volume"/>
+				<GameParameter Id="1564184899" Name="SFX_Volume" ObjectPath="\Game Parameters\Default Work Unit\SFX_Volume"/>
+				<GameParameter Id="2901143258" Name="Ambience_Volume" ObjectPath="\Game Parameters\Default Work Unit\Ambience_Volume"/>
+				<GameParameter Id="4179668880" Name="Master_Volume" ObjectPath="\Game Parameters\Default Work Unit\Master_Volume"/>
+			</GameParameters>
 		</SoundBank>
 		<SoundBank Id="2810670744" Language="SFX" Hash="2017670520">
 			<ObjectPath>\SoundBanks\Default Work Unit\SoundFX</ObjectPath>

@@ -28,6 +28,10 @@
 					</ModuleList>
 					<RTPCValueList ShowAll="true">
 						<RTPCValue>
+							<GameParameterRef Name="Ambience_Volume" ID="{A6DE4A97-68FA-4067-AB43-F3473F3F372C}"/>
+							<Value>100</Value>
+						</RTPCValue>
+						<RTPCValue>
 							<GameParameterRef Name="SS_Air_Turbulence" ID="{EDA87B19-73AA-40A0-9F19-2073606DB710}"/>
 							<Value>6</Value>
 						</RTPCValue>
@@ -38,6 +42,10 @@
 						<RTPCValue>
 							<GameParameterRef Name="Playback_Rate" ID="{28387EE3-C13A-4316-B9C3-DB5C521624AF}"/>
 							<Value>1</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Master_Volume" ID="{D881CED9-810F-4347-8211-6F3373FAFE06}"/>
+							<Value>100</Value>
 						</RTPCValue>
 						<RTPCValue>
 							<GameParameterRef Name="SS_Air_Month" ID="{09E2B445-C4A3-447F-B3CA-818A1D925EF7}"/>
@@ -72,8 +80,16 @@
 							<Value>75</Value>
 						</RTPCValue>
 						<RTPCValue>
+							<GameParameterRef Name="SFX_Volume" ID="{27DF0762-FD42-4B56-817C-FEC3B9F3AAD5}"/>
+							<Value>100</Value>
+						</RTPCValue>
+						<RTPCValue>
 							<GameParameterRef Name="SS_Air_TimeOfDay" ID="{536FA72C-8C7E-4C8B-AE03-EF34FDADC314}"/>
 							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Music_Volume" ID="{8FB7C1F9-4702-4CB7-8F2D-7BE72199EDAE}"/>
+							<Value>100</Value>
 						</RTPCValue>
 						<RTPCValue>
 							<GameParameterRef Name="SS_Air_Freefall" ID="{2F2DFE37-4F9E-4D94-83D8-53CCA39781AD}"/>
@@ -86,8 +102,8 @@
 					</RTPCValueList>
 					<CurrentStateList ShowAll="true"/>
 					<CurrentSwitchList ShowAll="true">
-						<CurrentSwitchRef Name="Walk" ID="{B58677BE-5E0D-4BDC-B6B0-EFF2DC674432}"/>
-						<CurrentSwitchRef Name="Glass" ID="{ED1FBC83-FC1C-4A8B-84EB-B7E480DF1E2E}"/>
+						<CurrentSwitchRef Name="Run" ID="{070E4E57-290A-4303-8408-E8F7A35627B6}"/>
+						<CurrentSwitchRef Name="Concrete" ID="{68259408-67C3-4127-BCA7-2C06CEC135DB}"/>
 					</CurrentSwitchList>
 				</SoundcasterSession>
 			</ChildrenList>
