@@ -54,7 +54,7 @@ public class WallRun : MonoBehaviour
                 EndingPoint = defaultStart;
             }
 
-            if (Controller.sprintHeld)//the player must not be moving backwards and must be sprinting
+            if ((Controller.sprintHeld) && (Controller.currentState == State.Jumping) )//the player must not be moving backwards and must be sprinting
             {
                 allowWallRun = true;
                 MovementControl.gravity = 0;
