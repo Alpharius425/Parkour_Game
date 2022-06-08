@@ -172,6 +172,10 @@ public class PlayerController : MonoBehaviour
         }
         else // if we don't hit something
         {
+            //if(currentState == State.Crouching)
+            //{
+            //    CheckCrouch();
+            //}
             grounded = false;
         }
 
