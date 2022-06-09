@@ -12,7 +12,7 @@ public class WallRun : MonoBehaviour
     [SerializeField] float WallRunSpeed = 10;
     [SerializeField] float savedGravity;
     [SerializeField] bool Entered;//The player has entered into the wallrun and will soon exit if true
-    Transform defaultStart;//The defaultStart has the same value at the original StartingPoint and should never change
+    Transform defaultStart;//The defaultStart has the same value at the original StartingPoint and should never change //Note: In theory, since the script automatically switches  the start and end goals as needed, the default starting positon really matter from a logic perspective and not a design one.
     Transform defaultEnd;//The defaultEnd has the same value at the original StartingPoint and should never change
 
     // Start is called before the first frame update
@@ -54,7 +54,7 @@ public class WallRun : MonoBehaviour
                 EndingPoint = defaultStart;
             }
 
-            if ((Controller.sprintHeld) && (Controller.currentState == State.Jumping) )//the player must not be moving backwards and must be sprinting
+            if ((Controller.sprintHeld) && (Controller.currentState == State.Jumping) )//the player must be jumping and must be sprinting
             {
                 allowWallRun = true;
                 MovementControl.gravity = 0;
