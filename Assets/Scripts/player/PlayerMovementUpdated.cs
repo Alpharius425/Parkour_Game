@@ -372,6 +372,15 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveVelocity(Vector3 movement) // called if we are moving via velocity like when we slide, jump or fall
     {
+        //if(myController.currentState == State.Jumping)
+        //{
+        //    //controller.Move(movement * Time.deltaTime * airSpeed);
+        //}
+        //else
+        //{
+        //    controller.Move(movement * Time.deltaTime);
+        //}
+
         controller.Move(movement * Time.deltaTime);
     }
 

@@ -167,7 +167,10 @@ public class PlayerController : MonoBehaviour
             grounded = true;
             foreach (Collider item in groundedHit)
             {
-                //Debug.Log(item.name);
+                if(item.gameObject.GetComponent<JumpBooster>())
+                {
+                    myMovement.airSpeed = item.gameObject.GetComponent<JumpBooster>().airSpeed;
+                }
             }
         }
         else // if we don't hit something
