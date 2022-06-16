@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7912552617376537011}
   - component: {fileID: 3974841109708826981}
   - component: {fileID: 3106046044588753158}
+  - component: {fileID: 447107932430086885}
   m_Layer: 0
   m_Name: CladWall_3_BuildingSet_1
   m_TagString: Untagged
@@ -150,3 +151,17 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!64 &447107932430086885
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106046044588753159}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
