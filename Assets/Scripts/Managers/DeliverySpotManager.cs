@@ -19,6 +19,7 @@ public class DeliverySpotManager : MonoBehaviour
     public void MovePoint()
     {
         deliverySpot.Instance.gameObject.transform.position = deliveryPoints[currentPoint].transform.position;
+        deliverySpot.Instance.gameObject.transform.rotation = deliveryPoints[currentPoint].transform.rotation;
     }
 
     public void SetActivePoint(GameObject newPoint)
