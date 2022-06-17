@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2555174687006384261}
   - component: {fileID: 3458642711298405970}
   - component: {fileID: 7075028374927393902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Small Package - Projectile
   m_TagString: Package
   m_Icon: {fileID: 0}
@@ -317,6 +317,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dd110abe5d8a6f44fa70db6089b75812, type: 3}
       propertyPath: m_Name
       value: Package_1_V1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dd110abe5d8a6f44fa70db6089b75812, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436516316989507391, guid: dd110abe5d8a6f44fa70db6089b75812, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd110abe5d8a6f44fa70db6089b75812, type: 3}
