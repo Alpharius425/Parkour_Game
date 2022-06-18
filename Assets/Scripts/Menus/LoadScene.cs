@@ -37,10 +37,10 @@ public class LoadScene : MonoBehaviour
             progressText.text = (progress * 100f).ToString("F0") + "%";
             Debug.Log(progress);
 
-            //if (operation.isDone)
-            //{
-            //    loadingScreen.SetActive(false);
-            //}
+            if (operation.isDone)
+            {
+                loadingScreen.SetActive(false);
+            }
 
             yield return null;
         }
