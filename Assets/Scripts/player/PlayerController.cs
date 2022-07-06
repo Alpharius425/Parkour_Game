@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
         Collider[] groundedHit = Physics.OverlapBox(groundCheck.position, GroundCheckArea, gameObject.transform.rotation, groundCheckLayers); // makes a sphere around the ground check
 
-        if (groundedHit.Length != 0) // if we hit something
+        if (groundedHit.Length != 0 || (currentState == State.Climbing && curClimbTime > 0)) // if we hit something
         {
             myMovement.airSpeed = myMovement.savedAirSpeed;
             grounded = true;
@@ -175,10 +175,6 @@ public class PlayerController : MonoBehaviour
         }
         else // if we don't hit something
         {
-            //if(currentState == State.Crouching)
-            //{
-            //    CheckCrouch();
-            //}
             grounded = false;
         }
 
@@ -286,7 +282,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cant jump");
+            //Debug.Log("Cant jump");
         }
     }
 
@@ -415,7 +411,7 @@ public class PlayerController : MonoBehaviour
         {
             if(vaultHit.collider.gameObject != gameObject)
             {
-                direction.y += .2f;
+                direction.y += .4f;
                 //Debug.Log("initial hit" + vaultHit.point);
                 if (!Physics.Raycast(transform.position, direction, out vaultHit, vaultDetectionRange)) // we scan above the player and check if theres nothing
                 {
