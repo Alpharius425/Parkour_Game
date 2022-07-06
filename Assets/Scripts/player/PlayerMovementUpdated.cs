@@ -273,7 +273,7 @@ public class PlayerMovementUpdated : MonoBehaviour
                     //ChangeSpeed(climbSpeed);
                     Vector3 climbMovement = Vector3.zero;
                     //climbMovement.y = movement.z;
-                    climbMovement.y = 1; // todo has problem with moving up and down depending on the movement direction this is only a temperary work around
+                    climbMovement.y = movement.z; // todo has problem with moving up and down depending on the movement direction this is only a temperary work around
                     movement = Vector3.zero + climbMovement;
                     //MoveInput();
                     controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
@@ -372,9 +372,9 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     public void MoveVelocity(Vector3 movement) // called if we are moving via velocity like when we slide, jump or fall
     {
-        //if(myController.currentState == State.Jumping)
+        //if (myController.currentState == State.Jumping)
         //{
-        //    //controller.Move(movement * Time.deltaTime * airSpeed);
+        //    controller.Move(movement * Time.deltaTime * airSpeed);
         //}
         //else
         //{
