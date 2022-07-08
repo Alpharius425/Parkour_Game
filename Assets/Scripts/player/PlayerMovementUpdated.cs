@@ -273,8 +273,10 @@ public class PlayerMovementUpdated : MonoBehaviour
                     //ChangeSpeed(climbSpeed);
                     Vector3 climbMovement = Vector3.zero;
                     //climbMovement.y = movement.z;
-                    climbMovement.y = movement.z; // todo has problem with moving up and down depending on the movement direction this is only a temperary work around
+                    climbMovement.y = 1f; // todo has problem with moving up and down depending on the movement direction this is only a temperary work around
                     movement = Vector3.zero + climbMovement;
+                    //velocity.y = 0f;
+                    ResetVelocity();
                     //MoveInput();
                     controller.Move(movement * actualSpeed * airSpeed * Time.deltaTime);
                     break;
@@ -392,10 +394,15 @@ public class PlayerMovementUpdated : MonoBehaviour
             velocity.z = 0;
         }
 
-        if (myController.currentState != State.Climbing && myController.currentState != State.Vaulting)
+        if (myController.currentState != State.Climbing || myController.currentState != State.Vaulting)
         {
             velocity.y += gravity * Time.deltaTime;
             MoveVelocity(velocity);
+        }
+
+        if (myController.currentState == State.Climbing || myController.currentState == State.Vaulting) {
+            //velocity.y = 0f;
+            ResetVelocity();
         }
     }
 
