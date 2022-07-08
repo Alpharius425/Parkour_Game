@@ -47,7 +47,7 @@ public class packageThrow : MonoBehaviour
             {
                 // Enables physics for bonusPackageInHand.
                 bonusPackageObject.GetComponent<Rigidbody>().useGravity = true;
-                bonusPackageObject.GetComponent<MeshCollider>().isTrigger = false;
+                bonusPackageObject.GetComponent<SphereCollider>().isTrigger = false;
 
                 // Moves and adds force to bonusPackageInHand.
                 bonusPackageObject.transform.position = targetPosition;
