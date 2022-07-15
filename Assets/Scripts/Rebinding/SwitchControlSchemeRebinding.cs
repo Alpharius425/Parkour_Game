@@ -33,7 +33,17 @@ public class SwitchControlSchemeRebinding : MonoBehaviour
             {
                 KeyboardAndMouseRebindingUI.SetActive(false);
                 GamepadRebindingUI.SetActive(true);
-                DeviceLabel.text = playerInput.devices[0].displayName; // detect what type of gamepad is being used (e.g. xbox, playstation) 
+
+                // device label changes based on the type of controller being used 
+                if (playerInput.devices[0].description.manufacturer == "Sony Interactive Entertainment")
+                {
+                    DeviceLabel.text = "Playstation Controller";
+                }
+                else 
+                {
+                    DeviceLabel.text = playerInput.devices[0].displayName;
+                }
+
             }
         }
     }
