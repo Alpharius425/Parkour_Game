@@ -42,12 +42,12 @@ public class packageThrow : MonoBehaviour
     {
         if (shootTimer < 0)
         {
-            myInput.myMovement.myArmAnimator.SetTrigger("Throwing");
+            myInput.myMovement.myArmAnimator.Play("Box Throw", 0, 0.1f); // plays the box throw animation starting a tenth of the way in
             if (pickupColliderScript.bonusPackageInHand)
             {
                 // Enables physics for bonusPackageInHand.
                 bonusPackageObject.GetComponent<Rigidbody>().useGravity = true;
-                bonusPackageObject.GetComponent<MeshCollider>().isTrigger = false;
+                bonusPackageObject.GetComponent<SphereCollider>().isTrigger = false;
 
                 // Moves and adds force to bonusPackageInHand.
                 bonusPackageObject.transform.position = targetPosition;

@@ -46,7 +46,7 @@ public class PickupCollider : MonoBehaviour
             bonusPackageScript.movePackage = true;
 
             bonusPackageObject.GetComponent<Rigidbody>().useGravity = false;
-            bonusPackageObject.GetComponent<MeshCollider>().isTrigger = true;
+            bonusPackageObject.GetComponent<SphereCollider>().isTrigger = true;
 
             // Package Throw Script
             packageThrowScript.bonusPackageObject = other.gameObject;
@@ -80,8 +80,10 @@ public class PickupCollider : MonoBehaviour
 
     public void BonusPackageThrown() {
         bonusPackageUI.SetActive(false);
-
+        bonusPackageObject.GetComponent<Rigidbody>().isKinematic = true;
+        
         bonusPackageObject.SetActive(true);
+        bonusPackageObject.GetComponent<Rigidbody>().isKinematic = false;
         bonusPackageObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
 
         // SFX - Item Throw
