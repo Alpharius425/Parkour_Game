@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 5562266561051503594}
   - component: {fileID: 5562266561051503593}
   - component: {fileID: 5562266561051503592}
-  - component: {fileID: 5562266561051503607}
   m_Layer: 8
   m_Name: SlideTooltip
   m_TagString: Untagged
@@ -240,20 +239,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5562266561051503607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5562266561051503605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa9d50f859ed18428bcf0372e32a7c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyboardAndMouseTooltip: {fileID: 11400000, guid: 62c488bdb2d57684882131dd9bfa20f2, type: 2}
-  gamepadTooltip: {fileID: 11400000, guid: 81b9ff845993495468512f14345bf91f, type: 2}
 --- !u!1 &5562266561083650597
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +252,6 @@ GameObject:
   - component: {fileID: 5562266561083650778}
   - component: {fileID: 5562266561083650777}
   - component: {fileID: 5562266561083650776}
-  - component: {fileID: 5562266561083650599}
   m_Layer: 8
   m_Name: ClimbTooltip
   m_TagString: Untagged
@@ -367,20 +351,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5562266561083650599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5562266561083650597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa9d50f859ed18428bcf0372e32a7c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyboardAndMouseTooltip: {fileID: 11400000, guid: 8c98d7ea90dbf8745aa49074ac78347b, type: 2}
-  gamepadTooltip: {fileID: 11400000, guid: 9deafec8a17fa65439e694d3aa127b65, type: 2}
 --- !u!1 &5562266561440523264
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf223bbb56f0e446bd946304ac5f9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardAndMouseTooltip: {fileID: 11400000, guid: 9dbea114273cd9b45a870e3e36cfb8ef, type: 2}
+  keyboardAndMouseTooltip: {fileID: 0}
   gamepadTooltip: {fileID: 11400000, guid: 699e773736ef28045a27016a50328ee3, type: 2}
 --- !u!1 &5562266561925788750
 GameObject:
@@ -940,7 +910,6 @@ GameObject:
   - component: {fileID: 5562266562428207844}
   - component: {fileID: 5562266562428207843}
   - component: {fileID: 5562266562428207842}
-  - component: {fileID: 5562266562428207841}
   m_Layer: 8
   m_Name: WallrunTooltip
   m_TagString: Untagged
@@ -1040,17 +1009,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5562266562428207841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5562266562428207855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa9d50f859ed18428bcf0372e32a7c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyboardAndMouseTooltip: {fileID: 11400000, guid: c09d3549838f76f46bfe44f5e1bddb9c, type: 2}
-  gamepadTooltip: {fileID: 11400000, guid: b1401cd6a51d41648929466830c7be03, type: 2}
