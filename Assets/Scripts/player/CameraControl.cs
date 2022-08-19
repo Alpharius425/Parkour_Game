@@ -27,17 +27,20 @@ public class CameraControl : MonoBehaviour
 
     private void OnEnable()
     {
-        SetLookSensitivity.OnLookSensitivityChange += SetMouseSensitivity;
+        // listen for event triggered by slider in settings menu 
+        SetLookSensitivity.OnLookSensitivityChange += SetMouseSensitivity; 
     }
 
     private void OnDisable()
     {
+        // remove listener 
         SetLookSensitivity.OnLookSensitivityChange -= SetMouseSensitivity;
     }
 
     public void SetMouseSensitivity()
     {
-        mouseSensitivity = PlayerPrefs.GetFloat("LookSensitivityPref", 100);
+        // set sensitivity to player preference or 100 if not previously set 
+        mouseSensitivity = PlayerPrefs.GetFloat("LookSensitivityPref", 100); 
     }
 
     public void GetLookInput(InputAction.CallbackContext context)
@@ -89,7 +92,7 @@ public class CameraControl : MonoBehaviour
             mouseY += adjustedValue.y;
         }
 
-        Debug.Log(mouseSensitivity);
+        //Debug.Log(mouseSensitivity);
 
         mouseX *= mouseSensitivity * Time.deltaTime;
         mouseY *= mouseSensitivity * Time.deltaTime;

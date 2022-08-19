@@ -20,6 +20,24 @@ public class PlayerInputDetector : MonoBehaviour
     [Header("Toggle Settings")]
     public bool crouchToggled; // if true then the crouch is then on toggle detection instead of tap
     public bool sprintToggled;
+
+    private void Start()
+    {
+        GetCrouchAndSprintSettings();
+        ToggleCrouchAndSprint.OnSettingChange += GetCrouchAndSprintSettings;
+    }
+
+    private void OnDisable()
+    {
+        // remove event listener 
+        ToggleCrouchAndSprint.OnSettingChange -= GetCrouchAndSprintSettings;
+    }
+
+    public void GetCrouchAndSprintSettings()
+    {
+        crouchToggled = SettingsManager.crouchToggledSetting;
+        sprintToggled = SettingsManager.sprintToggledSetting;
+    }
     private void FixedUpdate()
     {
         if (myController.currentState != State.Sliding)
@@ -51,7 +69,6 @@ public class PlayerInputDetector : MonoBehaviour
             }
         }
 
-        GetCrouchAndSprintSettings(); // get bool values from settings menu 
     }
 
     public void GetMoveInput(InputAction.CallbackContext value) // gets our directional movement from the player
@@ -179,11 +196,6 @@ public class PlayerInputDetector : MonoBehaviour
         {
             canInput = true;
         }
-    }
-    public void GetCrouchAndSprintSettings()
-    {
-        crouchToggled = SettingsMenu.instance.crouchToggledSetting;
-        sprintToggled = SettingsMenu.instance.sprintToggledSetting;
     }
 
     public void ThrowInput(InputAction.CallbackContext value)

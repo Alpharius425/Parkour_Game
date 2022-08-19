@@ -8,7 +8,7 @@ using static UnityEngine.InputSystem.PlayerInput;
 
 public class DeviceManager : MonoBehaviour
 {
-    private PlayerInput playerInput;
+    public PlayerInput playerInput;
 
     private string previousDevice;
     public static string currentDevice;
@@ -16,10 +16,10 @@ public class DeviceManager : MonoBehaviour
     public delegate void DeviceChange();
     public static event DeviceChange OnDeviceChange;
 
-    private void Awake()
-    {
-        playerInput = FindObjectOfType<PlayerInput>();
-    }
+    //private void Awake()
+    //{
+    //    playerInput = FindObjectOfType<PlayerInput>();
+    //}
 
     private void Update()
     {

@@ -16,6 +16,7 @@ public class TooltipTrigger : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             DeviceManager.OnDeviceChange += RefreshTooltip;
+            ToggleCrouchAndSprint.OnSettingChange += RefreshTooltip;
             RefreshTooltip();
         }
     }
@@ -26,6 +27,7 @@ public class TooltipTrigger : MonoBehaviour
         {
             TooltipManager.instance.HideTooltip();
             DeviceManager.OnDeviceChange -= RefreshTooltip;
+            ToggleCrouchAndSprint.OnSettingChange += RefreshTooltip;
         }
     }
 
@@ -46,7 +48,7 @@ public class TooltipTrigger : MonoBehaviour
 
                 if (basicTooltip.actionReference.action.name == "Crouch")
                 {
-                    if (SettingsMenu.instance.crouchToggledSetting)
+                    if (SettingsManager.crouchToggledSetting)
                     {
                         basicTooltip.interaction = "Tap";
                     }
@@ -58,7 +60,7 @@ public class TooltipTrigger : MonoBehaviour
 
                 if (basicTooltip.actionReference.action.name == "Sprint")
                 {
-                    if (SettingsMenu.instance.sprintToggledSetting)
+                    if (SettingsManager.sprintToggledSetting)
                     {
                         basicTooltip.interaction = "Tap";
                     }
@@ -109,7 +111,7 @@ public class TooltipTrigger : MonoBehaviour
                 var binding = basicTooltip.actionReference.action.bindings[0];
 
                 // InputActionReference docs: https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputActionReference.html
-                // bindings array for player movement: ["2D Vector", "W", "A", "S", "D", "leftStick"]
+                // ex. bindings array for player movement: ["2D Vector", "W", "A", "S", "D", "leftStick"]
                 // "2D Vector" is a composite binding 
                 if (binding.isComposite)
                 {
@@ -124,7 +126,7 @@ public class TooltipTrigger : MonoBehaviour
 
                 if (basicTooltip.actionReference.action.name == "Crouch")
                 {
-                    if (SettingsMenu.instance.crouchToggledSetting)
+                    if (SettingsManager.crouchToggledSetting)
                     {
                         basicTooltip.interaction = "Tap";
                     }
@@ -136,7 +138,7 @@ public class TooltipTrigger : MonoBehaviour
 
                 if (basicTooltip.actionReference.action.name == "Sprint")
                 {
-                    if (SettingsMenu.instance.sprintToggledSetting)
+                    if (SettingsManager.sprintToggledSetting)
                     {
                         basicTooltip.interaction = "Tap";
                     }
@@ -181,7 +183,7 @@ public class TooltipTrigger : MonoBehaviour
 
                 if (basicTooltip.actionReference.action.name == "Crouch")
                 {
-                    if (SettingsMenu.instance.crouchToggledSetting)
+                    if (SettingsManager.crouchToggledSetting)
                     {
                         basicTooltip.interaction = "Tap";
                     }
@@ -193,7 +195,7 @@ public class TooltipTrigger : MonoBehaviour
 
                 if (basicTooltip.actionReference.action.name == "Sprint")
                 {
-                    if (SettingsMenu.instance.sprintToggledSetting)
+                    if (SettingsManager.sprintToggledSetting)
                     {
                         basicTooltip.interaction = "Tap";
                     }
