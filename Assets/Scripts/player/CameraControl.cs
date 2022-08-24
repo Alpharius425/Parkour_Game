@@ -14,7 +14,8 @@ public class CameraControl : MonoBehaviour
     [SerializeField] PlayerController myController;
 
     public float mouseSensitivity = 100f;
-    float xRotation = 0f;
+    [SerializeField] float xRotation = 0f;
+    [SerializeField] float yRotation = 0f;
 
     public float cameraHeight;
 
@@ -53,8 +54,9 @@ public class CameraControl : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        yRotation -= mouseX;
 
-        
+
 
         if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Jumping) // checks to see if we are in a state that lets the camera change our rotation
         {
@@ -68,8 +70,9 @@ public class CameraControl : MonoBehaviour
         if(affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
             
-            transform.localRotation = Quaternion.Euler(xRotation, 0f + player.transform.localRotation.y, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
+            transform.localRotation = Quaternion.Euler(xRotation, -yRotation, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
             player.transform.Rotate(Vector3.up * mouseX);
+            player.transform.Rotate(Vector3.left * mouseY);
         }
         else
         {
