@@ -33,23 +33,21 @@ public class GameManager : MonoBehaviour
     // calculates how much money the player should get when they finish a level
     public void CalculateLevelScore(float playerTime, float averageLevelTime, float scoreMultiplier)
     {
-        if(playerTime < levelGoalTime)
+
+        float initialScore = (averageLevelTime / playerTime) * scoreMultiplier; // calculates the score from the player's time compared to the level time and score multiplier
+
+        int newScore = Mathf.RoundToInt(initialScore); // rounds our score to the nearest int
+
+        if (newScore < initialScore) // checks if we rounded down and adds one if we did.
         {
-            float initialScore = (averageLevelTime / playerTime) * scoreMultiplier; // calculates the score from the player's time compared to the level time and score multiplier
-
-            int newScore = Mathf.RoundToInt(initialScore); // rounds our score to the nearest int
-
-            if (newScore < initialScore) // checks if we rounded down and adds one if we did.
-            {
-                newScore += 1;
-            }
-
-            // updates the money manager
-            MoneyManager.Instance.AddMoney(newScore);
-            totalLevelRewardText.SetText("Total money earned " + newScore);
-            levelMultiplierText.SetText("Level multiplier " + levelMultiplier.ToString());
+            newScore += 1;
         }
 
+        // updates the money manager
+        MoneyManager.Instance.AddMoney(newScore);
+
+        totalLevelRewardText.SetText("Total money earned " + newScore);
+        levelMultiplierText.SetText("Level multiplier " + levelMultiplier.ToString());
         // updates the UI for our end level menu
         endLevelScreen.SetActive(true);
         levelGoalTimeText.SetText("Level goal time " + levelGoalTime.ToString());
