@@ -16,6 +16,8 @@ public class CameraControl : MonoBehaviour
     public float mouseSensitivity = 100f;
     float xRotation = 0f;
 
+    public float cameraHeight;
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +67,8 @@ public class CameraControl : MonoBehaviour
 
         if(affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // keeps the camera from rotating in weird ways and rotates it normally along X
+            
+            transform.localRotation = Quaternion.Euler(xRotation, 0f + player.transform.localRotation.y, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
             player.transform.Rotate(Vector3.up * mouseX);
         }
         else
@@ -73,9 +76,11 @@ public class CameraControl : MonoBehaviour
             transform.Rotate(Vector3.up * mouseX);
             Quaternion newAngle = transform.localRotation; // gets the initial rotation
             newAngle.z = 0; // gets the change of angle
-            //newAngle.y = 0; // gets the change of angle
             transform.localRotation = newAngle; // changes the angle of the camera
+            Debug.Log("Changed camera rotation to " + transform.localRotation);
         }
+
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z);
     }
 
     public void ChangeAngle(float angleChange)
