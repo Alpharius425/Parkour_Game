@@ -54,7 +54,7 @@ public class CameraControl : MonoBehaviour
 
         
 
-        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Jumping) // checks to see if we are in a state that lets the camera change our rotation
+        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Jumping || myController.currentState == State.Sliding) // checks to see if we are in a state that lets the camera change our rotation
         {
             affectRotation = true;
         }

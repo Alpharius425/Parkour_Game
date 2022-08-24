@@ -573,7 +573,7 @@ public class PlayerMovementUpdated : MonoBehaviour
 
     void SlideMove()
     {
-        controller.Move(slideMove * slideSpeed * Time.deltaTime);
+        controller.Move(myCamera.gameObject.transform.forward * slideSpeed * Time.deltaTime);
     }
 
     public void Climb()
