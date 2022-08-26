@@ -14,7 +14,10 @@ public class CameraControl : MonoBehaviour
     [SerializeField] PlayerController myController;
 
     public float mouseSensitivity = 100f;
-    float xRotation = 0f;
+    [SerializeField] float xRotation = 0f;
+    [SerializeField] float yRotation = 0f;
+
+    public float cameraHeight;
 
 
     // Start is called before the first frame update
@@ -51,10 +54,11 @@ public class CameraControl : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        yRotation -= mouseX;
 
-        
 
-        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Jumping || myController.currentState == State.Sliding) // checks to see if we are in a state that lets the camera change our rotation
+
+        if (myController.currentState != State.Climbing || myController.currentState != State.Wallrunning) // checks to see if we are in a state that lets the camera change our rotation
         {
             affectRotation = true;
         }
@@ -65,17 +69,22 @@ public class CameraControl : MonoBehaviour
 
         if(affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // keeps the camera from rotating in weird ways and rotates it normally along X
-            player.transform.Rotate(Vector3.up * mouseX);
+            transform.localRotation = Quaternion.Euler(xRotation, -yRotation, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
+            player.transform.Rotate(1 * mouseY, 1 * mouseX, 0); // rotates the player along with the camera
+            //player.transform.Rotate(Vector3.left * mouseY);
+
+            //transform.localEulerAngles = player.transform.localEulerAngles;
         }
         else
         {
             transform.Rotate(Vector3.up * mouseX);
             Quaternion newAngle = transform.localRotation; // gets the initial rotation
             newAngle.z = 0; // gets the change of angle
-            //newAngle.y = 0; // gets the change of angle
             transform.localRotation = newAngle; // changes the angle of the camera
+            Debug.Log("Changed camera rotation to " + transform.localRotation);
         }
+
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z);
     }
 
     public void ChangeAngle(float angleChange)

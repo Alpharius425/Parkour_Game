@@ -94,7 +94,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     void Start()
     {
         actualSpeed = startWalkSpeed;
-
+        myCamera.cameraHeight = defaultCamHeight;
         savedAirSpeed = airSpeed;
         Instance = this;        // Singleton
     }
@@ -496,7 +496,7 @@ public class PlayerMovementUpdated : MonoBehaviour
     {
         controller.height = newHeight;
         controller.center = new Vector3(0, newColliderCenter, 0);
-        myCamera.transform.localPosition = new Vector3(0, newCamHeight, 0);
+        myCamera.cameraHeight = newCamHeight;
         myController.groundCheck.localPosition = new Vector3 (0, groundCheckHeight, 0);
     }
 
