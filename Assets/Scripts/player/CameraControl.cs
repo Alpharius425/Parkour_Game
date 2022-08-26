@@ -58,7 +58,7 @@ public class CameraControl : MonoBehaviour
 
 
 
-        if (myController.currentState == State.Idle || myController.currentState == State.Walking || myController.currentState == State.Running || myController.currentState == State.Crouching || myController.currentState == State.Jumping) // checks to see if we are in a state that lets the camera change our rotation
+        if (myController.currentState != State.Climbing || myController.currentState != State.Wallrunning) // checks to see if we are in a state that lets the camera change our rotation
         {
             affectRotation = true;
         }
@@ -69,10 +69,11 @@ public class CameraControl : MonoBehaviour
 
         if(affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
-            
             transform.localRotation = Quaternion.Euler(xRotation, -yRotation, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
-            player.transform.Rotate(Vector3.up * mouseX);
-            player.transform.Rotate(Vector3.left * mouseY);
+            player.transform.Rotate(1 * mouseY, 1 * mouseX, 0); // rotates the player along with the camera
+            //player.transform.Rotate(Vector3.left * mouseY);
+
+            //transform.localEulerAngles = player.transform.localEulerAngles;
         }
         else
         {
