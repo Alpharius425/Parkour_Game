@@ -14,8 +14,8 @@ public class CameraControl : MonoBehaviour
     [SerializeField] PlayerController myController;
 
     public float mouseSensitivity = 100f;
-    [SerializeField] float xRotation = 0f;
-    [SerializeField] float yRotation = 0f;
+    public float xRotation = 0f;
+    public float yRotation = 0f;
 
     public float cameraHeight;
 
@@ -71,9 +71,6 @@ public class CameraControl : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(xRotation, -yRotation, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
             player.transform.Rotate(1 * mouseY, 1 * mouseX, 0); // rotates the player along with the camera
-            //player.transform.Rotate(Vector3.left * mouseY);
-
-            //transform.localEulerAngles = player.transform.localEulerAngles;
         }
         else
         {
@@ -84,6 +81,7 @@ public class CameraControl : MonoBehaviour
             Debug.Log("Changed camera rotation to " + transform.localRotation);
         }
 
+        
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z);
     }
 

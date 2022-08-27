@@ -38,6 +38,9 @@ public class RespawnManager : MonoBehaviour
     public void Respawn() // resets the player's position
     {
         player.GetComponent<CharacterController>().enabled = false;
+        CameraControl camera = player.GetComponent<PlayerMovementUpdated>().myCamera;
+        camera.xRotation = 0;
+        camera.yRotation = 0;
         player.transform.position = spawnPosition.transform.position;
         player.transform.rotation = spawnPosition.transform.rotation;
         player.GetComponent<CharacterController>().enabled = true;
