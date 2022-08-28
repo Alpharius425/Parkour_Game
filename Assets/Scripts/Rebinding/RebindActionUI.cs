@@ -19,11 +19,6 @@ using TMPro;
     /// </summary>
     public class RebindActionUI : MonoBehaviour
     {
-        //public PlayerInput playerInput;
-        //private void Awake()
-        //{
-        //    playerInput = FindObjectOfType<PlayerInput>();
-        //}
 
     /// <summary>
     /// Reference to the action that is to be rebound.
@@ -117,13 +112,6 @@ using TMPro;
             get => m_RebindOverlay;
             set => m_RebindOverlay = value;
         }
-
-        // Reference to PlayerInput that can be used to find the current control scheme.  
-        //public PlayerInput playerInput
-        //{
-            //get => m_PlayerInput;
-            //set => m_PlayerInput = value;
-        //}
 
         /// <summary>
         /// Event that is triggered every time the UI updates to reflect the current binding.
@@ -335,16 +323,6 @@ using TMPro;
                         }
                     });
             
-            //// Exclude controls of the opposite type 
-            //if (playerInput.currentControlScheme == "KeyboardAndMouse")
-            //{
-            //    m_RebindOperation.WithControlsExcluding("<Gamepad>");
-            //}
-            //else if (playerInput.currentControlScheme == "Gamepad")
-            //{
-            //    m_RebindOperation.WithControlsExcluding("<KeyboardAndMouse>");
-            //}
-            
             // If it's a part binding, show the name of the part in the UI.
             var partName = default(string);
             if (action.bindings[bindingIndex].isPartOfComposite)
@@ -510,9 +488,6 @@ using TMPro;
         [Tooltip("Optional text label that will be updated with prompt for user input.")]
         [SerializeField]
         private TextMeshProUGUI m_RebindText;
-
-        //[SerializeField]
-        //private PlayerInput m_PlayerInput;
 
     [Tooltip("Event that is triggered when the way the binding is display should be updated. This allows displaying "
             + "bindings in custom ways, e.g. using images instead of text.")]

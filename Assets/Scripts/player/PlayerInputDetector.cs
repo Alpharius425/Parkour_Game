@@ -21,18 +21,23 @@ public class PlayerInputDetector : MonoBehaviour
     public bool crouchToggled; // if true then the crouch is then on toggle detection instead of tap
     public bool sprintToggled;
 
-    private int crouchToggledInt;
-    private int sprintToggledInt;
-
-    public TextMeshProUGUI crouchButtonText;
-    public TextMeshProUGUI sprintButtonText;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         GetCrouchAndSprintSettings();
+        ToggleCrouchAndSprint.OnSettingChange += GetCrouchAndSprintSettings;
     }
 
+    private void OnDisable()
+    {
+        // remove event listener 
+        ToggleCrouchAndSprint.OnSettingChange -= GetCrouchAndSprintSettings;
+    }
+
+    public void GetCrouchAndSprintSettings()
+    {
+        crouchToggled = SettingsManager.crouchToggledSetting;
+        sprintToggled = SettingsManager.sprintToggledSetting;
+    }
     private void FixedUpdate()
     {
         if (myController.currentState != State.Sliding)
@@ -44,18 +49,8 @@ public class PlayerInputDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canInput)
+        if (canInput)
         {
-            // Left mouse click for ThrowPackage. Uses Input Manager, since the Input System can't listen for any mouse inputs at the moment.
-            //if (Input.GetMouseButtonDown(0))
-            //{
-                
-            //    //Debug.Log("Left Click");
-            //    myPackages.ThrowPackage();
-            //}
-
-            
-
             if (movementInput == Vector2.zero && myController.grounded != false) // Checks if we are grounded and not moving
             {
                 if (myController.crouchHeld == true) // checks if we are holding down the crouch button
@@ -73,6 +68,7 @@ public class PlayerInputDetector : MonoBehaviour
                 }
             }
         }
+
     }
 
     public void GetMoveInput(InputAction.CallbackContext value) // gets our directional movement from the player
@@ -201,81 +197,6 @@ public class PlayerInputDetector : MonoBehaviour
             canInput = true;
         }
     }
-    public void GetCrouchAndSprintSettings()
-    {
-        crouchToggledInt = PlayerPrefs.GetInt("CrouchTogglePref", 1); // get player preferences or set both to toggle detection by default 
-        sprintToggledInt = PlayerPrefs.GetInt("SprintTogglePref", 1);
-
-        // set crouch toggle setting according to player preference 
-        if (crouchToggledInt == 0)
-        {
-            crouchToggled = false;
-            crouchButtonText.text = "Hold";
-        }
-        else if (crouchToggledInt == 1)
-        {
-            crouchToggled = true;
-            crouchButtonText.text = "Tap";
-        }
-
-        // set sprint toggle setting according to player preference 
-        if (sprintToggledInt == 0)
-        {
-            sprintToggled = false;
-            sprintButtonText.text = "Hold";
-        }
-        else if (sprintToggledInt == 1)
-        {
-            sprintToggled = true;
-            sprintButtonText.text = "Tap";
-        }
-
-    }
-
-    public void ToggleCrouchSetting()
-    {
-        if (crouchToggled == true)
-        {
-            crouchToggled = false;
-            PlayerPrefs.SetInt("CrouchTogglePref", 0);
-            crouchButtonText.text = "Hold";
-            //Debug.Log("Crouch toggled to hold");
-        } 
-        else if (crouchToggled == false)
-        {
-            crouchToggled = true;
-            PlayerPrefs.SetInt("CrouchTogglePref", 1);
-            crouchButtonText.text = "Tap";
-            //Debug.Log("Crouch toggled to tap");
-        }
-
-    }
-    public void ToggleSprintSetting()
-    {
-        if (sprintToggled == true)
-        {
-            sprintToggled = false;
-            PlayerPrefs.SetInt("SprintTogglePref", 0);
-            sprintButtonText.text = "Hold";
-            //Debug.Log("Sprint toggled to hold");
-
-        }
-        else if (sprintToggled == false)
-        {
-            sprintToggled = true;
-            PlayerPrefs.SetInt("SprintTogglePref", 1);
-            sprintButtonText.text = "Tap";
-            //Debug.Log("Sprint toggled to tap");
-        }
-    }
-
-    //public void ChangeSelection(InputAction.CallbackContext value)
-    //{
-    //    if(myPauseMenu.PauseMenuUI.activeInHierarchy)
-    //    {
-
-    //    }
-    //}
 
     public void ThrowInput(InputAction.CallbackContext value)
     {

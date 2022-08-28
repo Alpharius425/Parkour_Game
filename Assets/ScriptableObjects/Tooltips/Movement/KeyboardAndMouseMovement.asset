@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0fe9425cc9dd5499d13f3facf4a3b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e1d3d976362fe84b87a3815e90fa6ec, type: 3}
   m_Name: KeyboardAndMouseMovement
   m_EditorClassIdentifier: 
   interaction: Hold
-  icon: {fileID: 21300000, guid: 4ffc1bc4cf4210e4da0b5cab10a99778, type: 3}
-  action: to walk
+  upIcon: {fileID: 21300000, guid: 113bf4b4e0547204c8c6af4d66b0afe9, type: 3}
+  downIcon: {fileID: 21300000, guid: f4e7398f07baeee4b946be0b18cd9629, type: 3}
+  leftIcon: {fileID: 21300000, guid: 3a8bc727be2308c4eb731d4ac118cc93, type: 3}
+  rightIcon: {fileID: 21300000, guid: 09741cc4d92569c4cac0f9edb75c3ab3, type: 3}
+  actionDescription: to walk
+  actionReference: {fileID: 5265243160130435655, guid: 18e5997f492eac14ca6969161bbeef73, type: 3}
