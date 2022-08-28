@@ -19,44 +19,94 @@ public class CameraControl : MonoBehaviour
 
     public float cameraHeight;
 
+    Vector2 value;
 
     // Start is called before the first frame update
     void Start()
     {
+        SetMouseSensitivity();
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnEnable()
+    {
+        // listen for event triggered by slider in settings menu 
+        SetLookSensitivity.OnLookSensitivityChange += SetMouseSensitivity;
+    }
+
+    private void OnDisable()
+    {
+        // remove listener 
+        SetLookSensitivity.OnLookSensitivityChange -= SetMouseSensitivity;
+    }
+
+    public void SetMouseSensitivity()
+    {
+        // set sensitivity to player preference or 100 if not previously set 
+        mouseSensitivity = PlayerPrefs.GetFloat("LookSensitivityPref", 100);
+    }
+
+    public void GetLookInput(InputAction.CallbackContext context)
+    {
+        value = context.ReadValue<Vector2>();
     }
 
     // Update is called once per frame
     void Update()
     {
-#if ENABLE_INPUT_SYSTEM
+        //#if ENABLE_INPUT_SYSTEM
+        //        float mouseX = 0, mouseY = 0;
+
+        //        if (Mouse.current != null)
+        //        {
+        //            var delta = Mouse.current.delta.ReadValue() / 15.0f;
+        //            mouseX += delta.x;
+        //            mouseY += delta.y;
+        //        }
+        //        if (Gamepad.current != null)
+        //        {
+        //            var value = Gamepad.current.rightStick.ReadValue() * 2;
+        //            mouseX += value.x;
+        //            mouseY += value.y;
+        //        }
+
+        //        mouseX *= mouseSensitivity * Time.deltaTime;
+        //        mouseY *= mouseSensitivity * Time.deltaTime;
+        //#else
+        //        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        //        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        //#endif
+
+        //        xRotation -= mouseY;
+        //        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        //        yRotation -= mouseX;
+
+        // ------- HG's version of above --------
         float mouseX = 0, mouseY = 0;
 
-        if (Mouse.current != null)
+        if (DeviceManager.currentDevice == "Keyboard and Mouse")
         {
-            var delta = Mouse.current.delta.ReadValue() / 15.0f;
-            mouseX += delta.x;
-            mouseY += delta.y;
+            var adjustedValue = value / 15.0f;
+            mouseX += adjustedValue.x;
+            mouseY += adjustedValue.y;
         }
-        if (Gamepad.current != null)
+        else
         {
-            var value = Gamepad.current.rightStick.ReadValue() * 2;
-            mouseX += value.x;
-            mouseY += value.y;
+            var adjustedValue = value * 2;
+            mouseX += adjustedValue.x;
+            mouseY += adjustedValue.y;
         }
+
+        //Debug.Log(mouseSensitivity);
 
         mouseX *= mouseSensitivity * Time.deltaTime;
         mouseY *= mouseSensitivity * Time.deltaTime;
-#else
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-#endif
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         yRotation -= mouseX;
 
-
+        // ------------------------------------------------
 
         if (myController.currentState != State.Climbing || myController.currentState != State.Wallrunning) // checks to see if we are in a state that lets the camera change our rotation
         {
