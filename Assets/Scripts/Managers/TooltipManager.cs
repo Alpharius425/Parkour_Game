@@ -56,13 +56,21 @@ public class TooltipManager : MonoBehaviour
 
     public void PopulateBasicTooltip(BasicTooltip tooltip)
     {
-        interaction.text = tooltip.interaction;
-        icon.sprite = tooltip.icon;
-        action.text = tooltip.actionDescription;
+        if(tooltip != null && instance != null)
+        {
+            interaction.text = tooltip.interaction;
+            icon.sprite = tooltip.icon;
+            action.text = tooltip.actionDescription;
+        }
+        
 
-        BasicTooltipUI.SetActive(true);
-        ComboTooltipUI.SetActive(false);
-        CompositeTooltipUI.SetActive(false);
+        if (BasicTooltipUI != null)
+        {
+            BasicTooltipUI.SetActive(true);
+            ComboTooltipUI.SetActive(false);
+            CompositeTooltipUI.SetActive(false);
+        }
+            
     }
 
     public void PopulateComboTooltip(ComboTooltip tooltip)
@@ -72,9 +80,14 @@ public class TooltipManager : MonoBehaviour
         comboIcon2.sprite = tooltip.comboIcon2;
         comboAction.text = tooltip.comboAction;
 
-        ComboTooltipUI.SetActive(true);
-        BasicTooltipUI.SetActive(false);
-        CompositeTooltipUI.SetActive(false);
+        if (ComboTooltipUI != null)
+        {
+            ComboTooltipUI.SetActive(true);
+            BasicTooltipUI.SetActive(false);
+            CompositeTooltipUI.SetActive(false);
+        }
+                
+            
     }
 
     public void PopulateCompositeTooltip(CompositeTooltip tooltip)
@@ -86,9 +99,13 @@ public class TooltipManager : MonoBehaviour
         rightIcon.sprite = tooltip.rightIcon;
         compositeAction.text = tooltip.actionDescription;
 
-        CompositeTooltipUI.SetActive(true);
-        BasicTooltipUI.SetActive(false);
-        ComboTooltipUI.SetActive(false);
+        if(CompositeTooltipUI != null)
+        {
+            CompositeTooltipUI.SetActive(true);
+            BasicTooltipUI.SetActive(false);
+            ComboTooltipUI.SetActive(false);
+        }
+        
     }
 
     public Sprite GetKeyboardAndMouseSprite(string controlPath)
