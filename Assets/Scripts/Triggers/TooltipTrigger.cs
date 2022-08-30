@@ -27,8 +27,14 @@ public class TooltipTrigger : MonoBehaviour
         {
             TooltipManager.instance.HideTooltip();
             DeviceManager.OnDeviceChange -= RefreshTooltip;
-            ToggleCrouchAndSprint.OnSettingChange += RefreshTooltip;
+            ToggleCrouchAndSprint.OnSettingChange -= RefreshTooltip;
         }
+    }
+
+    private void OnDisable()
+    {
+        DeviceManager.OnDeviceChange -= RefreshTooltip;
+        ToggleCrouchAndSprint.OnSettingChange -= RefreshTooltip;
     }
 
     public void RefreshTooltip()
