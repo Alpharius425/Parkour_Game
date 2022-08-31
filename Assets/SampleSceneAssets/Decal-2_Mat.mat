@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Decal-2_Mat
   m_Shader: {fileID: 4800000, guid: 1d64af84bdc970c4fae0c1e06dd95b73, type: 3}
-  m_ShaderKeywords: _COLORMAP _MATERIAL_AFFECTS_ALBEDO _MATERIAL_AFFECTS_MASKMAP
+  m_ShaderKeywords: _COLORMAP _MATERIAL_AFFECTS_ALBEDO
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -121,7 +121,7 @@ Material:
     - _AffectEmission: 0
     - _AffectMetal: 0
     - _AffectNormal: 0
-    - _AffectSmoothness: 1
+    - _AffectSmoothness: 0
     - _AlbedoAffectEmissive: 0
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
@@ -139,7 +139,7 @@ Material:
     - _DecalBlend: 1
     - _DecalColorMask0: 15
     - _DecalColorMask1: 0
-    - _DecalColorMask2: 3
+    - _DecalColorMask2: 0
     - _DecalColorMask3: 0
     - _DecalLayerMaskFromDecal: 1
     - _DecalMaskMapBlueScale: 1
