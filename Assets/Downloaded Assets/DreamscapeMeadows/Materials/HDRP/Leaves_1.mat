@@ -33,10 +33,10 @@ Material:
     RenderType: TransparentCutout
   disabledShaderPasses:
   - RayTracingPrepass
-  - MOTIONVECTORS
+  - TransparentBackface
   - TransparentDepthPrepass
   - TransparentDepthPostpass
-  - TransparentBackface
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -176,7 +176,7 @@ Material:
     - _AlphaCutoffEnable: 1
     - _AlphaCutoffPostpass: 0.5
     - _AlphaCutoffPrepass: 0.5
-    - _AlphaCutoffShadow: 1
+    - _AlphaCutoffShadow: 0.95
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _AlphaThresholdShadow: 0.5
@@ -209,7 +209,7 @@ Material:
     - _DisplacementLockTilingScale: 1
     - _DisplacementMode: 0
     - _DoubleSidedEnable: 1
-    - _DoubleSidedNormalMode: 0
+    - _DoubleSidedNormalMode: 2
     - _DrawOrder: 0
     - _DstBlend: 0
     - _EmissiveColorMode: 1
@@ -258,7 +258,7 @@ Material:
     - _RequireSplitLighting: 0
     - _SecondarySpecular: 1
     - _SecondarySpecularShift: 1
-    - _Smoothness: 0.15
+    - _Smoothness: 0
     - _SmoothnessMax: 0
     - _SmoothnessMin: 0
     - _SmoothnessRemapMax: 1
@@ -311,11 +311,11 @@ Material:
     - _ZTestTransparent: 3
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.28729412, g: 0.43137255, b: 0.31034666, a: 1}
+    - _BaseColor: {r: 0.28729406, g: 0.43137246, b: 0.3103466, a: 0.98039216}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.2872941, g: 0.4313725, b: 0.31034663, a: 1}
+    - _Color: {r: 0.28729403, g: 0.43137243, b: 0.31034657, a: 0.98039216}
     - _DiffusionProfileAsset: {r: 1.704428e+17, g: 2.8522294e+22, b: 0.0000000924984, a: 1.6404259e+38}
-    - _DoubleSidedConstants: {r: -1, g: -1, b: -1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Emissive: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
