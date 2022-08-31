@@ -120,7 +120,7 @@ public class CameraControl : MonoBehaviour
         if(affectRotation) // prevents us from changing the player's rotation when we don't want to
         {
             transform.localRotation = Quaternion.Euler(xRotation, -yRotation, 0f + player.transform.localRotation.z); // keeps the camera from rotating in weird ways and rotates it normally along X
-            player.transform.Rotate(1 * mouseY, 1 * mouseX, 0); // rotates the player along with the camera
+            player.transform.Rotate(Vector3.up * mouseX); // rotates the player along with the camera
         }
         else
         {
@@ -143,9 +143,11 @@ public class CameraControl : MonoBehaviour
         transform.rotation = newAngle; // changes the angle of the camera
     }
 
-    public void ResetAngle() // resets the camera to the player's rotation
+    public void ResetAngle(Vector3 newAngle) // resets the camera to the player's rotation
     {
-        transform.rotation = player.transform.rotation;
+        // transform.rotation = player.transform.rotation;
+        xRotation = newAngle.x;
+        yRotation = -newAngle.y;
     }
 
     public void ResetZRotation()

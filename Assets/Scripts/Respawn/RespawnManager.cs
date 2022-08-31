@@ -45,6 +45,8 @@ public class RespawnManager : MonoBehaviour
         player.transform.rotation = spawnPosition.transform.rotation;
         player.GetComponent<CharacterController>().enabled = true;
 
+        camera.ResetAngle(spawnPosition.transform.eulerAngles);
+
         // adds time to the counter
         TimerManager.instance.ChangeTime(timePenalty);
 
