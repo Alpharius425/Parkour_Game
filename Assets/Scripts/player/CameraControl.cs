@@ -139,6 +139,11 @@ public class CameraControl : MonoBehaviour
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z);
         */
 
+        
+    }
+
+    private void FixedUpdate()
+    {
         interpolateTarget.x = player.transform.position.x;
         interpolateTarget.y = player.transform.position.y + cameraHeight;
         interpolateTarget.z = player.transform.position.z;

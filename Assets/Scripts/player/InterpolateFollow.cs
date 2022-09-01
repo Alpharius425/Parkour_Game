@@ -10,7 +10,7 @@ public class InterpolateFollow : MonoBehaviour
     private Vector3 interpolateTargetPosition;
     private Quaternion interpolateTargetRotation;
 
-    void Update()
+    void FixedUpdate()
     {
         interpolateTargetPosition = interpolateTargetObject.transform.position;
         interpolateTargetRotation = interpolateTargetObject.transform.rotation;
