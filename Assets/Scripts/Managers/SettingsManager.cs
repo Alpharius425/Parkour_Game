@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Crouch/sprint button text displays")]
+    [Header("Text on crouch/sprint buttons")]
     public TextMeshProUGUI crouchButtonText;
     public TextMeshProUGUI sprintButtonText;
 
