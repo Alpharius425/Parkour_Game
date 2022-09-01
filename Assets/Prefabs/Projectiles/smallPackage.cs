@@ -14,6 +14,13 @@ public class smallPackage : MonoBehaviour
     private void Awake() {
         forceVector3 = new Vector3 (0f,upSpeed,forwardSpeed);
         gameObject.GetComponent<Rigidbody>().AddRelativeForce(forceVector3, ForceMode.Impulse);
+
+        // Random rotations
+        gameObject.GetComponent<Rigidbody>().AddRelativeTorque(Vector3.forward * Random.Range(-10.0f, 10.0f));
+        gameObject.GetComponent<Rigidbody>().AddRelativeTorque(Vector3.up * Random.Range(-10.0f, 10.0f));
+        gameObject.GetComponent<Rigidbody>().AddRelativeTorque(Vector3.right * Random.Range(-10.0f, 10.0f));
+
+
         Invoke("DestroyObject", projectileLifetime);
 
         // SFX - Throwing
