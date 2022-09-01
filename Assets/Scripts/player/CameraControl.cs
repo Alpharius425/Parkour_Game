@@ -17,6 +17,10 @@ public class CameraControl : MonoBehaviour
     public float xRotation = 0f;
     public float yRotation = 0f;
 
+    // Interpolating camera position
+    public float interpolationRation;
+    private Vector3 interpolateTarget;
+
     public float cameraHeight;
 
     Vector2 value;
@@ -131,8 +135,20 @@ public class CameraControl : MonoBehaviour
             Debug.Log("Changed camera rotation to " + transform.localRotation);
         }
 
-        
+        /*
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z);
+        */
+
+        
+    }
+
+    private void FixedUpdate()
+    {
+        interpolateTarget.x = player.transform.position.x;
+        interpolateTarget.y = player.transform.position.y + cameraHeight;
+        interpolateTarget.z = player.transform.position.z;
+
+        transform.position = Vector3.Lerp(transform.position, interpolateTarget, interpolationRation * Time.fixedDeltaTime);
     }
 
     public void ChangeAngle(float angleChange)
