@@ -5,7 +5,11 @@ using UnityEngine;
 public class FootstepsAudioSource : MonoBehaviour
 {
     public AudioClip[] soundClips;
+    public AudioClip jumpSound;
+    public AudioClip landSound;
+    public AudioClip slideSound;
 
+    [Space(5)]
     public GameObject playerControllerObject;
     public PlayerController playerController;
     
@@ -75,6 +79,15 @@ public class FootstepsAudioSource : MonoBehaviour
     public void PlayRandomSoundClip() {
         if (soundIsOn) {
             GetComponent<AudioSource>().clip = soundClips[Random.Range(0, soundClips.Length)];
+            GetComponent<AudioSource>().Play();
+        }
+    }
+
+    public void PlayJumpSound()
+    {
+        if (soundIsOn)
+        {
+            GetComponent<AudioSource>().clip = jumpSound;
             GetComponent<AudioSource>().Play();
         }
     }
