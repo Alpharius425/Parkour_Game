@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Crouch/sprint button text displays")]
+    [Header("Text on crouch/sprint buttons")]
     public TextMeshProUGUI crouchButtonText;
     public TextMeshProUGUI sprintButtonText;
 
@@ -19,10 +20,14 @@ public class SettingsManager : MonoBehaviour
     public Slider sfxVolumeSlider;
     public Slider lookSensitivitySlider;
 
+    [Header("Mixers")]
+    public AudioMixer musicMixer;
+    public AudioMixer sfxMixer;
+
     [Header("PlayerControls actions")]
     public InputActionAsset actions;
 
-    private void OnEnable()
+    private void Start()
     {
         LoadCrouchAndSprintPreferences();
         LoadSliderPreferences();
@@ -70,6 +75,9 @@ public class SettingsManager : MonoBehaviour
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolumePref", 1);
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolumePref", 1);
         lookSensitivitySlider.value = PlayerPrefs.GetFloat("LookSensitivityPref", 100);
+
+        musicMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolumeSlider.value) * 20);
+        sfxMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolumeSlider.value) * 20);
     }
 
     public void LoadRebinds()

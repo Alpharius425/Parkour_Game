@@ -223,7 +223,7 @@ using TMPro;
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
             {
                 return;
-            }
+            }    
 
             // Check for duplicate bindings before resetting to default, and if found, swap the two controls.
             if (SwapResetBindings(action, bindingIndex))
@@ -285,7 +285,6 @@ using TMPro;
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
                 .WithControlsExcluding("<Pointer>/position")
                 .WithCancelingThrough("<Keyboard>/escape")
-                //.WithCancelingThrough("<Gamepad>/start")
                 .OnCancel(
                     operation =>
                     {
@@ -403,8 +402,6 @@ using TMPro;
                 {
                     Debug.Log("Duplicate binding found for reset to default: " + newBinding.effectivePath);
                     // Swap the two actions.
-                    //////// NOTE: This method doesn't totally work, it's preventing duplicate keys but not actually swapping them 
-                    //////// (ex. Ex. Change crouch to Ctrl, change jump to C, reset crouch to C)  
                     action.actionMap.FindAction(binding.action).ApplyBindingOverride(i, newBinding.overridePath);
                     action.RemoveBindingOverride(bindingIndex);
                     return true;
