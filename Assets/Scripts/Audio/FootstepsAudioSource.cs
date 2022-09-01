@@ -37,7 +37,7 @@ public class FootstepsAudioSource : MonoBehaviour
 
 
 
-    private void Update() {
+    private void FixedUpdate() {
         if (soundIsOn) {
             // Updates AudioSource volume only if there's been a change.
             if (volume != debugVolume) {
