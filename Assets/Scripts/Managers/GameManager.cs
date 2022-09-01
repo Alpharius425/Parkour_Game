@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         // updates the money manager
         MoneyManager.Instance.AddMoney(newScore);
 
-        totalLevelRewardText.SetText("Total money earned " + newScore);
+        totalLevelRewardText.SetText("Total bonus money earned $" + newScore);
         levelMultiplierText.SetText("Level multiplier " + levelMultiplier.ToString());
         // updates the UI for our end level menu
         endLevelScreen.SetActive(true);
