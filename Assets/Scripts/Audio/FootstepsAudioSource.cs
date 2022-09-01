@@ -14,7 +14,10 @@ public class FootstepsAudioSource : MonoBehaviour
     [SerializeField] private bool soundIsOn;
     [Range(0.0f,1.0f)]
     [SerializeField] private float debugVolume;
+    [SerializeField] private float walkInterval;
+    [SerializeField] private float runningInterval;
     private float volume;
+    private float countdown;
 
     
     private void Awake() {
@@ -39,9 +42,23 @@ public class FootstepsAudioSource : MonoBehaviour
             }
 
             if (playerController.grounded) {
-                if (playerController.currentState == State.Walking) {
-                    Debug.Log("Sound playing");
-                    PlayRandomSoundClip();
+                if (playerController.currentState == State.Walking || playerController.currentState == State.Crouching) {
+                    if (countdown >= walkInterval)
+                    {
+                        PlayRandomSoundClip();
+                        countdown = 0f;
+                    }
+                    else { countdown += Time.fixedDeltaTime; }  
+                }
+
+                if (playerController.currentState == State.Running)
+                {
+                    if (countdown >= runningInterval)
+                    {
+                        PlayRandomSoundClip();
+                        countdown = 0f;
+                    }
+                    else { countdown += Time.fixedDeltaTime; }
                 }
             }
 
