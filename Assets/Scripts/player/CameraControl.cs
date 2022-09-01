@@ -23,7 +23,7 @@ public class CameraControl : MonoBehaviour
 
     public float cameraHeight;
 
-    Vector2 value;
+    [SerializeField] Vector2 value;
 
     // Start is called before the first frame update
     void Start()
@@ -50,10 +50,12 @@ public class CameraControl : MonoBehaviour
         mouseSensitivity = PlayerPrefs.GetFloat("LookSensitivityPref", 100);
     }
 
+    
     public void GetLookInput(InputAction.CallbackContext context)
     {
         value = context.ReadValue<Vector2>();
     }
+    
 
     // Update is called once per frame
     void Update()
